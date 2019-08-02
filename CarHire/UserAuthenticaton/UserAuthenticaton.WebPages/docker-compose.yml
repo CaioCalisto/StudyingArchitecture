@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  userauthenticaton.web:
+    image: userauthenticatonweb
+    build:
+      context: .
+      dockerfile: UserAuthenticaton.Web/Dockerfile
+    extra_hosts:
+      - "userauthentication.api:10.0.75.1"

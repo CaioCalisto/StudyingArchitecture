@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+    authentication.sql.data:
+        image: microsoft/mssql-server-linux:2017-latest
+        environment:
+            SA_PASSWORD: "Auth3ntIc@tion*D@t@bas3"
+            ACCEPT_EULA: "Y"
+        ports:
+            - "1433:1433"

@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  userauthentication.api:
+    image: userauthentication
+    build:
+      context: .
+      dockerfile: UserAuthentication.Api/Dockerfile
+    extra_hosts:
+      - "authentication.sql.data:10.0.75.1"
