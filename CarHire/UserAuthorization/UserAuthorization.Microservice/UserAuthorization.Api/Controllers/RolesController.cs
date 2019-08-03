@@ -30,6 +30,8 @@ namespace UserAuthorization.Api.Controllers
         {
             try
             {
+                offset = offset == 0 ? 0 : offset;
+                next = next == 0 ? 10 : next;
                 IEnumerable<Role> endUsers = await this.roleQueries.GetRolesAsync(offset, next);
                 return Ok(endUsers);
             }
@@ -58,8 +60,26 @@ namespace UserAuthorization.Api.Controllers
         {
             try
             {
+                offset = offset == 0 ? 0 : offset;
+                next = next == 0 ? 10 : next;
                 IEnumerable<EndUser> endUsers = await this.roleQueries.GetEndUsersByRoleIdAsync(roleId, offset, next);
                 return Ok(endUsers);
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(ex);
+            }
+        }
+
+        [HttpGet("{roleId}/permissions/{roleId}/{next}")]
+        public async Task<ActionResult<IEnumerable<Permission>>> GetRolePermissions(int roleId, int offset, int next)
+        {
+            try
+            {
+                offset = offset == 0 ? 0 : offset;
+                next = next == 0 ? 10 : next;
+                IEnumerable<Permission> permissions = await this.roleQueries.GetPermissionsByRoleIdAsync(roleId, offset, next);
+                return Ok(permissions);
             }
             catch (Exception ex)
             {

@@ -8,6 +8,6 @@ namespace UserAuthorization.Application.Queries
     {
         Task<IEnumerable<SubDomain>> GetSubDomainsAsync(int offset, int next);
         Task<SubDomain> GetSubDomainByIdAsync(int subDomainId);
-        Task<IEnumerable<Role>> GetRoleBySubDomainIdAsync(int subDomainId, int offset, int next);
+        Task<IEnumerable<Role>> GetRolesBySubDomainIdAsync(int subDomainId, int offset, int next);
     }
 }

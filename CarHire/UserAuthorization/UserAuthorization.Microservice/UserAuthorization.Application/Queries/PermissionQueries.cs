@@ -3,30 +3,25 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UserAuthorization.Application.Configurations;
-using UserAuthorization.Domain.Aggregate;
+using UserAuthorization.Domain.Entities;
 
 namespace UserAuthorization.Application.Queries
 {
-    public class SubDomainQueries: ISubDomainQueries
+    public class PermissionQueries : IPermissionQueries
     {
         private DatabaseConfig dbcConfig;
 
-        public SubDomainQueries(IOptions<DatabaseConfig> config)
+        public PermissionQueries(IOptions<DatabaseConfig> config)
         {
             dbcConfig = config.Value ?? throw new ArgumentNullException(nameof(config));
         }
 
-        public Task<IEnumerable<Role>> GetRolesBySubDomainIdAsync(int subDomainId, int offset, int next)
+        public Task<Permission> GetPermissionByIdAsync(int permissionId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<SubDomain> GetSubDomainByIdAsync(int subDomainId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<SubDomain>> GetSubDomainsAsync(int offset, int next)
+        public Task<IEnumerable<Permission>> GetPermissionsAsync(int offset, int next)
         {
             throw new NotImplementedException();
         }

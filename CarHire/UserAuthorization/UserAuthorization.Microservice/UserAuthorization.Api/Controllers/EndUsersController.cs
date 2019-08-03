@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using UserAuthorization.Application.Commands.EndUsers;
 using UserAuthorization.Application.Queries;
 using UserAuthorization.Domain.Aggregate;
+using UserAuthorization.Domain.Entities;
 
 namespace UserAuthorization.Api.Controllers
 {
@@ -29,6 +30,8 @@ namespace UserAuthorization.Api.Controllers
         {
             try
             {
+                offset = offset == 0 ? 0 : offset;
+                next = next == 0 ? 10 : next;
                 IEnumerable<EndUser> endUsers = await this.endUserQueries.GetEndUsersAsync(offset, next);
                 return Ok(endUsers);
             }
@@ -57,8 +60,26 @@ namespace UserAuthorization.Api.Controllers
         {
             try
             {
+                offset = offset == 0 ? 0 : offset;
+                next = next == 0 ? 10 : next;
                 IEnumerable<Role> roles = await this.endUserQueries.GetRolesByEndUserIdAsync(endUserId, offset, next);
                 return Ok(roles);
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(ex);
+            }
+        }
+
+        [HttpGet("{endUserId}/permissions/{offset}/{next}")]
+        public async Task<ActionResult<IEnumerable<Permission>>> GetEndUserPermissions(int endUserId, int offset, int next)
+        {
+            try
+            {
+                offset = offset == 0 ? 0 : offset;
+                next = next == 0 ? 10 : next;
+                IEnumerable<Permission> permissions = await this.endUserQueries.GetPermissionsByEndUserIdAsync(endUserId, offset, next);
+                return Ok(permissions);
             }
             catch (Exception ex)
             {

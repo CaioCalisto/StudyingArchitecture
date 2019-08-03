@@ -29,6 +29,8 @@ namespace UserAuthorization.Api.Controllers
         {
             try
             {
+                offset = offset == 0 ? 0 : offset;
+                next = next == 0 ? 10 : next;
                 IEnumerable<SubDomain> subDomains = await this.subDomainQueries.GetSubDomainsAsync(offset, next);
                 return Ok(subDomains);
             }
@@ -57,7 +59,9 @@ namespace UserAuthorization.Api.Controllers
         {
             try
             {
-                IEnumerable<Role> roles = await this.subDomainQueries.GetRoleBySubDomainIdAsync(subDomainId, offset, next);
+                offset = offset == 0 ? 0 : offset;
+                next = next == 0 ? 10 : next;
+                IEnumerable<Role> roles = await this.subDomainQueries.GetRolesBySubDomainIdAsync(subDomainId, offset, next);
                 return Ok(roles);
             }
             catch (Exception ex)
