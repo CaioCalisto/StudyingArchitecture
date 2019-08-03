@@ -56,6 +56,7 @@ namespace UserAuthorization.Api.Controllers
         #endregion
 
         #region POST
+        [HttpPost]
         public async Task<ActionResult<Permission>> Create(AddPermissionCommand addPermissionCommand)
         {
             try
@@ -68,9 +69,24 @@ namespace UserAuthorization.Api.Controllers
                 return this.BadRequest(ex);
             }
         }
+
+        [HttpPost("Roles")]
+        public async Task<ActionResult<bool>> AddRoleToPermission(AddRoleToPermissionCommand addRoleToPermissionCommand)
+        {
+            try
+            {
+                bool success = await this.mediator.Send(addRoleToPermissionCommand);
+                return Ok(success);
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(ex);
+            }
+        }
         #endregion
 
         #region DELETE
+        [HttpDelete]
         public async Task<ActionResult<bool>> Delete(DeletePermissionCommand deletePermissionCommand)
         {
             try

@@ -55,7 +55,7 @@ namespace UserAuthorization.Api.Controllers
             }
         }
 
-        [HttpGet("{roleId}/endUsers/{roleId}/{next}")]
+        [HttpGet("{roleId}/endUsers/{offset}/{next}")]
         public async Task<ActionResult<IEnumerable<EndUser>>> GetEndUsers(int roleId, int offset, int next)
         {
             try
@@ -71,7 +71,7 @@ namespace UserAuthorization.Api.Controllers
             }
         }
 
-        [HttpGet("{roleId}/permissions/{roleId}/{next}")]
+        [HttpGet("{roleId}/permissions/{offset}/{next}")]
         public async Task<ActionResult<IEnumerable<Permission>>> GetRolePermissions(int roleId, int offset, int next)
         {
             try
@@ -102,6 +102,7 @@ namespace UserAuthorization.Api.Controllers
                 return this.BadRequest(ex);
             }
         }
+
         #endregion
 
         #region DELETE

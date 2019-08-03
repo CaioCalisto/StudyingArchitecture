@@ -45,5 +45,6 @@ namespace UserAuthorization.Domain.Aggregate
                 EndUserId = 0
             });
         }
+
     }
 }

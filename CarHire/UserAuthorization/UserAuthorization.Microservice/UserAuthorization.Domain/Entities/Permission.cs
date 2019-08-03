@@ -22,5 +22,10 @@ namespace UserAuthorization.Domain.Entities
                 Name = name
             };
         }
+
+        public void SetRole(Role role)
+        {
+            this.Role = role;
+        }
     }
 }

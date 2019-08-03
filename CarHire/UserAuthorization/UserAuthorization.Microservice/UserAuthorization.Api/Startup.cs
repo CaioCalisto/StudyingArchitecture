@@ -35,6 +35,7 @@ namespace UserAuthorization.Api
             services.AddTransient<IEndUserQueries, EndUserQueries>();
             services.AddTransient<IRoleQueries, RoleQueries>();
             services.AddTransient<ISubDomainQueries, SubDomainQueries>();
+            services.AddTransient<IPermissionQueries, PermissionQueries>();
             services.AddMediatR(AppDomain.CurrentDomain.Load("UserAuthorization.Application"));
             services.AddMediatR(AppDomain.CurrentDomain.Load("UserAuthorization.Infrastructure"));
             services.Configure<DatabaseConfig>(this.Configuration);
