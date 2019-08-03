@@ -3,10 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Linq;
-using UserAuthentication.Infrastructure;
+using UserAuthorization.Infrastructure;
 
-namespace UserAuthentication.Api
+namespace UserAuthorization.Api
 {
     public class Program
     {
@@ -18,9 +17,8 @@ namespace UserAuthentication.Api
                 IServiceProvider services = scope.ServiceProvider;
                 try
                 {
-                    UserDBContext context = services.GetRequiredService<UserDBContext>();
+                    AuthorizationDBContext context = services.GetRequiredService<AuthorizationDBContext>();
                     context.Database.EnsureCreated();
-                    CreateAdminIfNotExists(context);
                 }
                 catch (Exception ex)
                 {
@@ -35,14 +33,5 @@ namespace UserAuthentication.Api
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>();
-
-        private static void CreateAdminIfNotExists(UserDBContext context)
-        {
-            if (context.Users.Where(u => u.UserName == "admin").FirstOrDefault() == null)
-            {
-                context.Users.Add(Domain.Aggregates.User
-                    .Create(1, "admin", "admin123"));
-            }
-        }
     }
 }

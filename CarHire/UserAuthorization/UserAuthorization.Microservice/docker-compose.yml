@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  userauthorization.api:
+    image: userauthorizationapi
+    build:
+      context: .
+      dockerfile: UserAuthorization.Api/Dockerfile
+    extra_hosts:
+      - "authorization.sql.data:10.0.75.1"
