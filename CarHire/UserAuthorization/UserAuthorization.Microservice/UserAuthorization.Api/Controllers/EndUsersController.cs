@@ -62,7 +62,7 @@ namespace UserAuthorization.Api.Controllers
             {
                 offset = offset == 0 ? 0 : offset;
                 next = next == 0 ? 10 : next;
-                IEnumerable<Role> roles = await this.endUserQueries.GetRolesByEndUserIdAsync(endUserId, offset, next);
+                IEnumerable<Role> roles = await this.endUserQueries.GetRolesIdAsync(endUserId, offset, next);
                 return Ok(roles);
             }
             catch (Exception ex)
@@ -78,7 +78,23 @@ namespace UserAuthorization.Api.Controllers
             {
                 offset = offset == 0 ? 0 : offset;
                 next = next == 0 ? 10 : next;
-                IEnumerable<Permission> permissions = await this.endUserQueries.GetPermissionsByEndUserIdAsync(endUserId, offset, next);
+                IEnumerable<Permission> permissions = await this.endUserQueries.GetPermissionsAsync(endUserId, offset, next);
+                return Ok(permissions);
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(ex);
+            }
+        }
+
+        [HttpGet("{endUserId}/subDomains/{subDomainId}/permissions/{offset}/{next}")]
+        public async Task<ActionResult<IEnumerable<Permission>>> GetPermissionBySubDomain(int endUserId, int subDomainId, int offset, int next)
+        {
+            try
+            {
+                offset = offset == 0 ? 0 : offset;
+                next = next == 0 ? 10 : next;
+                IEnumerable<Permission> permissions = await this.endUserQueries.GetPermissionsAsync(endUserId, subDomainId, offset, next);
                 return Ok(permissions);
             }
             catch (Exception ex)

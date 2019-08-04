@@ -1,0 +1,9 @@
+version: '3.4'
+
+services:
+  customer.register.web:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "52327:80"

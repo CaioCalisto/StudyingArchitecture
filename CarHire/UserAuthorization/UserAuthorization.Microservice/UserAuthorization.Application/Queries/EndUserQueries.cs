@@ -27,12 +27,17 @@ namespace UserAuthorization.Application.Queries
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Permission>> GetPermissionsByEndUserIdAsync(int endUserId, int offset, int next)
+        public Task<IEnumerable<Permission>> GetPermissionsAsync(int endUserId, int offset, int next)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Role>> GetRolesByEndUserIdAsync(int endUserId, int offset, int next)
+        public Task<IEnumerable<Permission>> GetPermissionsAsync(int endUserId, int subDomainId, int offset, int next)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Role>> GetRolesIdAsync(int endUserId, int offset, int next)
         {
             throw new NotImplementedException();
         }

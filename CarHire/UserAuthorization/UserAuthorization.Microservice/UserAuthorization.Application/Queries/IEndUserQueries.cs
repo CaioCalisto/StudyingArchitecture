@@ -9,7 +9,8 @@ namespace UserAuthorization.Application.Queries
     {
         Task<IEnumerable<EndUser>> GetEndUsersAsync(int offset, int next);
         Task<EndUser> GetEndUserByUserNameAsync(string useName);
-        Task<IEnumerable<Role>> GetRolesByEndUserIdAsync(int endUserId, int offset, int next);
-        Task<IEnumerable<Permission>> GetPermissionsByEndUserIdAsync(int endUserId, int offset, int next);
+        Task<IEnumerable<Role>> GetRolesIdAsync(int endUserId, int offset, int next);
+        Task<IEnumerable<Permission>> GetPermissionsAsync(int endUserId, int offset, int next);
+        Task<IEnumerable<Permission>> GetPermissionsAsync(int endUserId, int subDomainId, int offset, int next);
     }
 }
