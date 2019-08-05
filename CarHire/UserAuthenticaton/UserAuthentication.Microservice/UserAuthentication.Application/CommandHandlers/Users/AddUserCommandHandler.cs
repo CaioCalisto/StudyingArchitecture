@@ -19,7 +19,7 @@ namespace UserAuthentication.Application.CommandHandlers.Users
 
         public async Task<User> Handle(AddUserCommand request, CancellationToken cancellationToken)
         {
-            User user = this.userRepository.Insert(User.Create(request.UserID, request.UserName, request.AccessKey));
+            User user = this.userRepository.Insert(User.Create(request.UserName, request.AccessKey));
             await this.userRepository.UnitOfWork.SaveEntitiesAsync();
             return user;
         }

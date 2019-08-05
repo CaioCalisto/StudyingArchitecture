@@ -1,4 +1,5 @@
 ﻿using Customer.Register.Application.Configurations;
+using Customer.Register.Application.Models;
 using Dapper;
 using Microsoft.Extensions.Options;
 using System;
@@ -17,16 +18,26 @@ namespace Customer.Register.Application.Queries
             dbcConfig = config.Value ?? throw new ArgumentNullException(nameof(config));
         }
 
-        public async Task<IEnumerable<Domain.Aggregate.Customer>> GetCostumersAsync(int offset, int next)
+        public async Task<PaginatedResult<Domain.Aggregate.Customer>> GetCostumersAsync(int offset, int next)
         {
             string query = $"SELECT * FROM Customer ORDER BY CustomerId " +
                 $"OFFSET {offset} ROWS FETCH NEXT {next} ROWS ONLY";
+            string totalQuery = "SELECT count(*) FROM Customer";
+            IEnumerable<Domain.Aggregate.Customer> result = null;
+            int total = 0;
 
             using (SqlConnection connection = new SqlConnection(dbcConfig.ConnectionString))
             {
                 connection.Open();
-                return await connection.QueryAsync<Domain.Aggregate.Customer>(query);
+                result = await connection.QueryAsync<Domain.Aggregate.Customer>(query);
+                total = await connection.QueryFirstOrDefaultAsync<int>(totalQuery);
             }
+
+            return new PaginatedResult<Domain.Aggregate.Customer>()
+            {
+                Result = result,
+                Total = total
+            };
         }
 
         public async Task<Domain.Aggregate.Address> GetCustomerAddressAsync(int customerIdentity)

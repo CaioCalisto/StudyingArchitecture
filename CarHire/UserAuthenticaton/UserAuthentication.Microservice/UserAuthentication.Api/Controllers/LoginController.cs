@@ -35,6 +35,8 @@ namespace UserAuthentication.Api.Controllers
         [HttpGet]
         public ActionResult ValidateToken()
         {
+            // Return user data without password
+            ClaimsPrincipal currentUser = this.User;
             return Ok();
         }
 
@@ -45,7 +47,7 @@ namespace UserAuthentication.Api.Controllers
             try
             {
                 User user = await this.userService.FindUserAsync(login.UserName);
-                bool validCredentials = await IsCredentialValid(login, user);
+                bool validCredentials = IsCredentialValid(login, user);
                 if (validCredentials)
                 {
                     return Ok(new AuthenticationResponse()
@@ -109,7 +111,7 @@ namespace UserAuthentication.Api.Controllers
             return DateTime.Now + TimeSpan.FromMinutes(tokenConfigurations.Minutes);
         }
 
-        private async Task<bool> IsCredentialValid(Login login, User user)
+        private bool IsCredentialValid(Login login, User user)
         {
             if (user != null && user.UserID != 0)
             {

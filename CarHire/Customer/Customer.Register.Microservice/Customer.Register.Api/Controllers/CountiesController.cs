@@ -1,4 +1,5 @@
 ﻿using Customer.Register.Application.Commands.Counties;
+using Customer.Register.Application.Models;
 using Customer.Register.Application.Queries;
 using Customer.Register.Domain.Aggregate;
 using MediatR;
@@ -25,13 +26,13 @@ namespace Customer.Register.Api.Controllers
 
         #region GET
         [HttpGet("{offset}/{next}")]
-        public async Task<ActionResult<IEnumerable<County>>> Get(int offset, int next)
+        public async Task<ActionResult<PaginatedResult<County>>> Get(int offset, int next)
         {
             try
             {
                 offset = offset == 0 ? 0 : offset;
                 next = next == 0 ? 10 : next;
-                IEnumerable<County> result = await this.countyQueries.GetCountiesAsync(offset, next);
+                PaginatedResult<County> result = await this.countyQueries.GetCountiesAsync(offset, next);
                 return this.Ok(result);
             }
             catch (Exception ex)
@@ -55,11 +56,11 @@ namespace Customer.Register.Api.Controllers
         }
 
         [HttpGet("{countyId}/addresses/{offset}/{next}")]
-        public async Task<ActionResult<IEnumerable<Address>>> GetCountiesByCountry(int countyId, int offset, int next)
+        public async Task<ActionResult<PaginatedResult<Address>>> GetCountiesByCountry(int countyId, int offset, int next)
         {
             try
             {
-                IEnumerable<Address> addresses = await this.countyQueries.GetAddressesByCounty(countyId, offset, next);
+                PaginatedResult<Address> addresses = await countyQueries.GetAddressesByCounty(countyId, offset, next);
                 return Ok(addresses);
             }
             catch (Exception ex)

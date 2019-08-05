@@ -1,4 +1,5 @@
 ﻿using Customer.Register.Application.Commands.Addresses;
+using Customer.Register.Application.Models;
 using Customer.Register.Application.Queries;
 using Customer.Register.Domain.Aggregate;
 using MediatR;
@@ -25,13 +26,13 @@ namespace Customer.Register.Api.Controllers
 
         #region GET
         [HttpGet("{offset}/{next}")]
-        public async Task<ActionResult<IEnumerable<Address>>> GetAddresses(int offset, int next)
+        public async Task<ActionResult<PaginatedResult<Address>>> GetAddresses(int offset, int next)
         {
             try
             {
                 offset = offset == 0 ? 0 : offset;
                 next = next == 0 ? 10 : next;
-                IEnumerable<Address> result = await this.addressQueries.GetAddressesAsync(offset, next);
+                PaginatedResult<Address> result = await this.addressQueries.GetAddressesAsync(offset, next);
                 return this.Ok(result);
             }
             catch (Exception ex)

@@ -8,11 +8,10 @@ namespace UserAuthentication.Domain.Aggregates
         public string UserName { get; private set; }
         public string AccessKey { get; private set; }
 
-        public static User Create(int userId, string userName, string accessKey)
+        public static User Create(string userName, string accessKey)
         {
             return new User()
             {
-                UserID = userId,
                 UserName = userName,
                 AccessKey = accessKey
             };

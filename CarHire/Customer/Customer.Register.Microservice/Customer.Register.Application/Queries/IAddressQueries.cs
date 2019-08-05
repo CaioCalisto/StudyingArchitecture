@@ -1,5 +1,5 @@
-﻿using Customer.Register.Domain.Aggregate;
-using System.Collections.Generic;
+﻿using Customer.Register.Application.Models;
+using Customer.Register.Domain.Aggregate;
 using System.Threading.Tasks;
 
 namespace Customer.Register.Application.Queries
@@ -7,6 +7,6 @@ namespace Customer.Register.Application.Queries
     public interface IAddressQueries
     {
         Task<Address> GetAddressByIdAsync(int addressId);
-        Task<IEnumerable<Address>> GetAddressesAsync(int offset, int next);
+        Task<PaginatedResult<Address>> GetAddressesAsync(int offset, int next);
     }
 }

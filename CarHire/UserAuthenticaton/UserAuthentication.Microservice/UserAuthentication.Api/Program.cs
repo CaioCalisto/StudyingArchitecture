@@ -41,7 +41,7 @@ namespace UserAuthentication.Api
             if (context.Users.Where(u => u.UserName == "admin").FirstOrDefault() == null)
             {
                 context.Users.Add(Domain.Aggregates.User
-                    .Create(1, "admin", "admin123"));
+                    .Create("admin", "admin123"));
             }
         }
     }
