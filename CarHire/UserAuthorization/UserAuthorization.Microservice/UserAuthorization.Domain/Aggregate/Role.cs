@@ -15,7 +15,7 @@ namespace UserAuthorization.Domain.Aggregate
         public ICollection<EndUserRole> EndUserRoles { get; private set; }
 
         [IgnoreDataMember]
-        public ICollection<Permission> Permissions { get; private set; }
+        public ICollection<RolePermission> RolePermissions { get; private set; }
 
         [IgnoreDataMember]
         public int? SubDomainId { get; private set; }

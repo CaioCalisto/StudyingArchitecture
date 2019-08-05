@@ -3,6 +3,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using UserAuthorization.Application.Commands.Permissions;
+using UserAuthorization.Domain.Aggregate;
 using UserAuthorization.Domain.Entities;
 using UserAuthorization.Domain.Repositories;
 
@@ -10,20 +11,20 @@ namespace UserAuthorization.Application.CommandHandlers.Permissions
 {
     public class DeletePermissionCommandHandler : IRequestHandler<DeletePermissionCommand, bool>
     {
-        private readonly IRoleRepository roleRepository;
+        private readonly IPermissionRepository permissionRepository;
 
-        public DeletePermissionCommandHandler(IRoleRepository roleRepository)
+        public DeletePermissionCommandHandler(IPermissionRepository permissionRepository)
         {
-            this.roleRepository = roleRepository;
+            this.permissionRepository = permissionRepository;
         }
 
         public async Task<bool> Handle(DeletePermissionCommand request, CancellationToken cancellationToken)
         {
-            Permission permission = this.roleRepository.SelectByPermissionId(request.PermissionId);
+            Permission permission = this.permissionRepository.SelectByPermissionId(request.PermissionId);
             if (permission != null)
             {
-                this.roleRepository.Remove(permission);
-                await this.roleRepository.UnitOfWork.SaveEntitiesAsync();
+                this.permissionRepository.Remove(permission);
+                await this.permissionRepository.UnitOfWork.SaveEntitiesAsync();
                 return true;
             }
 

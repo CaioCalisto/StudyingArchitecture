@@ -16,9 +16,19 @@ namespace Customer.Register.Application.HttpClients
             this.apiEndPoints = apiEndPoints.Value ?? throw new ArgumentNullException(nameof(apiEndPoints));
         }
 
-        public Task<IEnumerable<Permission>> GetPermissions(int endUserId, int subDomainId, int offset, int next)
+        public Task<IEnumerable<Permission>> GetPermissionsByRole(int roleId, int offset, int next)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Role>> GetRolesBySubDomain(int subDomainId, int offset, int next)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<SubDomain> GetSubDomain(int subDomainId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

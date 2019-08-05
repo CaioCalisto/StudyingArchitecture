@@ -58,34 +58,5 @@ namespace UserAuthorization.Infrastructure.Repositories
                 .Where(r => r.SubDomainId == subDomainId);
         }
 
-        public Permission Insert(Permission permission)
-        {
-            return this.authorizationDBContext
-                      .Permissions
-                      .Add(permission)
-                      .Entity;
-        }
-
-        public Permission Update(Permission permission)
-        {
-            return this.authorizationDBContext
-                      .Update(permission)
-                      .Entity;
-        }
-
-        public Permission SelectByPermissionId(int permissionId)
-        {
-            return this.authorizationDBContext
-                .Permissions
-                .Where(p => p.PermissionId == permissionId)
-                .FirstOrDefault();
-        }
-
-        public void Remove(Permission permission)
-        {
-            this.authorizationDBContext
-                .Permissions
-                .Remove(permission);
-        }
     }
 }

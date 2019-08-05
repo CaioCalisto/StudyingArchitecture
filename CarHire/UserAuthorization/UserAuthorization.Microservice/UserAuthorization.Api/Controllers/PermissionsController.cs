@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UserAuthorization.Application.Commands.Permissions;
 using UserAuthorization.Application.Queries;
+using UserAuthorization.Domain.Aggregate;
 using UserAuthorization.Domain.Entities;
 
 namespace UserAuthorization.Api.Controllers
@@ -70,19 +71,6 @@ namespace UserAuthorization.Api.Controllers
             }
         }
 
-        [HttpPost("Roles")]
-        public async Task<ActionResult<bool>> AddRoleToPermission(AddRoleToPermissionCommand addRoleToPermissionCommand)
-        {
-            try
-            {
-                bool success = await this.mediator.Send(addRoleToPermissionCommand);
-                return Ok(success);
-            }
-            catch (Exception ex)
-            {
-                return this.BadRequest(ex);
-            }
-        }
         #endregion
 
         #region DELETE

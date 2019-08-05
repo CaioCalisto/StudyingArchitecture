@@ -12,9 +12,5 @@ namespace UserAuthorization.Domain.Repositories
         Role SelectRoleById(int roleId);
         void Remove(Role role);
         IEnumerable<Role> SelectRolesBySubDomainId(int subDomainId);
-        Permission Insert(Permission permission);
-        Permission Update(Permission permission);
-        Permission SelectByPermissionId(int permissionId);
-        void Remove(Permission permission);
     }
 }

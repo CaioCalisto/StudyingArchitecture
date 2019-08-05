@@ -103,6 +103,20 @@ namespace UserAuthorization.Api.Controllers
             }
         }
 
+        [HttpPost("permissions")]
+        public async Task<ActionResult<bool>> AddPermission(AddPermissionToRoleCommand addPermissionToRoleCommand)
+        {
+            try
+            {
+                bool success = await this.mediator.Send(addPermissionToRoleCommand);
+                return Ok(success);
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(ex);
+            }
+        }
+
         #endregion
 
         #region DELETE

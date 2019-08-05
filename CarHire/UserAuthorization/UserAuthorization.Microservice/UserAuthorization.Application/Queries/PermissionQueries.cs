@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UserAuthorization.Application.Configurations;
+using UserAuthorization.Domain.Aggregate;
 using UserAuthorization.Domain.Entities;
 
 namespace UserAuthorization.Application.Queries

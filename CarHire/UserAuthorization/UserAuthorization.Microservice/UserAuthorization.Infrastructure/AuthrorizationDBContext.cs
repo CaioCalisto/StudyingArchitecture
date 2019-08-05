@@ -26,6 +26,7 @@ namespace UserAuthorization.Infrastructure
         public DbSet<SubDomain> SubDomains { get; set; }
         public DbSet<EndUserRole> EndUserRoles { get; set; }
         public DbSet<Permission> Permissions { get; set; }
+        public DbSet<RolePermission> RolePermissions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -46,9 +47,18 @@ namespace UserAuthorization.Infrastructure
                 .HasMany(s => s.Roles)
                 .WithOne(s => s.SubDomain);
 
-            modelBuilder.Entity<Permission>()
-                .HasOne(p => p.Role)
-                .WithMany(r => r.Permissions);
+            modelBuilder.Entity<RolePermission>()
+                .HasKey(rp => new { rp.PermissionId, rp.RoleId });
+
+            modelBuilder.Entity<RolePermission>()
+                .HasOne<Role>(e => e.Role)
+                .WithMany(e => e.RolePermissions)
+                .HasForeignKey(e => e.RoleId);
+
+            modelBuilder.Entity<RolePermission>()
+                .HasOne<Permission>(r => r.Permission)
+                .WithMany(r => r.RolePermissions)
+                .HasForeignKey(r => r.PermissionId);
         }
 
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))
