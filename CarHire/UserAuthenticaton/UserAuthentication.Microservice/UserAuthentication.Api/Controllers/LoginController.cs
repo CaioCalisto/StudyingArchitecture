@@ -33,11 +33,11 @@ namespace UserAuthentication.Api.Controllers
 
         [Authorize]
         [HttpGet]
-        public ActionResult ValidateToken()
+        public ActionResult<string> ValidateToken()
         {
             // Return user data without password
             ClaimsPrincipal currentUser = this.User;
-            return Ok();
+            return Ok(currentUser.FindFirst("UserName")?.Value);
         }
 
         [AllowAnonymous]
@@ -80,7 +80,8 @@ namespace UserAuthentication.Api.Controllers
                     new GenericIdentity(user.UserID.ToString(), "Login"),
                     new[] {
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
-                        new Claim(JwtRegisteredClaimNames.UniqueName, user.UserID.ToString())
+                        new Claim(JwtRegisteredClaimNames.UniqueName, user.UserID.ToString()),
+                        new Claim("UserName", user.UserName)
                     }
                 );
         }
