@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.539
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29123.88
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Customer.Register.Api", "Customer.Register.Api\Customer.Register.Api.csproj", "{830B06CE-2815-4390-9637-FECECD2A49AA}"
 EndProject
@@ -9,9 +9,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Customer.Register.Applicati
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Customer.Register.Domain", "Customer.Register.Domain\Customer.Register.Domain.csproj", "{179DFEB6-FFA2-4667-B6AC-423ACBB8698F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customer.Register.Infrastructure", "Customer.Register.Infrastructure\Customer.Register.Infrastructure.csproj", "{6682A769-B67D-43A8-99B8-5A0DD7762A89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Customer.Register.Infrastructure", "Customer.Register.Infrastructure\Customer.Register.Infrastructure.csproj", "{6682A769-B67D-43A8-99B8-5A0DD7762A89}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{B461B3A7-99FC-4C2B-B1DA-18806E7A6CF0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-Api", "1-Api", "{A863C442-6EFA-4496-8D69-11CB8E9891AB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-Application", "2-Application", "{93B11357-91FE-4162-B290-5C832BD4A0EE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-Domain", "3-Domain", "{76F9A926-FFFE-4EC6-85F9-4A38C9F2C5F6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4-Infrastructure", "4-Infrastructure", "{4CF708FB-8207-41BD-A28E-C5F09E149F16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customer.Register.Infrastructure.UnitTests", "Customer.Register.Infrastructure.UnitTests\Customer.Register.Infrastructure.UnitTests.csproj", "{839DE383-5F80-4F6C-BD8C-14E3A5AB9B67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customer.Register.Application.UnitTest", "Customer.Register.Application.UnitTest\Customer.Register.Application.UnitTest.csproj", "{E5311D88-9F7F-46D8-A1D9-2F5FCFDC71A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,9 +51,25 @@ Global
 		{B461B3A7-99FC-4C2B-B1DA-18806E7A6CF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B461B3A7-99FC-4C2B-B1DA-18806E7A6CF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B461B3A7-99FC-4C2B-B1DA-18806E7A6CF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{839DE383-5F80-4F6C-BD8C-14E3A5AB9B67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{839DE383-5F80-4F6C-BD8C-14E3A5AB9B67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{839DE383-5F80-4F6C-BD8C-14E3A5AB9B67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{839DE383-5F80-4F6C-BD8C-14E3A5AB9B67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5311D88-9F7F-46D8-A1D9-2F5FCFDC71A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5311D88-9F7F-46D8-A1D9-2F5FCFDC71A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5311D88-9F7F-46D8-A1D9-2F5FCFDC71A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5311D88-9F7F-46D8-A1D9-2F5FCFDC71A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{830B06CE-2815-4390-9637-FECECD2A49AA} = {A863C442-6EFA-4496-8D69-11CB8E9891AB}
+		{967685DB-AA8B-4261-830D-260D19F261F1} = {93B11357-91FE-4162-B290-5C832BD4A0EE}
+		{179DFEB6-FFA2-4667-B6AC-423ACBB8698F} = {76F9A926-FFFE-4EC6-85F9-4A38C9F2C5F6}
+		{6682A769-B67D-43A8-99B8-5A0DD7762A89} = {4CF708FB-8207-41BD-A28E-C5F09E149F16}
+		{839DE383-5F80-4F6C-BD8C-14E3A5AB9B67} = {4CF708FB-8207-41BD-A28E-C5F09E149F16}
+		{E5311D88-9F7F-46D8-A1D9-2F5FCFDC71A4} = {93B11357-91FE-4162-B290-5C832BD4A0EE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {04F60774-4426-4282-BBC5-C8D3A6BD5D40}
