@@ -9,9 +9,8 @@ namespace Vehicle.Register.Domain.Entities
         public string Name { get; private set; }
         public ICollection<Aggregates.Vehicle> Vehicles { get; private set; }
 
-        public VehicleType(int vehicleTypeId, string name)
+        public VehicleType(string name)
         {
-            VehicleTypeId = vehicleTypeId;
             Name = name;
         }
 

@@ -12,9 +12,8 @@ namespace Vehicle.Register.Domain.Entities
         [IgnoreDataMember]
         public ICollection<Aggregates.Vehicle> Vehicles { get; private set; }
 
-        public Brand(int brandId, string name)
+        public Brand(string name)
         {
-            BrandId = brandId;
             Name = name;
         }
 

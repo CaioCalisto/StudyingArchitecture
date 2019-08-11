@@ -19,7 +19,9 @@ namespace Vehicle.Register.Infrastructure
             this._mediator = mediator;
         }
 
-        //public DbSet<Country> Countries { get; set; }
+        public DbSet<Domain.Aggregates.Vehicle> Vehicles { get; set; }
+        public DbSet<Domain.Entities.Brand> Brands { get; set; }
+        public DbSet<Domain.Entities.VehicleType> VehicleTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

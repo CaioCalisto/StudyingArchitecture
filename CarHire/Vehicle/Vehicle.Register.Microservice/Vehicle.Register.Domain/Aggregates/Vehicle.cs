@@ -9,18 +9,6 @@ namespace Vehicle.Register.Domain.Aggregates
         public int VehicleId { get; private set; }
         public string Name { get; private set; }
 
-        public Vehicle(int vehicleId, string name, VehicleType vehicleType)
-        {
-            VehicleId = vehicleId;
-            Name = name;
-            VehicleType = vehicleType;
-        }
-
-        public Vehicle(int vehicleId, string name)
-            :this(vehicleId, name, null)
-        {
-        }
-
         [IgnoreDataMember]
         public int? BrandId { get; private set; }
 
@@ -32,6 +20,23 @@ namespace Vehicle.Register.Domain.Aggregates
 
         [IgnoreDataMember]
         public Brand Brand { get; private set; }
+
+        public Vehicle(string name, VehicleType vehicleType, Brand brand)
+            :this(name, vehicleType)
+        {
+            this.Brand = brand;
+        }
+
+        public Vehicle(string name, VehicleType vehicleType)
+        {
+            Name = name;
+            VehicleType = vehicleType;
+        }
+
+        public Vehicle(string name)
+            :this(name, null)
+        {
+        }
 
         public void SetBrand(Brand brand)
         {
