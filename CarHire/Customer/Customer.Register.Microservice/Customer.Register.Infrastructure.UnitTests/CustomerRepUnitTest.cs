@@ -1,35 +1,30 @@
 using Customer.Register.Domain.Repositories;
 using Customer.Register.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace Customer.Register.Infrastructure.UnitTests
 {
-    public class CustomerRepUnitTest
+    public class CustomerRepUnitTest: TestBase
     {
-        private ICustomerRepository GetRepositoryInMemory()
-        {
-            DbContextOptions<CustomerDBContext> dbOptions = new DbContextOptionsBuilder<CustomerDBContext>()
-                            .UseInMemoryDatabase(databaseName: "CustomerDb")
-                            .Options;
-
-            CustomerDBContext context = new CustomerDBContext(dbOptions, null);
-            return new CustomerRepository(context);
-        }
-
         [Fact]
         public void Test1()
         {
             Domain.Aggregate.Customer customer = Domain.Aggregate.Customer
                 .Create(1, "Caio", "Cesar", "Calisto", 'M');
-            ICustomerRepository repository = GetRepositoryInMemory();
-            repository.Insert(customer);
-            Task saveTask = Task.Run(() => repository.UnitOfWork.SaveEntitiesAsync());
+            CustomerRepository.Insert(customer);
+            Task saveTask = Task.Run(() => CustomerRepository.UnitOfWork.SaveEntitiesAsync());
             saveTask.Wait();
 
-            Domain.Aggregate.Customer result = repository.SelectByCustomerIdentity(1);
-            Assert.Equal("Caio", result.Name);
+            Domain.Aggregate.Customer result = DbContext.Customers
+                .Where(c => c.Name == "Caio"
+                && c.MiddleName == "Cesar"
+                && c.LastName == "Calisto"
+                && c.Gender == 'M')
+                .FirstOrDefault();
+            Assert.NotNull(result);
         }
     }
 }
