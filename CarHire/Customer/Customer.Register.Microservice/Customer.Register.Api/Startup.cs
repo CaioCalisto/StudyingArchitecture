@@ -29,39 +29,11 @@ namespace Customer.Register.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.Configure<DatabaseConfig>(Configuration);
-            services.AddMediatR(AppDomain.CurrentDomain.Load("Customer.Register.Application"));
-            services.AddMediatR(AppDomain.CurrentDomain.Load("Customer.Register.Infrastructure"));
-            services.AddTransient<ICustomerRepository, CustomerRepository>();
-            services.AddTransient<ICustomerQueries, CustomerQueries>();
-            services.AddTransient<ICountryQueries, CountryQueries>();
-            services.AddTransient<ICountyQueries, CountyQueries>();
-            services.AddTransient<IAddressQueries, AddressQueries>();
-
-            services.AddApiVersioning(o =>
-            {
-                o.DefaultApiVersion = new ApiVersion(1, 0);
-                o.AssumeDefaultVersionWhenUnspecified = true;
-                o.ApiVersionReader = new MediaTypeApiVersionReader();
-            });
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1.0",  new Info { Title = "Customer Register Api", Version = "v1.0" });
-                c.DocInclusionPredicate((docName, apiDesc) =>
-                {
-                    var actionApiVersionModel = apiDesc.ActionDescriptor?.GetApiVersion();
-                    if (actionApiVersionModel == null)
-                    {
-                        return true;
-                    }
-                    if (actionApiVersionModel.DeclaredApiVersions.Any())
-                    {
-                        return actionApiVersionModel.DeclaredApiVersions.Any(v => $"v{v.ToString()}" == docName);
-                    }
-                    return actionApiVersionModel.ImplementedApiVersions.Any(v => $"v{v.ToString()}" == docName);
-                });
-                c.OperationFilter<ApiVersionOperationFilter>();
-            });
+            services.SetupConfigs(Configuration);
+            services.SetupMediatr();
+            services.SetupDependencies(Configuration);
+            services.SetupVersioning();
+            services.SetupSwagger();
             services.AddCustomDbContext(Configuration);
         }
 
