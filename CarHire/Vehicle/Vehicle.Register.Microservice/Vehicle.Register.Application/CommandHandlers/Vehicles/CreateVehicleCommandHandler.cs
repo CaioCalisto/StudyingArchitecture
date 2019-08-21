@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Vehicle.Register.Application.Commands.Vehicles;
+using Vehicle.Register.Domain.Entities;
 using Vehicle.Register.Domain.Repositories;
 
 namespace Vehicle.Register.Application.CommandHandlers.Vehicles
@@ -17,8 +18,12 @@ namespace Vehicle.Register.Application.CommandHandlers.Vehicles
 
         public async Task<Domain.Aggregates.Vehicle> Handle(CreateVehicleCommand request, CancellationToken cancellationToken)
         {
+            VehicleType vehicleType = this.vehicleRepository.SelectVehicleType(request.VehicleTypeId);
+            Brand brand = this.vehicleRepository.SelectBrand(request.BrandId);
+
             Domain.Aggregates.Vehicle vehicle = this.vehicleRepository
-                .Insert(new Domain.Aggregates.Vehicle(request.Name));
+                .Insert(new Domain.Aggregates.Vehicle(request.Name, vehicleType, brand)); ;
+
             await this.vehicleRepository.UnitOfWork.SaveEntitiesAsync();
             return vehicle;
         }
