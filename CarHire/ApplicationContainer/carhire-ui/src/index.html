@@ -19,13 +19,13 @@
         </div>
     </div>
     <script type="text/javascript">
-        const microFrontendByRoute = {
+        const webComponentsByRoute = {
             '/customers': window.renderCustomerMicroFrontEnd,
         };
-
-        const renderFunction = microFrontendByRoute[window.location.pathname];
-
-        renderFunction('customer-microfrontend');
+        const webComponentType = webComponentsByRoute[window.location.pathname];
+        const root = document.getElementById('customer-microfrontend');
+        const webComponent = document.createElement(webComponentType);
+        root.appendChild(webComponent);
     </script>
 </body>
 
