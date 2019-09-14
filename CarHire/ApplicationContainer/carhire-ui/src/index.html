@@ -1,32 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+    <html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" >
-    <title>Car Hire</title>
-</head>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" >
+        <title>Car Hire</title>
+    </head>
 
-<body>
-    <script src="http://localhost:8080/main.js"></script>
-    <div class="container">
-        <div class="row mt-5">
-            <div class="col-md-4 offset-md-1">
-            </div>
-            <div id="carhire-body"></div>
+    <body>
+        <div class="container">
+            <h2>Car Hire App!</h2>
             <br />
-            <div id="customer-microfrontend"></div>
+            <iframe id="customercontent"></iframe>
         </div>
-    </div>
-    <script type="text/javascript">
-        const webComponentsByRoute = {
-            '/customers': window.renderCustomerMicroFrontEnd,
-        };
-        const webComponentType = webComponentsByRoute[window.location.pathname];
-        const root = document.getElementById('customer-microfrontend');
-        const webComponent = document.createElement(webComponentType);
-        root.appendChild(webComponent);
-    </script>
-</body>
-
+        <script type="text/javascript">
+            const myRoutes = {
+                '/': 'http://localhost:8080/'
+            };
+            const iframe = document.getElementById('customercontent');
+            iframe.src = myRoutes[window.location.pathname];
+        </script>
+    </body>
 </html>
