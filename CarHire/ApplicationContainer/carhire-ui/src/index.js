@@ -1,1 +1,0 @@
-import CarHire from './js/components/carhire.jsx';
