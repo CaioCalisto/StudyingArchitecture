@@ -2,13 +2,20 @@
 // Copyright (c) CaioCesarCalisto. All rights reserved.
 // </copyright>
 
-namespace Contoso.Registration.FunctionalTest.Model
+namespace Contoso.Registration.FunctionalTest.Model.Storage
 {
     /// <summary>
     /// Database model vehicle.
     /// </summary>
     public class Vehicle
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Vehicle"/> class.
+        /// </summary>
+        public Vehicle()
+        {
+        }
+
         /// <summary>
         /// Gets Name.
         /// </summary>

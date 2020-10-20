@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Contoso.Registration.FunctionalTest.Configurations;
+using Contoso.Registration.FunctionalTest.Model.API;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using TechTalk.SpecFlow;
@@ -70,6 +71,29 @@ namespace Contoso.Registration.FunctionalTest.Steps
         public void ThenTheAPIStatusResultIs(int statusCode)
         {
             Assert.AreEqual(statusCode, (int)this.responseMessage.StatusCode);
+        }
+
+        /// <summary>
+        /// Then the API response content is.
+        /// </summary>
+        /// <param name="table">Content.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        [Then("the API response has the following result")]
+        public async Task TheAPIResponseHasTheFollowingResult(Table table)
+        {
+            foreach (TableRow row in table.Rows)
+            {
+                string response = await this.responseMessage.Content.ReadAsStringAsync();
+                Vehicle result = JsonConvert.DeserializeObject<Vehicle>(response);
+                Assert.AreEqual(row["Name"], result.Name);
+                Assert.AreEqual(row["Brand"], result.Brand);
+                Assert.AreEqual(row["Category"], result.Category);
+                Assert.AreEqual(Convert.ToInt16(row["Doors"]), result.Doors);
+                Assert.AreEqual(Convert.ToInt16(row["Passengers"]), result.Passengers);
+                Assert.AreEqual(row["Transmission"], result.Transmission);
+                Assert.AreEqual(Convert.ToInt16(row["Consume"]), result.Consume);
+                Assert.AreEqual(Convert.ToInt16(row["Emission"]), result.Emission);
+            }
         }
     }
 }

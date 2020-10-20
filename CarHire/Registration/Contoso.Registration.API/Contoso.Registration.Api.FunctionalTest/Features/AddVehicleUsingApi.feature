@@ -10,6 +10,9 @@ Scenario: Vehicle doesn't exists
 	| Name   | Brand	  | Category | Doors | Passengers | Transmission | Consume | Emission |
 	| Opala  | Chevrolet  | STANDARD | 4     | 5          | MANUAL       | 23      | 16       |
 	Then the API status result is 200
+	And the API response has the following result
+	| Name   | Brand	  | Category | Doors | Passengers | Transmission | Consume | Emission |
+	| Opala  | Chevrolet  | STANDARD | 4     | 5          | MANUAL       | 23      | 16       |
 	And the vehicle is in the database
 	| Name   | Brand	  | Category | Doors | Passengers | Transmission | Consume | Emission |
 	| Opala  | Chevrolet  | STANDARD | 4     | 5          | MANUAL       | 23      | 16       |

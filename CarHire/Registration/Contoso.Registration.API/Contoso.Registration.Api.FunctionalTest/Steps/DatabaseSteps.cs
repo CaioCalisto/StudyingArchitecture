@@ -5,7 +5,7 @@
 using System;
 using System.Threading.Tasks;
 using Contoso.Registration.FunctionalTest.Configurations;
-using Contoso.Registration.FunctionalTest.Model;
+using Contoso.Registration.FunctionalTest.Model.Storage;
 using Microsoft.Azure.Cosmos.Table;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TechTalk.SpecFlow;

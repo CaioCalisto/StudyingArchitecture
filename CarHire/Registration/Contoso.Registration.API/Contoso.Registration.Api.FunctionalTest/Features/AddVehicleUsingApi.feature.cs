@@ -168,7 +168,28 @@ this.ScenarioInitialize(scenarioInfo);
                             "23",
                             "16"});
 #line 13
- testRunner.And("the vehicle is in the database", ((string)(null)), table2, "And ");
+ testRunner.And("the API response has the following result", ((string)(null)), table2, "And ");
+#line hidden
+                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Name",
+                            "Brand",
+                            "Category",
+                            "Doors",
+                            "Passengers",
+                            "Transmission",
+                            "Consume",
+                            "Emission"});
+                table3.AddRow(new string[] {
+                            "Opala",
+                            "Chevrolet",
+                            "STANDARD",
+                            "4",
+                            "5",
+                            "MANUAL",
+                            "23",
+                            "16"});
+#line 16
+ testRunner.And("the vehicle is in the database", ((string)(null)), table3, "And ");
 #line hidden
             }
             this.ScenarioCleanup();
