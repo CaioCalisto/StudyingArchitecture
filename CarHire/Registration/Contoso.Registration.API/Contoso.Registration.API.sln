@@ -1,0 +1,80 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30517.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-API", "1-API", "{E3310D36-E83D-4264-BBFD-A608607DDA87}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-Application", "2-Application", "{AD615A61-ED8A-423A-AAD1-8AA4D56BF63A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-Domain", "3-Domain", "{DDCB40E1-21A9-41DE-A8C7-821AEE7AE4B2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4-Infrastructure", "4-Infrastructure", "{1D937C2B-D2B2-4529-9BE4-66270F6D8B8A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5-Tests", "5-Tests", "{E855B080-1B07-4B72-9711-6AF5D610330C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contoso.Registration.Domain", "Contoso.Registration.Domain\Contoso.Registration.Domain.csproj", "{DCE5698A-19CE-4F79-8D9E-F3A69D43A096}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contoso.Registration.Domain.UnitTest", "Contoso.Registration.Domain.UnitTest\Contoso.Registration.Domain.UnitTest.csproj", "{E86A6D19-59C2-46F7-BEDD-7BC6DE9D73BC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contoso.Registration.Application", "Contoso.Registration.Application\Contoso.Registration.Application.csproj", "{55D7D810-8012-4F4E-953A-EADDC1A9515C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contoso.Registration.Application.UnitTest", "Contoso.Registration.Application.UnitTest\Contoso.Registration.Application.UnitTest.csproj", "{91C3D327-547E-4B72-AF60-E86A49F74A19}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contoso.Registration.Infrastructure", "Contoso.Registration.Infrastructure\Contoso.Registration.Infrastructure.csproj", "{E69C4AD4-44C0-4C41-ABCE-CFC275076D2A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contoso.Registration.Api", "Contoso.Registration.Api\Contoso.Registration.Api.csproj", "{09B3A6C7-842B-4DB5-B0D5-A4A20EE0DE5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contoso.Registration.Api.FunctionalTest", "Contoso.Registration.Api.FunctionalTest\Contoso.Registration.Api.FunctionalTest.csproj", "{A026AC13-DBB4-43ED-A373-59A5BBC012AB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DCE5698A-19CE-4F79-8D9E-F3A69D43A096}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCE5698A-19CE-4F79-8D9E-F3A69D43A096}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCE5698A-19CE-4F79-8D9E-F3A69D43A096}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCE5698A-19CE-4F79-8D9E-F3A69D43A096}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E86A6D19-59C2-46F7-BEDD-7BC6DE9D73BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E86A6D19-59C2-46F7-BEDD-7BC6DE9D73BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E86A6D19-59C2-46F7-BEDD-7BC6DE9D73BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E86A6D19-59C2-46F7-BEDD-7BC6DE9D73BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55D7D810-8012-4F4E-953A-EADDC1A9515C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55D7D810-8012-4F4E-953A-EADDC1A9515C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55D7D810-8012-4F4E-953A-EADDC1A9515C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55D7D810-8012-4F4E-953A-EADDC1A9515C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91C3D327-547E-4B72-AF60-E86A49F74A19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91C3D327-547E-4B72-AF60-E86A49F74A19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91C3D327-547E-4B72-AF60-E86A49F74A19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91C3D327-547E-4B72-AF60-E86A49F74A19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E69C4AD4-44C0-4C41-ABCE-CFC275076D2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E69C4AD4-44C0-4C41-ABCE-CFC275076D2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E69C4AD4-44C0-4C41-ABCE-CFC275076D2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E69C4AD4-44C0-4C41-ABCE-CFC275076D2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09B3A6C7-842B-4DB5-B0D5-A4A20EE0DE5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09B3A6C7-842B-4DB5-B0D5-A4A20EE0DE5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09B3A6C7-842B-4DB5-B0D5-A4A20EE0DE5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09B3A6C7-842B-4DB5-B0D5-A4A20EE0DE5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A026AC13-DBB4-43ED-A373-59A5BBC012AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A026AC13-DBB4-43ED-A373-59A5BBC012AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A026AC13-DBB4-43ED-A373-59A5BBC012AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A026AC13-DBB4-43ED-A373-59A5BBC012AB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DCE5698A-19CE-4F79-8D9E-F3A69D43A096} = {DDCB40E1-21A9-41DE-A8C7-821AEE7AE4B2}
+		{E86A6D19-59C2-46F7-BEDD-7BC6DE9D73BC} = {E855B080-1B07-4B72-9711-6AF5D610330C}
+		{55D7D810-8012-4F4E-953A-EADDC1A9515C} = {AD615A61-ED8A-423A-AAD1-8AA4D56BF63A}
+		{91C3D327-547E-4B72-AF60-E86A49F74A19} = {E855B080-1B07-4B72-9711-6AF5D610330C}
+		{E69C4AD4-44C0-4C41-ABCE-CFC275076D2A} = {1D937C2B-D2B2-4529-9BE4-66270F6D8B8A}
+		{09B3A6C7-842B-4DB5-B0D5-A4A20EE0DE5D} = {E3310D36-E83D-4264-BBFD-A608607DDA87}
+		{A026AC13-DBB4-43ED-A373-59A5BBC012AB} = {E855B080-1B07-4B72-9711-6AF5D610330C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D3C8C8F2-4B43-4846-9FA4-C91D482C1CCD}
+	EndGlobalSection
+EndGlobal

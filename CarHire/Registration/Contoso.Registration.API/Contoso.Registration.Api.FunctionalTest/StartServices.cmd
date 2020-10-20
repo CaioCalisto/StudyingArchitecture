@@ -1,0 +1,1 @@
+﻿dotnet run --environment "dev" ..\..\..\Contoso.Registration.API
