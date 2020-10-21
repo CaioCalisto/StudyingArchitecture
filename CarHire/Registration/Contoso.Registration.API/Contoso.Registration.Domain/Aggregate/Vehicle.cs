@@ -12,7 +12,10 @@ namespace Contoso.Registration.Domain.Aggregate
     /// </summary>
     public class Vehicle : Entity, IAggregateRoot
     {
-        private Vehicle()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Vehicle"/> class.
+        /// </summary>
+        protected Vehicle()
         {
         }
 
@@ -37,44 +40,44 @@ namespace Contoso.Registration.Domain.Aggregate
         }
 
         /// <summary>
-        /// Gets Name.
+        /// Gets or Sets Name.
         /// </summary>
-        public virtual string Name { get; private set; }
+        public virtual string Name { get; protected set; }
 
         /// <summary>
-        /// Gets Brand.
+        /// Gets or Sets Brand.
         /// </summary>
-        public virtual string Brand { get; private set; }
+        public virtual string Brand { get; protected set; }
 
         /// <summary>
-        /// Gets Category.
+        /// Gets or Sets Category.
         /// </summary>
-        public virtual Category Category { get; private set; }
+        public virtual Category Category { get; protected set; }
 
         /// <summary>
-        /// Gets How many doors.
+        /// Gets or Sets How many doors.
         /// </summary>
-        public virtual int Doors { get; private set; }
+        public virtual int Doors { get; protected set; }
 
         /// <summary>
-        /// Gets How many passengers.
+        /// Gets or Sets How many passengers.
         /// </summary>
-        public virtual int Passengers { get; private set; }
+        public virtual int Passengers { get; protected set; }
 
         /// <summary>
-        /// Gets Gear transmission.
+        /// Gets or Sets Gear transmission.
         /// </summary>
-        public virtual Transmission Transmission { get; private set; }
+        public virtual Transmission Transmission { get; protected set; }
 
         /// <summary>
-        /// Gets Miles/Galon consume.
+        /// Gets or Sets Miles/Galon consume.
         /// </summary>
-        public virtual int Consume { get; private set; }
+        public virtual int Consume { get; protected set; }
 
         /// <summary>
-        /// Gets g/km CO2.
+        /// Gets or Sets g/km CO2.
         /// </summary>
-        public virtual int Emission { get; private set; }
+        public virtual int Emission { get; protected set; }
 
         /// <summary>
         /// Create a new vehicle.

@@ -2,7 +2,8 @@
   
 	<PropertyGroup>    
 		<TargetFramework>netcoreapp3.1</TargetFramework>	
-		<RootNamespace>Contoso.Registration.Domain</RootNamespace>  
+		<RootNamespace>Contoso.Registration.Domain</RootNamespace>
+		<LangVersion>8.0</LangVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
