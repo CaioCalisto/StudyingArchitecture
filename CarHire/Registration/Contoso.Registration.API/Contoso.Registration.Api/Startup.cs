@@ -4,6 +4,7 @@
 
 using System;
 using AutoMapper;
+using Contoso.Registration.Api.Extensions;
 using Contoso.Registration.Domain.Ports;
 using Contoso.Registration.Infrastructure.Configurations;
 using Contoso.Registration.Infrastructure.Database;
@@ -58,6 +59,11 @@ namespace Contoso.Registration.Api
             services.AddSwaggerGen();
 
             services.AddScoped<IVehicleRepositoy, VehicleContext>();
+
+            services.AddControllers(options =>
+            {
+                options.Filters.Add(typeof(ExceptionFilter));
+            });
         }
 
         /// <summary>

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Contoso.Registration.FunctionalTest.Configurations;
 using Contoso.Registration.FunctionalTest.Model.API;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using TechTalk.SpecFlow;
@@ -93,6 +94,24 @@ namespace Contoso.Registration.FunctionalTest.Steps
                 Assert.AreEqual(row["Transmission"], result.Transmission);
                 Assert.AreEqual(Convert.ToInt16(row["Consume"]), result.Consume);
                 Assert.AreEqual(Convert.ToInt16(row["Emission"]), result.Emission);
+            }
+        }
+
+        /// <summary>
+        /// The API error response has the following result.
+        /// </summary>
+        /// <param name="table">Parameters.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        [Then("The API error response has the following result")]
+        public async Task TheAPIErrorResponseHasTheFollowingResult(Table table)
+        {
+            string response = await this.responseMessage.Content.ReadAsStringAsync();
+            ProblemDetails problemDetails = JsonConvert.DeserializeObject<ProblemDetails>(response);
+            foreach (TableRow row in table.Rows)
+            {
+                Assert.AreEqual(Convert.ToInt16(row["StatusCode"]), problemDetails.Status);
+                Assert.AreEqual(row["Title"], problemDetails.Title);
+                Assert.AreEqual(row["Detail"], problemDetails.Detail);
             }
         }
     }
