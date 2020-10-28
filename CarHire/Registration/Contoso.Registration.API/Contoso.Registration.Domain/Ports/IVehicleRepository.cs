@@ -11,7 +11,7 @@ namespace Contoso.Registration.Domain.Ports
     /// <summary>
     /// Vehicle Repository interface.
     /// </summary>
-    public interface IVehicleRepositoy : IRepository<Vehicle>
+    public interface IVehicleRepository : IRepository<Vehicle>
     {
         /// <summary>
         /// Insert new entity in database.

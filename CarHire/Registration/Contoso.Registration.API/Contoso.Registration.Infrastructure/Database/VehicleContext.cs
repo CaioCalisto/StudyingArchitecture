@@ -3,10 +3,13 @@
 // </copyright>
 
 using System;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using Contoso.Registration.Domain.Ports;
 using Contoso.Registration.Infrastructure.Configurations;
+using Contoso.Registration.Infrastructure.Model;
 using Microsoft.Azure.Cosmos.Table;
 using Microsoft.Extensions.Options;
 
@@ -15,7 +18,7 @@ namespace Contoso.Registration.Infrastructure.Database
     /// <summary>
     /// Vehicle database context.
     /// </summary>
-    public class VehicleContext : IVehicleRepositoy
+    public class VehicleContext : IVehicleRepository, IDatabaseQueries
     {
         private readonly CloudTable table;
         private readonly IMapper mapper;
@@ -32,6 +35,12 @@ namespace Contoso.Registration.Infrastructure.Database
             this.table = tableClient.GetTableReference(config.Value.Table);
             this.table.CreateIfNotExists();
             this.mapper = mapper;
+        }
+
+        /// <inheritdoc/>
+        public IQueryable<TableEntityAdapter<T>> GetQuery<T>()
+        {
+            return this.table.CreateQuery<TableEntityAdapter<T>>().AsQueryable();
         }
 
         /// <inheritdoc/>

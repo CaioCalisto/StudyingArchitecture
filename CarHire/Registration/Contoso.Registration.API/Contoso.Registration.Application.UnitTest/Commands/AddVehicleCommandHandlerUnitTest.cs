@@ -38,7 +38,7 @@ namespace Contoso.Registration.Application.Commands
         [TestMethod]
         public async Task Handle_NewVehicle_SaveInDB()
         {
-            Mock<IVehicleRepositoy> repositoryMock = new Mock<IVehicleRepositoy>();
+            Mock<IVehicleRepository> repositoryMock = new Mock<IVehicleRepository>();
             Mock<IUnitOfWork> unitOfWorkMock = new Mock<IUnitOfWork>();
             unitOfWorkMock.Setup(u => u.SaveEntitiesAsync(It.IsAny<CancellationToken>())).ReturnsAsync(true);
             repositoryMock.Setup(r => r.InsertAsync(It.IsAny<Domain.Aggregate.Vehicle>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(this.GetDomainVehicle());
@@ -55,7 +55,7 @@ namespace Contoso.Registration.Application.Commands
         [TestMethod]
         public async Task Handle_NewVehicle_ShouldMapCorrectly()
         {
-            Mock<IVehicleRepositoy> repositoryMock = new Mock<IVehicleRepositoy>();
+            Mock<IVehicleRepository> repositoryMock = new Mock<IVehicleRepository>();
             Mock<IUnitOfWork> unitOfWorkMock = new Mock<IUnitOfWork>();
             unitOfWorkMock.Setup(u => u.SaveEntitiesAsync(It.IsAny<CancellationToken>())).ReturnsAsync(true);
             repositoryMock.Setup(r => r.InsertAsync(It.IsAny<Domain.Aggregate.Vehicle>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(this.GetDomainVehicle());

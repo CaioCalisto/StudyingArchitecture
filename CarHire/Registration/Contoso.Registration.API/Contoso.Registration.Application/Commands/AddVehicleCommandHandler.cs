@@ -16,7 +16,7 @@ namespace Contoso.Registration.Application.Commands
     /// </summary>
     public class AddVehicleCommandHandler : IRequestHandler<AddVehicleCommand, Vehicle>
     {
-        private readonly IVehicleRepositoy vehicleRepositoy;
+        private readonly IVehicleRepository vehicleRepositoy;
         private readonly IMapper mapper;
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace Contoso.Registration.Application.Commands
         /// </summary>
         /// <param name="vehicleRepositoy">Vehicle repository.</param>
         /// <param name="mapper">Model mapper.</param>
-        public AddVehicleCommandHandler(IVehicleRepositoy vehicleRepositoy, IMapper mapper)
+        public AddVehicleCommandHandler(IVehicleRepository vehicleRepositoy, IMapper mapper)
         {
             this.vehicleRepositoy = vehicleRepositoy;
             this.mapper = mapper;

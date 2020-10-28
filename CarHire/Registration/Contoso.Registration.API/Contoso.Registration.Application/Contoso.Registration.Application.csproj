@@ -26,6 +26,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Contoso.Registration.Domain\Contoso.Registration.Domain.csproj" />
+	  <ProjectReference Include="..\Contoso.Registration.Infrastructure\Contoso.Registration.Infrastructure.csproj" />
 	</ItemGroup>
 	
 </Project>

@@ -27,12 +27,12 @@ namespace Contoso.Registration.Application.Model
         /// <summary>
         /// Gets How many doors.
         /// </summary>
-        public int Doors { get; private set; }
+        public int? Doors { get; private set; }
 
         /// <summary>
         /// Gets How many passengers.
         /// </summary>
-        public int Passengers { get; private set; }
+        public int? Passengers { get; private set; }
 
         /// <summary>
         /// Gets Gear transmission.
@@ -42,11 +42,11 @@ namespace Contoso.Registration.Application.Model
         /// <summary>
         /// Gets Miles/Galon consume.
         /// </summary>
-        public int Consume { get; private set; }
+        public int? Consume { get; private set; }
 
         /// <summary>
         /// Gets g/km CO2.
         /// </summary>
-        public int Emission { get; private set; }
+        public int? Emission { get; private set; }
     }
 }

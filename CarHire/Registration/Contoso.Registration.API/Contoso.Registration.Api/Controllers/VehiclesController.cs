@@ -4,6 +4,7 @@
 
 using System.Threading.Tasks;
 using Contoso.Registration.Application.Commands;
+using Contoso.Registration.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -18,16 +19,19 @@ namespace Contoso.Registration.Api.Controllers
     public class VehiclesController : ControllerBase
     {
         private readonly ILogger<VehiclesController> logger;
+        private readonly IVehiclesQueries vehiclesQueries;
         private readonly IMediator mediator;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VehiclesController"/> class.
         /// </summary>
         /// <param name="logger">Logger.</param>
+        /// <param name="vehiclesQueries">Queries.</param>
         /// <param name="mediator">Mediator.</param>
-        public VehiclesController(ILogger<VehiclesController> logger, IMediator mediator)
+        public VehiclesController(ILogger<VehiclesController> logger, IVehiclesQueries vehiclesQueries, IMediator mediator)
         {
             this.logger = logger;
+            this.vehiclesQueries = vehiclesQueries;
             this.mediator = mediator;
         }
 
@@ -36,9 +40,21 @@ namespace Contoso.Registration.Api.Controllers
         /// </summary>
         /// <returns>Result.</returns>
         [HttpGet]
-        public Task<IActionResult> Get()
+        public async Task<IActionResult> Get()
         {
-            return Task.FromResult<IActionResult>(this.Ok());
+            return this.Ok();
+        }
+
+        /// <summary>
+        /// Get vehicles by paramaters.
+        /// </summary>
+        /// <param name="vehicles">Parameters</param>
+        /// <returns>Vehicles.</returns>
+        [HttpGet]
+        [Route("query")]
+        public IActionResult GetVehicles([FromQuery] Application.Model.Vehicle vehicles)
+        {
+            return this.Ok(this.vehiclesQueries.Find(vehicles));
         }
 
         /// <summary>

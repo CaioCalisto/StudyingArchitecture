@@ -19,6 +19,8 @@ namespace Contoso.Registration.Application.Mappers
             this.CreateMap<Domain.Aggregate.Vehicle, Model.Vehicle>()
                 .ForMember(v => v.Category, opt => opt.MapFrom(src => src.Category.ToString()))
                 .ForMember(v => v.Transmission, opt => opt.MapFrom(src => src.Transmission.ToString()));
+
+            this.CreateMap<Infrastructure.Model.Vehicle, Model.Vehicle>();
         }
     }
 }

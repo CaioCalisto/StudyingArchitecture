@@ -29,7 +29,7 @@ namespace Contoso.Registration.FunctionalTest.Hooks
             SetTableStorageConfig(config);
             SetApiConfig(config);
             // Clean database
-            //RunProcess("\"C:\\Program Files(x86)\\Microsoft SDKs\\Azure\\Storage Emulator\\AzureStorageEmulator.exe\" start");
+            //RunProcess("StartServices.cmd");
             //RunProcess("StartServices.cmd");
         }
 
@@ -44,6 +44,20 @@ namespace Contoso.Registration.FunctionalTest.Hooks
 
         private static void RunProcess(string cmdFile)
         {
+            var processInfo = new ProcessStartInfo();
+            processInfo.UseShellExecute = true;
+
+            processInfo.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
+            processInfo.FileName = cmdFile;
+            processInfo.Verb = "runas";
+            processInfo.WindowStyle = ProcessWindowStyle.Normal;
+            using (Process process = new Process())
+            {
+                process.StartInfo = processInfo;
+                process.Start();
+                process.WaitForExit();
+            }
         }
 
         private static void SetTableStorageConfig(IConfiguration config)

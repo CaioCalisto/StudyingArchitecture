@@ -5,6 +5,7 @@
 using System;
 using AutoMapper;
 using Contoso.Registration.Api.Extensions;
+using Contoso.Registration.Application.Queries;
 using Contoso.Registration.Domain.Ports;
 using Contoso.Registration.Infrastructure.Configurations;
 using Contoso.Registration.Infrastructure.Database;
@@ -58,7 +59,9 @@ namespace Contoso.Registration.Api
             services.AddMediatR(AppDomain.CurrentDomain.Load("Contoso.Registration.Infrastructure"));
             services.AddSwaggerGen();
 
-            services.AddScoped<IVehicleRepositoy, VehicleContext>();
+            services.AddScoped<IVehicleRepository, VehicleContext>();
+            services.AddScoped<IDatabaseQueries, VehicleContext>();
+            services.AddScoped<IVehiclesQueries, VehiclesQueries>();
 
             services.AddControllers(options =>
             {
