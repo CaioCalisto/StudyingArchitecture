@@ -23,7 +23,9 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="FluentAssertions" Version="5.10.3" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+        <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.9" />
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.9" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.9" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.9" />
@@ -44,9 +46,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="StartServices.cmd">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
+	  <ProjectReference Include="..\Contoso.Registration.Api\Contoso.Registration.Api.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Update="StartStorageEmulator.cmd">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>

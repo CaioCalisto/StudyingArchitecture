@@ -27,7 +27,6 @@ namespace Contoso.Registration.FunctionalTest.Hooks
         {
             IConfiguration config = GetConfigurations();
             SetTableStorageConfig(config);
-            SetApiConfig(config);
             // Clean database
             //RunProcess("StartServices.cmd");
             //RunProcess("StartServices.cmd");
@@ -39,7 +38,7 @@ namespace Contoso.Registration.FunctionalTest.Hooks
         [AfterTestRun]
         public static void AfterTests()
         {
-            RunProcess("StopStorageEmulator.cmd");
+            //RunProcess("StopStorageEmulator.cmd");
         }
 
         private static void RunProcess(string cmdFile)
@@ -64,11 +63,6 @@ namespace Contoso.Registration.FunctionalTest.Hooks
         {
             TableStorageConfig.ConnectionString = config["TableStorageConfig:ConnectionString"];
             TableStorageConfig.Table = config["TableStorageConfig:Table"];
-        }
-
-        private static void SetApiConfig(IConfiguration config)
-        {
-            ApiConfigurations.BaseAddress = config["ApiConfigurations:BaseAddress"];
         }
 
         private static IConfiguration GetConfigurations()

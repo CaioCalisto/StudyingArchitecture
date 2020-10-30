@@ -1,6 +1,6 @@
 ﻿Feature: Add vehicle using API
 	In order to register our vehicles
-	As a staff
+	As a user
 	I want to execute restful calls easily
 
 @RunServicesLocally
@@ -10,7 +10,7 @@ Scenario: Vehicle doesn't exists
 	| Name   | Brand	  | Category | Doors | Passengers | Transmission | Consume | Emission |
 	| Opala  | Chevrolet  | STANDARD | 2     | 4          | MANUAL       | 23      | 16       |
 	Then the API status result is 200
-	And the API response has the following result
+	And the API POST response has the following result
 	| Name   | Brand	  | Category | Doors | Passengers | Transmission | Consume | Emission |
 	| Opala  | Chevrolet  | STANDARD | 2     | 4          | MANUAL       | 23      | 16       |
 	And the vehicle is in the database

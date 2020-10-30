@@ -3,6 +3,8 @@
 // </copyright>
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -43,7 +45,7 @@ namespace Contoso.Registration.Application.Commands
             unitOfWorkMock.Setup(u => u.SaveEntitiesAsync(It.IsAny<CancellationToken>())).ReturnsAsync(true);
             repositoryMock.Setup(r => r.InsertAsync(It.IsAny<Domain.Aggregate.Vehicle>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(this.GetDomainVehicle());
             AddVehicleCommandHandler handler = new AddVehicleCommandHandler(repositoryMock.Object, this.mapper);
-            Model.Vehicle result = await handler.Handle(this.GetCommand(), CancellationToken.None);
+            IEnumerable<Model.Vehicle> result = await handler.Handle(this.GetCommand(), CancellationToken.None);
 
             repositoryMock.Verify(r => r.InsertAsync(It.IsAny<Domain.Aggregate.Vehicle>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
         }
@@ -60,16 +62,16 @@ namespace Contoso.Registration.Application.Commands
             unitOfWorkMock.Setup(u => u.SaveEntitiesAsync(It.IsAny<CancellationToken>())).ReturnsAsync(true);
             repositoryMock.Setup(r => r.InsertAsync(It.IsAny<Domain.Aggregate.Vehicle>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(this.GetDomainVehicle());
             AddVehicleCommandHandler handler = new AddVehicleCommandHandler(repositoryMock.Object, this.mapper);
-            Model.Vehicle result = await handler.Handle(this.GetCommand(), CancellationToken.None);
+            IEnumerable<Model.Vehicle> result = await handler.Handle(this.GetCommand(), CancellationToken.None);
 
-            Assert.AreEqual("Ford", result.Brand);
-            Assert.AreEqual("Fiesta", result.Name);
-            Assert.AreEqual("STANDARD", result.Category.ToUpper());
-            Assert.AreEqual(5, result.Passengers);
-            Assert.AreEqual(4, result.Doors);
-            Assert.AreEqual("MANUAL", result.Transmission.ToUpper());
-            Assert.AreEqual(23, result.Consume);
-            Assert.AreEqual(12, result.Emission);
+            Assert.AreEqual("Ford", result.First().Brand);
+            Assert.AreEqual("Fiesta", result.First().Name);
+            Assert.AreEqual("STANDARD", result.First().Category.ToUpper());
+            Assert.AreEqual(5, result.First().Passengers);
+            Assert.AreEqual(4, result.First().Doors);
+            Assert.AreEqual("MANUAL", result.First().Transmission.ToUpper());
+            Assert.AreEqual(23, result.First().Consume);
+            Assert.AreEqual(12, result.First().Emission);
         }
 
         private AddVehicleCommand GetCommand()

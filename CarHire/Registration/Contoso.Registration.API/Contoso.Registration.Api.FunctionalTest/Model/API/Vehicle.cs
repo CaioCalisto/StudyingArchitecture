@@ -19,51 +19,51 @@ namespace Contoso.Registration.FunctionalTest.Model.API
         }
 
         /// <summary>
-        /// Gets Name.
+        /// Gets or Sets Name.
         /// </summary>
         [JsonProperty("name")]
-        public string Name { get; private set; }
+        public string Name { get; set; }
 
         /// <summary>
-        /// Gets Brand.
+        /// Gets or Sets Brand.
         /// </summary>
         [JsonProperty("brand")]
-        public string Brand { get; private set; }
+        public string Brand { get; set; }
 
         /// <summary>
-        /// Gets Category.
+        /// Gets or Sets Category.
         /// </summary>
         [JsonProperty("category")]
-        public string Category { get; private set; }
+        public string Category { get; set; }
 
         /// <summary>
-        /// Gets How many doors.
+        /// Gets or Sets How many doors.
         /// </summary>
         [JsonProperty("doors")]
-        public int Doors { get; private set; }
+        public int Doors { get; set; }
 
         /// <summary>
-        /// Gets How many passengers.
+        /// Gets or Sets How many passengers.
         /// </summary>
         [JsonProperty("passengers")]
-        public int Passengers { get; private set; }
+        public int Passengers { get; set; }
 
         /// <summary>
-        /// Gets Gear transmission.
+        /// Gets or Sets Gear transmission.
         /// </summary>
         [JsonProperty("transmission")]
-        public string Transmission { get; private set; }
+        public string Transmission { get; set; }
 
         /// <summary>
-        /// Gets Miles/Galon consume.
+        /// Gets or Sets Miles/Galon consume.
         /// </summary>
         [JsonProperty("consume")]
-        public int Consume { get; private set; }
+        public int Consume { get; set; }
 
         /// <summary>
-        /// Gets g/km CO2.
+        /// Gets or Sets g/km CO2.
         /// </summary>
         [JsonProperty("emission")]
-        public int Emission { get; private set; }
+        public int Emission { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 // Copyright (c) CaioCesarCalisto. All rights reserved.
 // </copyright>
 
+using System.Collections.Generic;
 using Contoso.Registration.Application.Model;
 using MediatR;
 
@@ -10,7 +11,7 @@ namespace Contoso.Registration.Application.Commands
     /// <summary>
     /// Add vehicle command.
     /// </summary>
-    public class AddVehicleCommand : IRequest<Vehicle>
+    public class AddVehicleCommand : IRequest<IEnumerable<Vehicle>>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AddVehicleCommand"/> class.

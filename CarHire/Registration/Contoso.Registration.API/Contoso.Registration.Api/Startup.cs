@@ -45,28 +45,19 @@ namespace Contoso.Registration.Api
         {
             services.Configure<TableStorageConfig>(this.Configuration.GetSection(nameof(TableStorageConfig)));
             services.AddControllers();
-
-            var mapperConfig = new MapperConfiguration(mc =>
+            services.AddMvc().AddApplicationPart(typeof(Startup).Assembly);
+            services.AddControllers(options =>
             {
-                mc.AddProfile(new Application.Mappers.MapProfile());
-                mc.AddProfile(new Infrastructure.Mappers.MapProfile());
+                options.Filters.Add(typeof(ExceptionFilter));
             });
 
-            IMapper mapper = mapperConfig.CreateMapper();
-            services.AddSingleton(mapper);
+            this.AddAutoMapper(services);
 
             services.AddMediatR(AppDomain.CurrentDomain.Load("Contoso.Registration.Application"));
             services.AddMediatR(AppDomain.CurrentDomain.Load("Contoso.Registration.Infrastructure"));
             services.AddSwaggerGen();
 
-            services.AddScoped<IVehicleRepository, VehicleContext>();
-            services.AddScoped<IDatabaseQueries, VehicleContext>();
-            services.AddScoped<IVehiclesQueries, VehiclesQueries>();
-
-            services.AddControllers(options =>
-            {
-                options.Filters.Add(typeof(ExceptionFilter));
-            });
+            this.AddDependencyInjection(services);
         }
 
         /// <summary>
@@ -97,6 +88,25 @@ namespace Contoso.Registration.Api
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private void AddAutoMapper(IServiceCollection services)
+        {
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new Application.Mappers.MapProfile());
+                mc.AddProfile(new Infrastructure.Mappers.MapProfile());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+        }
+
+        private void AddDependencyInjection(IServiceCollection services)
+        {
+            services.AddScoped<IVehicleRepository, VehicleContext>();
+            services.AddScoped<IDatabaseQueries, VehicleContext>();
+            services.AddScoped<IVehiclesQueries, VehiclesQueries>();
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Contoso.Registration.FunctionalTest.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.4.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
-    public partial class AddVehicleUsingAPIFeature
+    public partial class QueriesUsingApiFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -29,7 +29,7 @@ namespace Contoso.Registration.FunctionalTest.Features
         
         private string[] _featureTags = ((string[])(null));
         
-#line 1 "AddVehicleUsingApi.feature"
+#line 1 "QueriesUsingApi.feature"
 #line hidden
         
         public virtual Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext
@@ -48,8 +48,8 @@ namespace Contoso.Registration.FunctionalTest.Features
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Add vehicle using API", "\tIn order to register our vehicles\r\n\tAs a user\r\n\tI want to execute restful calls " +
-                    "easily", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "QueriesUsingApi", "\tIn order to retrieve data from server\r\n\tAs a user\r\n\tI want to execute restful ca" +
+                    "lls easily", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -64,9 +64,9 @@ namespace Contoso.Registration.FunctionalTest.Features
         public virtual void TestInitialize()
         {
             if (((testRunner.FeatureContext != null) 
-                        && (testRunner.FeatureContext.FeatureInfo.Title != "Add vehicle using API")))
+                        && (testRunner.FeatureContext.FeatureInfo.Title != "QueriesUsingApi")))
             {
-                global::Contoso.Registration.FunctionalTest.Features.AddVehicleUsingAPIFeature.FeatureSetup(null);
+                global::Contoso.Registration.FunctionalTest.Features.QueriesUsingApiFeature.FeatureSetup(null);
             }
         }
         
@@ -93,15 +93,15 @@ namespace Contoso.Registration.FunctionalTest.Features
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Vehicle doesn\'t exists")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Add vehicle using API")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Storage contains data")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "QueriesUsingApi")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("RunServicesLocally")]
-        public virtual void VehicleDoesntExists()
+        public virtual void StorageContainsData()
         {
             string[] tagsOfScenario = new string[] {
                     "RunServicesLocally"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Vehicle doesn\'t exists", null, tagsOfScenario, argumentsOfScenario);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Storage contains data", null, tagsOfScenario, argumentsOfScenario);
 #line 7
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -125,7 +125,7 @@ this.ScenarioInitialize(scenarioInfo);
 #line 8
  testRunner.Given("the API is running", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-                TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
                             "Brand",
                             "Category",
@@ -134,22 +134,22 @@ this.ScenarioInitialize(scenarioInfo);
                             "Transmission",
                             "Consume",
                             "Emission"});
-                table1.AddRow(new string[] {
-                            "Opala",
-                            "Chevrolet",
-                            "STANDARD",
+                table6.AddRow(new string[] {
+                            "F50",
+                            "Ferrari",
+                            "SPORT",
                             "2",
-                            "4",
+                            "2",
                             "MANUAL",
                             "23",
                             "16"});
 #line 9
- testRunner.When("a POST call is made to add new vehicle", ((string)(null)), table1, "When ");
+ testRunner.When("a POST call is made to add new vehicle", ((string)(null)), table6, "When ");
 #line hidden
 #line 12
  testRunner.Then("the API status result is 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
                             "Brand",
                             "Category",
@@ -158,19 +158,19 @@ this.ScenarioInitialize(scenarioInfo);
                             "Transmission",
                             "Consume",
                             "Emission"});
-                table2.AddRow(new string[] {
-                            "Opala",
-                            "Chevrolet",
-                            "STANDARD",
+                table7.AddRow(new string[] {
+                            "F50",
+                            "Ferrari",
+                            "SPORT",
                             "2",
-                            "4",
+                            "2",
                             "MANUAL",
                             "23",
                             "16"});
 #line 13
- testRunner.And("the API POST response has the following result", ((string)(null)), table2, "And ");
+ testRunner.And("the API POST response has the following result", ((string)(null)), table7, "And ");
 #line hidden
-                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
                             "Brand",
                             "Category",
@@ -179,56 +179,22 @@ this.ScenarioInitialize(scenarioInfo);
                             "Transmission",
                             "Consume",
                             "Emission"});
-                table3.AddRow(new string[] {
-                            "Opala",
-                            "Chevrolet",
-                            "STANDARD",
+                table8.AddRow(new string[] {
+                            "F50",
+                            "Ferrari",
+                            "SPORT",
                             "2",
-                            "4",
+                            "2",
                             "MANUAL",
                             "23",
                             "16"});
 #line 16
- testRunner.And("the vehicle is in the database", ((string)(null)), table3, "And ");
+ testRunner.When("a GET call is made with the following parameters", ((string)(null)), table8, "When ");
 #line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Vehicle sent with wrong category")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Add vehicle using API")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("RunServicesLocally")]
-        public virtual void VehicleSentWithWrongCategory()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "RunServicesLocally"};
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Vehicle sent with wrong category", null, tagsOfScenario, argumentsOfScenario);
-#line 21
-this.ScenarioInitialize(scenarioInfo);
+#line 19
+ testRunner.Then("the API status result is 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 22
- testRunner.Given("the API is running", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-                TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
                             "Brand",
                             "Category",
@@ -237,31 +203,17 @@ this.ScenarioInitialize(scenarioInfo);
                             "Transmission",
                             "Consume",
                             "Emission"});
-                table4.AddRow(new string[] {
-                            "Diplomata",
-                            "Chevrolet",
-                            "NA",
-                            "4",
-                            "5",
-                            "AUTOMATIC",
+                table9.AddRow(new string[] {
+                            "F50",
+                            "Ferrari",
+                            "SPORT",
+                            "2",
+                            "2",
+                            "MANUAL",
                             "23",
                             "16"});
-#line 23
- testRunner.When("a POST call is made to add new vehicle", ((string)(null)), table4, "When ");
-#line hidden
-#line 26
- testRunner.Then("the API status result is 400", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-                TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
-                            "StatusCode",
-                            "Title",
-                            "Detail"});
-                table5.AddRow(new string[] {
-                            "400",
-                            "API Error. Please see the details.",
-                            "Category NA doest not exists"});
-#line 27
- testRunner.And("The API error response has the following result", ((string)(null)), table5, "And ");
+#line 20
+ testRunner.And("the API GET response has the following result", ((string)(null)), table9, "And ");
 #line hidden
             }
             this.ScenarioCleanup();

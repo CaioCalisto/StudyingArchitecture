@@ -2,6 +2,7 @@
 // Copyright (c) CaioCesarCalisto. All rights reserved.
 // </copyright>
 
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -14,7 +15,7 @@ namespace Contoso.Registration.Application.Commands
     /// <summary>
     /// Handle the AddVehicle command.
     /// </summary>
-    public class AddVehicleCommandHandler : IRequestHandler<AddVehicleCommand, Vehicle>
+    public class AddVehicleCommandHandler : IRequestHandler<AddVehicleCommand, IEnumerable<Vehicle>>
     {
         private readonly IVehicleRepository vehicleRepositoy;
         private readonly IMapper mapper;
@@ -36,7 +37,7 @@ namespace Contoso.Registration.Application.Commands
         /// <param name="request">Command.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>Vehicle.</returns>
-        public async Task<Vehicle> Handle(AddVehicleCommand request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Vehicle>> Handle(AddVehicleCommand request, CancellationToken cancellationToken)
         {
             Domain.Aggregate.Vehicle vehicle = Domain.Aggregate.Vehicle.Create(
                 request.Name,
@@ -49,7 +50,7 @@ namespace Contoso.Registration.Application.Commands
                 request.Emission);
 
             vehicle = await this.vehicleRepositoy.InsertAsync(vehicle, vehicle.Brand, $"{vehicle.Brand} {vehicle.Name} {vehicle.Category.ToString().ToUpper()}");
-            return this.mapper.Map<Model.Vehicle>(vehicle);
+            return this.mapper.Map<IEnumerable<Model.Vehicle>>(new List<Domain.Aggregate.Vehicle>() { vehicle });
         }
     }
 }
