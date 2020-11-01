@@ -9,6 +9,8 @@
               <Include>
                 <ModulePath>.*\.dll$</ModulePath>
                 <ModulePath>.*\.exe$</ModulePath>
+				<ModulePath>Startup</ModulePath>
+				<ModulePath>Program</ModulePath>
               </Include>
               <Exclude>
                 <ModulePath>.*test.dll$</ModulePath>
