@@ -28,6 +28,7 @@ namespace Contoso.Registration.FunctionalTest.Steps
             CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse(TableStorageConfig.ConnectionString);
             CloudTableClient tableClient = cloudStorageAccount.CreateCloudTableClient();
             this.table = tableClient.GetTableReference(TableStorageConfig.Table);
+            this.table.CreateIfNotExists();
         }
 
         /// <summary>

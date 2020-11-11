@@ -147,7 +147,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When("a POST call is made to add new vehicle", ((string)(null)), table6, "When ");
 #line hidden
 #line 12
- testRunner.Then("the API status result is 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the API Post status result is 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
                 TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
@@ -168,7 +168,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "23",
                             "16"});
 #line 13
- testRunner.And("the API POST response has the following result", ((string)(null)), table7, "And ");
+ testRunner.And("the API Post response has the following result", ((string)(null)), table7, "And ");
 #line hidden
                 TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
@@ -192,7 +192,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When("a GET call is made with the following parameters", ((string)(null)), table8, "When ");
 #line hidden
 #line 19
- testRunner.Then("the API status result is 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the API Get status result is 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
                 TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
@@ -214,6 +214,53 @@ this.ScenarioInitialize(scenarioInfo);
                             "16"});
 #line 20
  testRunner.And("the API GET response has the following result", ((string)(null)), table9, "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Storage does not contains data")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "QueriesUsingApi")]
+        public virtual void StorageDoesNotContainsData()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Storage does not contains data", null, tagsOfScenario, argumentsOfScenario);
+#line 24
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 25
+ testRunner.Given("the API is running", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+                TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Name",
+                            "Brand"});
+                table10.AddRow(new string[] {
+                            "Uno",
+                            "Fiat"});
+#line 26
+ testRunner.When("a GET call is made with the following parameters", ((string)(null)), table10, "When ");
+#line hidden
+#line 29
+ testRunner.Then("the API Get status result is 404", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

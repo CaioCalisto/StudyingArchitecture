@@ -147,7 +147,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When("a POST call is made to add new vehicle", ((string)(null)), table1, "When ");
 #line hidden
 #line 12
- testRunner.Then("the API status result is 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the API Post status result is 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
                 TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
@@ -168,7 +168,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "23",
                             "16"});
 #line 13
- testRunner.And("the API POST response has the following result", ((string)(null)), table2, "And ");
+ testRunner.And("the API Post response has the following result", ((string)(null)), table2, "And ");
 #line hidden
                 TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
@@ -250,7 +250,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When("a POST call is made to add new vehicle", ((string)(null)), table4, "When ");
 #line hidden
 #line 26
- testRunner.Then("the API status result is 400", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the API Post status result is 400", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
                 TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
                             "StatusCode",

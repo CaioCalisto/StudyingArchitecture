@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Cryptography;
 using AutoMapper;
 using Contoso.Registration.Infrastructure.Database;
+using Microsoft.Azure.Cosmos.Linq;
 using Microsoft.Azure.Cosmos.Table;
 
 namespace Contoso.Registration.Application.Queries
@@ -31,16 +33,43 @@ namespace Contoso.Registration.Application.Queries
         /// <inheritdoc/>
         public IEnumerable<Model.Vehicle> Find(Model.Vehicle vehicle)
         {
-            List<TableEntityAdapter<Infrastructure.Model.Vehicle>> result = (from entity in this.databaseQueries.GetQuery<Infrastructure.Model.Vehicle>()
-                          where (string.IsNullOrEmpty(vehicle.Brand) || entity.OriginalEntity.Brand.Equals(vehicle.Brand)) &&
-                          (string.IsNullOrEmpty(vehicle.Name) || entity.OriginalEntity.Name.Equals(vehicle.Name)) &&
-                          (string.IsNullOrEmpty(vehicle.Transmission) || entity.OriginalEntity.Transmission.Equals(vehicle.Transmission)) &&
-                          (string.IsNullOrEmpty(vehicle.Category) || entity.OriginalEntity.Category.Equals(vehicle.Category)) &&
-                          (!vehicle.Consume.HasValue || entity.OriginalEntity.Consume.Equals(vehicle.Consume)) &&
-                          (!vehicle.Passengers.HasValue || entity.OriginalEntity.Passengers.Equals(vehicle.Passengers)) &&
-                          (!vehicle.Doors.HasValue || entity.OriginalEntity.Doors.Equals(vehicle.Doors)) &&
-                          (!vehicle.Emission.HasValue || entity.OriginalEntity.Emission.Equals(vehicle.Emission))
-                          select entity).ToList();
+            IQueryable<TableEntityAdapter<Infrastructure.Model.Vehicle>> query = this.databaseQueries.GetQuery<Infrastructure.Model.Vehicle>();
+            if (!string.IsNullOrEmpty(vehicle.Brand))
+            {
+                query = query.Where(v => v.OriginalEntity.Brand.Equals(vehicle.Brand));
+            }
+
+            if (!string.IsNullOrEmpty(vehicle.Name))
+            {
+                query = query.Where(v => v.OriginalEntity.Name.Equals(vehicle.Name));
+            }
+
+            if (!string.IsNullOrEmpty(vehicle.Category))
+            {
+                query = query.Where(v => v.OriginalEntity.Category.Equals(vehicle.Category));
+            }
+
+            if (!string.IsNullOrEmpty(vehicle.Transmission))
+            {
+                query = query.Where(v => v.OriginalEntity.Transmission.Equals(vehicle.Transmission));
+            }
+
+            if (vehicle.Doors.HasValue)
+            {
+                query = query.Where(v => v.OriginalEntity.Doors.Equals(vehicle.Doors));
+            }
+
+            if (vehicle.Consume.HasValue)
+            {
+                query = query.Where(v => v.OriginalEntity.Consume.Equals(vehicle.Consume));
+            }
+
+            if (vehicle.Emission.HasValue)
+            {
+                query = query.Where(v => v.OriginalEntity.Emission.Equals(vehicle.Emission));
+            }
+
+            List<TableEntityAdapter<Infrastructure.Model.Vehicle>> result = query.ToList();
 
             return this.mapper.Map<IEnumerable<Infrastructure.Model.Vehicle>, IEnumerable<Model.Vehicle>>(result.Select(c => c.OriginalEntity));
         }

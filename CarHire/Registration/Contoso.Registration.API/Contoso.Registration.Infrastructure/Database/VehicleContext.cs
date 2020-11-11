@@ -2,14 +2,11 @@
 // Copyright (c) CaioCesarCalisto. All rights reserved.
 // </copyright>
 
-using System;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using Contoso.Registration.Domain.Ports;
 using Contoso.Registration.Infrastructure.Configurations;
-using Contoso.Registration.Infrastructure.Model;
 using Microsoft.Azure.Cosmos.Table;
 using Microsoft.Extensions.Options;
 

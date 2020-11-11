@@ -9,8 +9,8 @@ Scenario: Vehicle doesn't exists
 	When a POST call is made to add new vehicle
 	| Name   | Brand	  | Category | Doors | Passengers | Transmission | Consume | Emission |
 	| Opala  | Chevrolet  | STANDARD | 2     | 4          | MANUAL       | 23      | 16       |
-	Then the API status result is 200
-	And the API POST response has the following result
+	Then the API Post status result is 200
+	And the API Post response has the following result
 	| Name   | Brand	  | Category | Doors | Passengers | Transmission | Consume | Emission |
 	| Opala  | Chevrolet  | STANDARD | 2     | 4          | MANUAL       | 23      | 16       |
 	And the vehicle is in the database
@@ -23,7 +23,7 @@ Scenario: Vehicle sent with wrong category
 	When a POST call is made to add new vehicle
 	| Name		 | Brand	  | Category | Doors | Passengers | Transmission    | Consume | Emission |
 	| Diplomata  | Chevrolet  | NA       | 4     | 5          | AUTOMATIC       | 23      | 16       |
-	Then the API status result is 400
+	Then the API Post status result is 400
 	And The API error response has the following result
 	| StatusCode | Title                              | Detail						 |
 	| 400        | API Error. Please see the details. | Category NA doest not exists |

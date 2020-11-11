@@ -107,15 +107,22 @@ namespace Contoso.Registration.FunctionalTest.Steps
         /// Then the API status result is.
         /// </summary>
         /// <param name="statusCode">Status code.</param>
-        [Then("the API status result is (.*)")]
-        public void ThenTheAPIStatusResultIs(int statusCode) => Assert.AreEqual(statusCode, (int)this.responsePostMessage.StatusCode);
+        [Then("the API Post status result is (.*)")]
+        public void ThenTheAPIPostStatusResultIs(int statusCode) => Assert.AreEqual(statusCode, (int)this.responsePostMessage.StatusCode);
 
         /// <summary>
-        /// Then the API POST response content is.
+        /// Then the API Get status result is.
+        /// </summary>
+        /// <param name="statusCode">Status code.</param>
+        [Then("the API Get status result is (.*)")]
+        public void ThenTheAPIGetStatusResultIs(int statusCode) => Assert.AreEqual(statusCode, (int)this.responseGetMessage.StatusCode);
+
+        /// <summary>
+        /// Then the API Post response content is.
         /// </summary>
         /// <param name="table">Content.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        [Then("the API POST response has the following result")]
+        [Then("the API Post response has the following result")]
         public async Task TheAPIPOSTResponseHasTheFollowingResult(Table table)
         {
             if (this.responsePostMessage.IsSuccessStatusCode)

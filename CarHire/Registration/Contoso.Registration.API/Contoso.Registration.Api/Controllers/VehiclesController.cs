@@ -2,11 +2,14 @@
 // Copyright (c) CaioCesarCalisto. All rights reserved.
 // </copyright>
 
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Contoso.Registration.Application.Commands;
 using Contoso.Registration.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Contoso.Registration.Api.Controllers
 {
@@ -38,7 +41,16 @@ namespace Contoso.Registration.Api.Controllers
         /// <returns>Vehicles.</returns>
         [HttpGet]
         [Route("query")]
-        public IActionResult GetVehicles([FromQuery] Application.Model.Vehicle vehicles) => this.Ok(this.vehiclesQueries.Find(vehicles));
+        public IActionResult GetVehicles([FromQuery] Application.Model.Vehicle vehicles)
+        {
+            IEnumerable<Application.Model.Vehicle> result = this.vehiclesQueries.Find(vehicles);
+            if (result.Count() == 0)
+            {
+                return this.NotFound();
+            }
+
+            return this.Ok(result);
+        }
 
         /// <summary>
         /// Create new vehicle.
