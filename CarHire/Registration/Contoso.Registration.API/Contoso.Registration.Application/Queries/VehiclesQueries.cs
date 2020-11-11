@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Security.Cryptography;
 using AutoMapper;
 using Contoso.Registration.Infrastructure.Database;
-using Microsoft.Azure.Cosmos.Linq;
 using Microsoft.Azure.Cosmos.Table;
 
 namespace Contoso.Registration.Application.Queries

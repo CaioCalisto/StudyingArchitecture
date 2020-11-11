@@ -2,7 +2,6 @@
 // Copyright (c) CaioCesarCalisto. All rights reserved.
 // </copyright>
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -13,7 +12,6 @@ using Contoso.Registration.Domain.Common;
 using Contoso.Registration.Domain.Ports;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Newtonsoft.Json.Linq;
 
 namespace Contoso.Registration.Application.Commands
 {
@@ -26,9 +24,10 @@ namespace Contoso.Registration.Application.Commands
         private IMapper mapper;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AddVehicleCommandHandlerUnitTest"/> class.
+        /// Setup.
         /// </summary>
-        public AddVehicleCommandHandlerUnitTest()
+        [TestInitialize]
+        public void Setup()
         {
             this.mapper = new MapperConfiguration(cfg => cfg.AddProfile<MapProfile>()).CreateMapper();
         }

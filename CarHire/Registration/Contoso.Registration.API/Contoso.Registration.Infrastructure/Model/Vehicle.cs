@@ -19,43 +19,43 @@ namespace Contoso.Registration.Infrastructure.Model
         }
 
         /// <summary>
-        /// Gets Name.
+        /// Gets or Sets Name.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; protected set; }
 
         /// <summary>
-        /// Gets Brand.
+        /// Gets or Sets Brand.
         /// </summary>
-        public string Brand { get; private set; }
+        public string Brand { get; protected set; }
 
         /// <summary>
-        /// Gets Category.
+        /// Gets or Sets Category.
         /// </summary>
-        public string Category { get; private set; }
+        public string Category { get; protected set; }
 
         /// <summary>
-        /// Gets How many doors.
+        /// Gets or Sets How many doors.
         /// </summary>
-        public int Doors { get; private set; }
+        public int Doors { get; protected set; }
 
         /// <summary>
-        /// Gets How many passengers.
+        /// Gets or Sets How many passengers.
         /// </summary>
-        public int Passengers { get; private set; }
+        public int Passengers { get; protected set; }
 
         /// <summary>
-        /// Gets Gear transmission.
+        /// Gets or Sets Gear transmission.
         /// </summary>
-        public string Transmission { get; private set; }
+        public string Transmission { get; protected set; }
 
         /// <summary>
-        /// Gets Miles/Galon consume.
+        /// Gets or Sets Miles/Galon consume.
         /// </summary>
-        public int Consume { get; private set; }
+        public int Consume { get; protected set; }
 
         /// <summary>
-        /// Gets g/km CO2.
+        /// Gets or Sets g/km CO2.
         /// </summary>
-        public int Emission { get; private set; }
+        public int Emission { get; protected set; }
     }
 }
