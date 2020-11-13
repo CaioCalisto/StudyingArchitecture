@@ -1,4 +1,4 @@
-﻿// <copyright file="IVehicleRepositoy.cs" company="CaioCesarCalisto">
+﻿// <copyright file="IVehicleRepository.cs" company="CaioCesarCalisto">
 // Copyright (c) CaioCesarCalisto. All rights reserved.
 // </copyright>
 

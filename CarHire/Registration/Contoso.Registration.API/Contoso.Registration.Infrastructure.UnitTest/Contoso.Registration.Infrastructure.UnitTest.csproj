@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+		<RootNamespace>Contoso.Registration.Infrastructure</RootNamespace>
+		<LangVersion>8.0</LangVersion>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<DocumentationFile>bin/$(Configuration)/netcoreapp3.1/Contoso.Registration.Infrastructure.UnitTest.xml</DocumentationFile>
+	</PropertyGroup>
+	
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+        <PackageReference Include="MSTest.TestAdapter" Version="2.1.0" />
+        <PackageReference Include="MSTest.TestFramework" Version="2.1.0" />
+        <PackageReference Include="coverlet.collector" Version="1.2.0" />
+	    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+    </ItemGroup>
+
+	<ItemGroup>
+		<AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
+	</ItemGroup>
+	
+    <ItemGroup>
+        <ProjectReference Include="..\Contoso.Registration.Domain\Contoso.Registration.Domain.csproj" />
+        <ProjectReference Include="..\Contoso.Registration.Infrastructure\Contoso.Registration.Infrastructure.csproj" />
+    </ItemGroup>
+
+</Project>
