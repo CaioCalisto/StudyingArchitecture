@@ -45,11 +45,6 @@ namespace Contoso.Registration.Infrastructure.Database
         {
             TableEntityAdapter<T> storageEntity = new TableEntityAdapter<T>(entity, partitionKey, rowKey);
             TableResult result = await this.table.ExecuteAsync(TableOperation.InsertOrMerge(storageEntity));
-            if (result.HttpStatusCode != 204)
-            {
-                return default;
-            }
-
             return entity;
         }
     }
