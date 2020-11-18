@@ -93,7 +93,6 @@ namespace Contoso.Registration.Api
             app.UseSwaggerUI(c =>
             {
                 c.OAuthClientId(this.Configuration["AzureAD:ClientId"]);
-                c.OAuthClientSecret(this.Configuration["Swagger:ClientSecret"]);
                 c.OAuthRealm(this.Configuration["AzureAD:ClientId"]);
                 c.OAuthAppName("Registration API V1");
                 c.OAuthScopeSeparator(" ");
