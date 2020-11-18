@@ -3,6 +3,8 @@
 // </copyright>
 
 using Contoso.Registration.Api;
+using Contoso.Registration.FunctionalTest.Extensions;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 
 namespace Contoso.Registration.FunctionalTest.Services
@@ -19,6 +21,23 @@ namespace Contoso.Registration.FunctionalTest.Services
         public ApiTestStartup(IConfiguration env)
             : base(env)
         {
+        }
+
+        /// <summary>
+        /// Configure Authentication for test.
+        /// </summary>
+        /// <param name="app">ApplicationBuilder.</param>
+        protected override void ConfigureAuth(IApplicationBuilder app)
+        {
+            if (this.Configuration["LocalTest"] == bool.TrueString.ToLowerInvariant())
+            {
+                app.UseMiddleware<AutoAuthorizeMiddleware>();
+                app.UseAuthorization();
+            }
+            else
+            {
+                base.ConfigureAuth(app);
+            }
         }
     }
 }

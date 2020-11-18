@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 using Contoso.Registration.Application.Commands;
 using Contoso.Registration.Application.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Contoso.Registration.Api.Controllers
 {
@@ -18,6 +18,7 @@ namespace Contoso.Registration.Api.Controllers
     /// </summary>
     [ApiController]
     [Route("api/v1/[controller]")]
+    [Authorize]
     public class VehiclesController : ControllerBase
     {
         private readonly IVehiclesQueries vehiclesQueries;
