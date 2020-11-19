@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using AutoMapper;
+using Contoso.Registration.Api.Authorization;
 using Contoso.Registration.Api.Extensions;
 using Contoso.Registration.Application.Queries;
 using Contoso.Registration.Domain.Ports;
@@ -51,20 +52,28 @@ namespace Contoso.Registration.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<TableStorageConfig>(this.Configuration.GetSection(nameof(TableStorageConfig)));
-            services.AddControllers();
-            services.AddMvc().AddApplicationPart(typeof(Startup).Assembly);
-            services.AddControllers(options =>
-            {
-                options.Filters.Add(typeof(ExceptionFilter));
-            });
-
             this.AddAutoMapper(services);
 
             services.AddMediatR(AppDomain.CurrentDomain.Load("Contoso.Registration.Application"));
             services.AddMediatR(AppDomain.CurrentDomain.Load("Contoso.Registration.Infrastructure"));
             this.AddSwagger(services);
             this.AddAuthentication(services);
+            this.AddAuthorization(services);
             this.AddDependencyInjection(services);
+
+            services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.Filters.Add(typeof(ExceptionFilter));
+            });
+            services.AddMvc(config =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .Build();
+                config.Filters.Add(new AuthorizeFilter(policy));
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+            .AddApplicationPart(typeof(Startup).Assembly);
         }
 
         /// <summary>
@@ -136,14 +145,14 @@ namespace Contoso.Registration.Api
         {
             services.AddAuthentication(AzureADDefaults.JwtBearerAuthenticationScheme)
                 .AddAzureADBearer(options => this.Configuration.Bind("AzureAd", options));
+        }
 
-            services.AddMvc(config =>
+        private void AddAuthorization(IServiceCollection services)
+        {
+            services.AddAuthorization(options =>
             {
-                var policy = new AuthorizationPolicyBuilder()
-                .RequireAuthenticatedUser()
-                .Build();
-                config.Filters.Add(new AuthorizeFilter(policy));
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+                options.AddPolicy(Policies.CanEdit, policy => policy.Requirements.Add(new CanEditRequirement()));
+            });
         }
 
         private void AddSwagger(IServiceCollection services)
@@ -171,7 +180,7 @@ namespace Contoso.Registration.Api
                             Type = SecuritySchemeType.OAuth2,
                             In = ParameterLocation.Header,
                         },
-                        new List<string>() { "user_impersonation", "User.Read" }
+                        new List<string>() { "user_impersonation" }
                     },
                 });
                 c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme()
@@ -186,7 +195,6 @@ namespace Contoso.Registration.Api
                             Scopes = new Dictionary<string, string>
                             {
                                 { "user_impersonation", "Access API" },
-                                { "User.Read", "Microsoft Graph" },
                             },
                         },
                     },

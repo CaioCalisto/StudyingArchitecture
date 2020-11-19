@@ -5,6 +5,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contoso.Registration.Api.Authorization;
 using Contoso.Registration.Application.Commands;
 using Contoso.Registration.Application.Queries;
 using MediatR;
@@ -59,6 +60,7 @@ namespace Contoso.Registration.Api.Controllers
         /// <param name="addVehicleCommand">Command.</param>
         /// <returns>Vehicle created.</returns>
         [HttpPost]
+        [Authorize(Policy = Policies.CanEdit)]
         public async Task<IActionResult> Create([FromBody] AddVehicleCommand addVehicleCommand) => this.Ok(await this.mediator.Send(addVehicleCommand));
     }
 }
