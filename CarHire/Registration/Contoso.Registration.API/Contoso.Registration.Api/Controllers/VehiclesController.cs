@@ -39,7 +39,7 @@ namespace Contoso.Registration.Api.Controllers
         /// <summary>
         /// Get vehicles by paramaters.
         /// </summary>
-        /// <param name="vehicles">Parameters</param>
+        /// <param name="vehicles">Parameters.</param>
         /// <returns>Vehicles.</returns>
         [HttpGet]
         [Route("query")]

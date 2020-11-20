@@ -27,9 +27,8 @@ namespace Contoso.Registration.FunctionalTest.Hooks
         {
             IConfiguration config = GetConfigurations();
             SetTableStorageConfig(config);
-            // Clean database
-            //RunProcess("StartServices.cmd");
-            //RunProcess("StartServices.cmd");
+
+            // Todo: Clean database / run storage emulator locally
         }
 
         /// <summary>
@@ -38,7 +37,7 @@ namespace Contoso.Registration.FunctionalTest.Hooks
         [AfterTestRun]
         public static void AfterTests()
         {
-            //RunProcess("StopStorageEmulator.cmd");
+            // Todo: RunProcess("StopStorageEmulator.cmd");
         }
 
         private static void RunProcess(string cmdFile)

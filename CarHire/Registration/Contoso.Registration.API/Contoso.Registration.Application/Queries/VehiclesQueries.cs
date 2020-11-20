@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿// <copyright file="VehiclesQueries.cs" company="CaioCesarCalisto">
+// Copyright (c) CaioCesarCalisto. All rights reserved.
+// </copyright>
+
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Contoso.Registration.Infrastructure.Database;

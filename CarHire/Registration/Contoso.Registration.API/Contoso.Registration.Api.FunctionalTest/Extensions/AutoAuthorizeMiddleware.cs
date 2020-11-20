@@ -1,4 +1,8 @@
-﻿using System.Security.Claims;
+﻿// <copyright file="AutoAuthorizeMiddleware.cs" company="CaioCesarCalisto">
+// Copyright (c) CaioCesarCalisto. All rights reserved.
+// </copyright>
+
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Contoso.Registration.Api.Authorization;
 using Microsoft.AspNetCore.Http;
