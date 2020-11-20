@@ -2,11 +2,11 @@
 // Copyright (c) CaioCesarCalisto. All rights reserved.
 // </copyright>
 
+using System;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
-using System;
 
 namespace Contoso.Registration.Api.Extensions
 {

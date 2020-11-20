@@ -29,7 +29,7 @@ namespace Contoso.Registration.Api.Extensions
             {
                 new OpenApiSecurityRequirement
                 {
-                    [oAuthScheme] = new[] { "basketapi" },
+                    [oAuthScheme] = new[] { "oauth2" },
                 },
             };
         }
