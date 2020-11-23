@@ -4,6 +4,7 @@
 
 using System;
 using Contoso.Registration.Domain.Common;
+using Contoso.Registration.Domain.DomainEvents;
 
 namespace Contoso.Registration.Domain.Aggregate
 {
@@ -111,7 +112,10 @@ namespace Contoso.Registration.Domain.Aggregate
                 throw new ArgumentException($"Transmission {transmission} doest not exists");
             }
 
-            return new Vehicle(name, brand, vehicleCategory, doors, passenger, vehicleTransmission, consume, emission);
+            Vehicle newVehicle = new Vehicle(name, brand, vehicleCategory, doors, passenger, vehicleTransmission, consume, emission);
+            newVehicle.AddDomainEvent(new VehicleCreatedDomainEvent(brand, name));
+
+            return newVehicle;
         }
     }
 }

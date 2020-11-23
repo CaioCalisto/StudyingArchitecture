@@ -3,6 +3,10 @@
 // </copyright>
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Contoso.Registration.Domain.DomainEvents;
+using MediatR;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Contoso.Registration.Domain.Aggregate
@@ -19,15 +23,7 @@ namespace Contoso.Registration.Domain.Aggregate
         [TestMethod]
         public void Create_NewVehicle_ReturnObject()
         {
-            Vehicle vehicle = Vehicle.Create(
-                "Fiesta",
-                "Ford",
-                "Standard",
-                4,
-                5,
-                "Manual",
-                45,
-                23);
+            Vehicle vehicle = this.GetValidVehicle();
 
             Assert.AreEqual("Fiesta", vehicle.Name);
             Assert.AreEqual("Ford", vehicle.Brand);
@@ -92,5 +88,29 @@ namespace Contoso.Registration.Domain.Aggregate
                 Assert.AreEqual($"Transmission {transmission} doest not exists", ex.Message);
             }
         }
+
+        /// <summary>
+        /// Create new Vehicle.
+        /// </summary>
+        [TestMethod]
+        public void Create_NewVehicle_DomainEventCreated()
+        {
+            Vehicle vehicle = this.GetValidVehicle();
+            VehicleCreatedDomainEvent domainEvent = (VehicleCreatedDomainEvent)vehicle.DomainEvents.FirstOrDefault();
+
+            Assert.IsNotNull(domainEvent);
+            Assert.AreEqual("Ford", domainEvent.Brand);
+            Assert.AreEqual("Fiesta", domainEvent.Name);
+        }
+
+        private Vehicle GetValidVehicle() => Vehicle.Create(
+                "Fiesta",
+                "Ford",
+                "Standard",
+                4,
+                5,
+                "Manual",
+                45,
+                23);
     }
 }
