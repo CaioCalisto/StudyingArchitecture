@@ -1,3 +1,3 @@
 # Architecture
 
-This is a case just to study microservice / microfrontend architecture.
+This project is just to study microservice / microfrontend architecture / azure storage emulator / tdd / specflow
