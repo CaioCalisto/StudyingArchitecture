@@ -1,0 +1,24 @@
+﻿@page "/vehicles"
+
+<h1>Vehicles</h1>
+<br />
+<button id="getMoreBtn" @onclick="GetMoreVehicles">Get more 10</button>
+<br />
+<ul>
+    @foreach(Vehicle vehicle in vehicles)
+    {
+        <li>@vehicle.Brand @vehicle.Name - @vehicle.Category</li>
+    }
+</ul>
+
+@code {
+    private IEnumerable<Vehicle> vehicles = new List<Vehicle>();
+
+    [Inject]
+    private IRegistrationAPI registrationApi { get; set; }
+
+    private async Task GetMoreVehicles(MouseEventArgs args)
+    {
+        this.vehicles = await this.registrationApi.GetVehiclesAsync();
+    }
+}
