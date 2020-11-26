@@ -6,12 +6,16 @@ using System;
 using System.Net.Http.Headers;
 using Contoso.Registration.Services.Api;
 using Contoso.Registration.UI.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Identity.Web;
+using Microsoft.Identity.Web.UI;
 
 namespace Contoso.Registration.UI
 {
@@ -41,9 +45,6 @@ namespace Contoso.Registration.UI
         /// <param name="services">Services.</param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
-            services.AddServerSideBlazor();
-
             services.AddHttpClient<IRegistrationAPI, RegistrationAPI>(client =>
             {
                 client.BaseAddress = new Uri(this.Configuration["RegistrationApi:BaseAddress"]);
@@ -52,6 +53,10 @@ namespace Contoso.Registration.UI
 
             services.AddTransient<AuthorizationDelegatingHandler>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            this.AddAuthentication(services);
+
+            services.AddRazorPages();
+            services.AddServerSideBlazor();
         }
 
         /// <summary>
@@ -75,14 +80,29 @@ namespace Contoso.Registration.UI
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
+        }
+
+        private void AddAuthentication(IServiceCollection services)
+        {
+            services.AddMicrosoftIdentityWebAppAuthentication(this.Configuration);
+            services.AddControllersWithViews(options =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                                 .RequireAuthenticatedUser()
+                                 .Build();
+                options.Filters.Add(new AuthorizeFilter(policy));
+            }).AddMicrosoftIdentityUI();
         }
     }
 }

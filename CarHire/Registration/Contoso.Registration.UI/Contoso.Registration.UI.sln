@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contoso.Registration.UI", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contoso.Registration.UI.UnitTest", "Contoso.Registration.UI.UnitTest\Contoso.Registration.UI.UnitTest.csproj", "{BE9A801D-B0F7-4BD3-BFB0-6A4E264E396B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contoso.Registration.Abstractions", "Contoso.Registration.Abstractions\Contoso.Registration.Abstractions.csproj", "{E3A103EF-6BD6-47EE-B605-C345CDE79AFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contoso.Registration.Abstractions", "Contoso.Registration.Abstractions\Contoso.Registration.Abstractions.csproj", "{E3A103EF-6BD6-47EE-B605-C345CDE79AFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contoso.Registration.Services", "Contoso.Registration.Services\Contoso.Registration.Services.csproj", "{FFD641B3-CC78-431F-B55B-9E17E2AB145C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contoso.Registration.Services", "Contoso.Registration.Services\Contoso.Registration.Services.csproj", "{FFD641B3-CC78-431F-B55B-9E17E2AB145C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
