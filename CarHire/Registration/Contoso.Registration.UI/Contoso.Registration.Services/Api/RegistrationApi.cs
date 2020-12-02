@@ -15,7 +15,7 @@ namespace Contoso.Registration.Services.Api
     /// </summary>
     public class RegistrationAPI : IRegistrationAPI
     {
-        private const string GetVehicleUri = "/api/vehicles";
+        private const string GetVehicleUri = "/api/v1/vehicles/query";
         private readonly HttpClient httpClient;
 
         /// <summary>
@@ -33,8 +33,11 @@ namespace Contoso.Registration.Services.Api
             List<Vehicle> vehicles = new List<Vehicle>();
             using (HttpResponseMessage response = await this.httpClient.GetAsync(GetVehicleUri))
             {
-                string jsonResponse = await response.Content.ReadAsStringAsync();
-                vehicles = JsonConvert.DeserializeObject<List<Vehicle>>(jsonResponse);
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    string jsonResponse = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<List<Vehicle>>(jsonResponse);
+                }
             }
 
             return vehicles;

@@ -5,9 +5,12 @@
 <button id="getMoreBtn" @onclick="GetMoreVehicles">Get more 10</button>
 <br />
 <ul>
-    @foreach(Vehicle vehicle in vehicles)
+    @if (vehicles.Any())
     {
-        <li>@vehicle.Brand @vehicle.Name - @vehicle.Category</li>
+        @foreach (Vehicle vehicle in vehicles)
+        {
+            <li>@vehicle.Brand @vehicle.Name - @vehicle.Category</li>
+        }
     }
 </ul>
 

@@ -13,7 +13,7 @@ using Contoso.Registration.Infrastructure.Configurations;
 using Contoso.Registration.Infrastructure.Database;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.AzureAD.UI;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -59,9 +59,10 @@ namespace Contoso.Registration.Api
             this.AddSwagger(services);
             this.AddAuthentication(services);
             this.AddAuthorization(services);
+            services.AddControllers();
+
             this.AddDependencyInjection(services);
 
-            services.AddControllers();
             services.AddControllers(options =>
             {
                 options.Filters.Add(typeof(ExceptionFilter));
@@ -143,8 +144,13 @@ namespace Contoso.Registration.Api
 
         private void AddAuthentication(IServiceCollection services)
         {
-            services.AddAuthentication(AzureADDefaults.JwtBearerAuthenticationScheme)
-                .AddAzureADBearer(options => this.Configuration.Bind("AzureAd", options));
+            services.AddAuthentication(Microsoft.AspNetCore.Authentication.AzureAD.UI.AzureADDefaults.JwtBearerAuthenticationScheme) // AzureADDefaults.JwtBearerAuthenticationScheme or JwtBearerDefaults.AuthenticationScheme
+                .AddAzureADBearer(options => this.Configuration.Bind("AzureAd", options))
+                .AddJwtBearer(opt =>
+                {
+                    opt.Audience = this.Configuration["AzureAd:ApiIdUri"];
+                    opt.Authority = $"{this.Configuration["AzureAd:Instance"]}{this.Configuration["AzureAd:TenantId"]}";
+                });
         }
 
         private void AddAuthorization(IServiceCollection services)
@@ -152,6 +158,11 @@ namespace Contoso.Registration.Api
             services.AddAuthorization(options =>
             {
                 options.AddPolicy(Policies.CanEdit, policy => policy.Requirements.Add(new CanEditRequirement()));
+                AuthorizationPolicyBuilder schemes = new AuthorizationPolicyBuilder();
+                schemes.AddAuthenticationSchemes(
+                    Microsoft.AspNetCore.Authentication.AzureAD.UI.AzureADDefaults.JwtBearerAuthenticationScheme,
+                    JwtBearerDefaults.AuthenticationScheme);
+                options.AddPolicy("Schemes", schemes.RequireAuthenticatedUser().Build());
             });
         }
 

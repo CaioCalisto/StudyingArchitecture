@@ -20,7 +20,7 @@ namespace Contoso.Registration.Api.Authorization
         /// <returns>Result.</returns>
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, CanEditRequirement requirement)
         {
-            if (context.User.IsInRole(Roles.Manager))
+            if (context.User.IsInRole(Roles.Manager)) // or is UI app
             {
                 context.Succeed(requirement);
             }

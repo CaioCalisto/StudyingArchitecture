@@ -11,23 +11,15 @@ using Microsoft.AspNetCore.Http;
 
 namespace Contoso.Registration.UI.Authorization
 {
-    /// <summary>
-    /// This handler get token before http calls.
-    /// </summary>
-    public class AuthorizationDelegatingHandler : DelegatingHandler
+    internal class AuthorizationDelegatingHandler : DelegatingHandler
     {
         private readonly IHttpContextAccessor httpContextAccesor;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AuthorizationDelegatingHandler"/> class.
-        /// </summary>
-        /// <param name="httpContextAccesor">HttpContext.</param>
         public AuthorizationDelegatingHandler(IHttpContextAccessor httpContextAccesor)
         {
             this.httpContextAccesor = httpContextAccesor;
         }
 
-        /// <inheritdoc/>
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             var authorizationHeader = this.httpContextAccesor.HttpContext
