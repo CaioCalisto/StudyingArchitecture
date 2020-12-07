@@ -25,7 +25,9 @@
 				<Exclude>
 					<Function>.*Program.*</Function>
 					<Function>.*Startup.*</Function>
+					<Function>.*Configurations.*</Function>
 					<Function>Contoso.Registration.Api.Extensions.*</Function>
+					<Function>.*Contoso.Registration.Infrastructure.Messaging.*</Function>
 				</Exclude>
 			</Functions>
 

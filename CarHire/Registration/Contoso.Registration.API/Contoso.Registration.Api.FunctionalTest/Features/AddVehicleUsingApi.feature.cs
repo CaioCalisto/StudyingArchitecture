@@ -191,6 +191,13 @@ this.ScenarioInitialize(scenarioInfo);
 #line 16
  testRunner.And("the vehicle is in the database", ((string)(null)), table3, "And ");
 #line hidden
+                TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Event"});
+                table4.AddRow(new string[] {
+                            "VehicleCreatedIntegrationEvent"});
+#line 19
+ testRunner.And("Then The Following Message Is Sent", ((string)(null)), table4, "And ");
+#line hidden
             }
             this.ScenarioCleanup();
         }
@@ -205,7 +212,7 @@ this.ScenarioInitialize(scenarioInfo);
                     "RunServicesLocally"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Vehicle sent with wrong category", null, tagsOfScenario, argumentsOfScenario);
-#line 21
+#line 24
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -225,10 +232,10 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 22
+#line 25
  testRunner.Given("the API is running", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-                TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
                             "Brand",
                             "Category",
@@ -237,7 +244,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "Transmission",
                             "Consume",
                             "Emission"});
-                table4.AddRow(new string[] {
+                table5.AddRow(new string[] {
                             "Diplomata",
                             "Chevrolet",
                             "NA",
@@ -246,22 +253,22 @@ this.ScenarioInitialize(scenarioInfo);
                             "AUTOMATIC",
                             "23",
                             "16"});
-#line 23
- testRunner.When("a POST call is made to add new vehicle", ((string)(null)), table4, "When ");
-#line hidden
 #line 26
+ testRunner.When("a POST call is made to add new vehicle", ((string)(null)), table5, "When ");
+#line hidden
+#line 29
  testRunner.Then("the API Post status result is 400", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-                TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                             "StatusCode",
                             "Title",
                             "Detail"});
-                table5.AddRow(new string[] {
+                table6.AddRow(new string[] {
                             "400",
                             "API Error. Please see the details.",
                             "Category NA doest not exists"});
-#line 27
- testRunner.And("The API error response has the following result", ((string)(null)), table5, "And ");
+#line 30
+ testRunner.And("The API error response has the following result", ((string)(null)), table6, "And ");
 #line hidden
             }
             this.ScenarioCleanup();

@@ -125,30 +125,6 @@ this.ScenarioInitialize(scenarioInfo);
 #line 8
  testRunner.Given("the API is running", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-                TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
-                            "Name",
-                            "Brand",
-                            "Category",
-                            "Doors",
-                            "Passengers",
-                            "Transmission",
-                            "Consume",
-                            "Emission"});
-                table6.AddRow(new string[] {
-                            "F50",
-                            "Ferrari",
-                            "SPORT",
-                            "2",
-                            "2",
-                            "MANUAL",
-                            "23",
-                            "16"});
-#line 9
- testRunner.When("a POST call is made to add new vehicle", ((string)(null)), table6, "When ");
-#line hidden
-#line 12
- testRunner.Then("the API Post status result is 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
                 TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
                             "Brand",
@@ -167,8 +143,11 @@ this.ScenarioInitialize(scenarioInfo);
                             "MANUAL",
                             "23",
                             "16"});
-#line 13
- testRunner.And("the API Post response has the following result", ((string)(null)), table7, "And ");
+#line 9
+ testRunner.When("a POST call is made to add new vehicle", ((string)(null)), table7, "When ");
+#line hidden
+#line 12
+ testRunner.Then("the API Post status result is 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
                 TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
@@ -188,11 +167,8 @@ this.ScenarioInitialize(scenarioInfo);
                             "MANUAL",
                             "23",
                             "16"});
-#line 16
- testRunner.When("a GET call is made with the following parameters", ((string)(null)), table8, "When ");
-#line hidden
-#line 19
- testRunner.Then("the API Get status result is 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 13
+ testRunner.And("the API Post response has the following result", ((string)(null)), table8, "And ");
 #line hidden
                 TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
@@ -212,8 +188,32 @@ this.ScenarioInitialize(scenarioInfo);
                             "MANUAL",
                             "23",
                             "16"});
+#line 16
+ testRunner.When("a GET call is made with the following parameters", ((string)(null)), table9, "When ");
+#line hidden
+#line 19
+ testRunner.Then("the API Get status result is 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+                TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Name",
+                            "Brand",
+                            "Category",
+                            "Doors",
+                            "Passengers",
+                            "Transmission",
+                            "Consume",
+                            "Emission"});
+                table10.AddRow(new string[] {
+                            "F50",
+                            "Ferrari",
+                            "SPORT",
+                            "2",
+                            "2",
+                            "MANUAL",
+                            "23",
+                            "16"});
 #line 20
- testRunner.And("the API GET response has the following result", ((string)(null)), table9, "And ");
+ testRunner.And("the API GET response has the following result", ((string)(null)), table10, "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -250,14 +250,14 @@ this.ScenarioInitialize(scenarioInfo);
 #line 25
  testRunner.Given("the API is running", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-                TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
                             "Brand"});
-                table10.AddRow(new string[] {
+                table11.AddRow(new string[] {
                             "Uno",
                             "Fiat"});
 #line 26
- testRunner.When("a GET call is made with the following parameters", ((string)(null)), table10, "When ");
+ testRunner.When("a GET call is made with the following parameters", ((string)(null)), table11, "When ");
 #line hidden
 #line 29
  testRunner.Then("the API Get status result is 404", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");

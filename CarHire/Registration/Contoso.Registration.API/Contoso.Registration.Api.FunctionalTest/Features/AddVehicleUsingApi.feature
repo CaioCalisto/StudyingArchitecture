@@ -16,6 +16,9 @@ Scenario: Vehicle doesn't exists
 	And the vehicle is in the database
 	| Name   | Brand	  | Category | Doors | Passengers | Transmission | Consume | Emission |
 	| Opala  | Chevrolet  | STANDARD | 2     | 4          | MANUAL       | 23      | 16       |
+	And Then The Following Message Is Sent
+	| Event							 |
+	| VehicleCreatedIntegrationEvent |
 
 @RunServicesLocally
 Scenario: Vehicle sent with wrong category

@@ -11,6 +11,7 @@ using Contoso.Registration.Application.Queries;
 using Contoso.Registration.Domain.Ports;
 using Contoso.Registration.Infrastructure.Configurations;
 using Contoso.Registration.Infrastructure.Database;
+using Contoso.Registration.Infrastructure.Messaging;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -51,7 +52,7 @@ namespace Contoso.Registration.Api
         /// <param name="services">Services.</param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<TableStorageConfig>(this.Configuration.GetSection(nameof(TableStorageConfig)));
+            this.ConfigureOptions(services);
             this.AddAutoMapper(services);
 
             services.AddMediatR(AppDomain.CurrentDomain.Load("Contoso.Registration.Application"));
@@ -114,6 +115,18 @@ namespace Contoso.Registration.Api
         }
 
         /// <summary>
+        /// Add dependencies.
+        /// </summary>
+        /// <param name="services">Services.</param>
+        protected virtual void AddDependencyInjection(IServiceCollection services)
+        {
+            services.AddScoped<IVehicleRepository, VehicleContext>();
+            services.AddScoped<IDatabaseQueries, VehicleContext>();
+            services.AddScoped<IVehiclesQueries, VehiclesQueries>();
+            services.AddScoped<IMessageBus, AzureBus>();
+        }
+
+        /// <summary>
         /// Configure authentication pipeline.
         /// </summary>
         /// <param name="app">ApplicationBuilder.</param>
@@ -121,6 +134,12 @@ namespace Contoso.Registration.Api
         {
             app.UseAuthentication();
             app.UseAuthorization();
+        }
+
+        private void ConfigureOptions(IServiceCollection services)
+        {
+            services.Configure<AzureMessaging>(this.Configuration.GetSection(nameof(AzureMessaging)));
+            services.Configure<TableStorage>(this.Configuration.GetSection(nameof(TableStorage)));
         }
 
         private void AddAutoMapper(IServiceCollection services)
@@ -133,13 +152,6 @@ namespace Contoso.Registration.Api
 
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
-        }
-
-        private void AddDependencyInjection(IServiceCollection services)
-        {
-            services.AddScoped<IVehicleRepository, VehicleContext>();
-            services.AddScoped<IDatabaseQueries, VehicleContext>();
-            services.AddScoped<IVehiclesQueries, VehiclesQueries>();
         }
 
         private void AddAuthentication(IServiceCollection services)

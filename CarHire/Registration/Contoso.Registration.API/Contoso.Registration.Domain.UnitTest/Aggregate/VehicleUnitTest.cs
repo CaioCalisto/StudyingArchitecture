@@ -103,6 +103,19 @@ namespace Contoso.Registration.Domain.Aggregate
             Assert.AreEqual("Fiesta", domainEvent.Name);
         }
 
+        /// <summary>
+        /// Delete Event.
+        /// </summary>
+        [TestMethod]
+        public void DeleteEvent_ContainsOneEvent_ListShouldContainsZeroEvents()
+        {
+            Vehicle vehicle = this.GetValidVehicle();
+            INotification domainEvent = vehicle.DomainEvents.FirstOrDefault();
+            vehicle.RemoveDomainEvent(domainEvent);
+
+            Assert.AreEqual(0, vehicle.DomainEvents.Count());
+        }
+
         private Vehicle GetValidVehicle() => Vehicle.Create(
                 "Fiesta",
                 "Ford",

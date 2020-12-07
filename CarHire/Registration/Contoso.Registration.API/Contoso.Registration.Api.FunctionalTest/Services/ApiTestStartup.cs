@@ -2,10 +2,16 @@
 // Copyright (c) CaioCesarCalisto. All rights reserved.
 // </copyright>
 
+using BoDi;
 using Contoso.Registration.Api;
+using Contoso.Registration.Application.Queries;
+using Contoso.Registration.Domain.Ports;
 using Contoso.Registration.FunctionalTest.Extensions;
+using Contoso.Registration.Infrastructure.Database;
+using Contoso.Registration.Infrastructure.Messaging;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Contoso.Registration.FunctionalTest.Services
 {
@@ -23,10 +29,7 @@ namespace Contoso.Registration.FunctionalTest.Services
         {
         }
 
-        /// <summary>
-        /// Configure Authentication for test.
-        /// </summary>
-        /// <param name="app">ApplicationBuilder.</param>
+        /// <inheritdoc/>
         protected override void ConfigureAuth(IApplicationBuilder app)
         {
             if (this.Configuration["LocalTest"] == bool.TrueString.ToLowerInvariant())
@@ -38,6 +41,15 @@ namespace Contoso.Registration.FunctionalTest.Services
             {
                 base.ConfigureAuth(app);
             }
+        }
+
+        /// <inheritdoc/>
+        protected override void AddDependencyInjection(IServiceCollection services)
+        {
+            services.AddScoped<IVehicleRepository, VehicleContext>();
+            services.AddScoped<IDatabaseQueries, VehicleContext>();
+            services.AddScoped<IVehiclesQueries, VehiclesQueries>();
+            services.AddScoped(m => ExternalServices.MessageBus);
         }
     }
 }

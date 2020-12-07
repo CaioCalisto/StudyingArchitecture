@@ -24,6 +24,18 @@ namespace Contoso.Registration.Domain.Common
         }
 
         /// <summary>
+        /// Remove domain event.
+        /// </summary>
+        /// <param name="domainEvent">Domain event.</param>
+        public void RemoveDomainEvent(INotification domainEvent)
+        {
+            if (this.domainEvents.Contains(domainEvent))
+            {
+                this.domainEvents.Remove(domainEvent);
+            }
+        }
+
+        /// <summary>
         /// Add domain event.
         /// </summary>
         /// <param name="domainEvent">Domain event.</param>

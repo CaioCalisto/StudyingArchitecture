@@ -28,6 +28,7 @@
 					<Function>.*Program.*</Function>
 					<Function>.*Startup.*</Function>
 					<Function>.*Authorization.*</Function>
+					<Function>.*Configurations.*</Function>
 				</Exclude>
 			</Functions>
 

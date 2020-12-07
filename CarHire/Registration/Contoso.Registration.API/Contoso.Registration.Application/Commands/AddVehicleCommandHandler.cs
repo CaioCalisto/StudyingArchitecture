@@ -31,12 +31,7 @@ namespace Contoso.Registration.Application.Commands
             this.mapper = mapper;
         }
 
-        /// <summary>
-        /// Handle.
-        /// </summary>
-        /// <param name="request">Command.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>Vehicle.</returns>
+        /// <inheritdoc/>
         public async Task<IEnumerable<Vehicle>> Handle(AddVehicleCommand request, CancellationToken cancellationToken)
         {
             Domain.Aggregate.Vehicle vehicle = Domain.Aggregate.Vehicle.Create(
@@ -50,6 +45,7 @@ namespace Contoso.Registration.Application.Commands
                 request.Emission);
 
             vehicle = await this.vehicleRepositoy.InsertAsync(vehicle, vehicle.Brand, $"{vehicle.Brand} {vehicle.Name} {vehicle.Category.ToString().ToUpper()}");
+            await this.vehicleRepositoy.DispatchDomainEvents(vehicle);
             return this.mapper.Map<IEnumerable<Model.Vehicle>>(new List<Domain.Aggregate.Vehicle>() { vehicle });
         }
     }

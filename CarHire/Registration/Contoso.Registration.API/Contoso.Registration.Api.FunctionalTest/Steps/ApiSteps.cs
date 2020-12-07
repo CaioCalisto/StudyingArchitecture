@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using BoDi;
 using Contoso.Registration.FunctionalTest.Model.API;
 using Contoso.Registration.FunctionalTest.Services;
 using FluentAssertions;
@@ -18,29 +19,18 @@ using TechTalk.SpecFlow;
 
 namespace Contoso.Registration.FunctionalTest.Steps
 {
-    /// <summary>
-    /// API steps to test.
-    /// </summary>
     [Binding]
-    public class APISteps
+    internal class APISteps
     {
         private const string VehicleUri = "api/v1/vehicles";
         private HttpResponseMessage responsePostMessage;
         private HttpResponseMessage responseGetMessage;
 
-        /// <summary>
-        /// Given the API is running.
-        /// </summary>
         [Given("the API is running")]
         public void GivenTheAPIIsRunning()
         {
         }
 
-        /// <summary>
-        /// When a POST call is made to add new vehicle.
-        /// </summary>
-        /// <param name="table">Parameters.</param>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         [When("a POST call is made to add new vehicle")]
         public async Task WhenAPostCallIsMadeToAddNewVehicle(Table table)
         {
@@ -70,11 +60,6 @@ namespace Contoso.Registration.FunctionalTest.Steps
             }
         }
 
-        /// <summary>
-        /// A GET call is made.
-        /// </summary>
-        /// <param name="table">Parameters.</param>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         [When("a GET call is made with the following parameters")]
         public async Task WhenAGETCallIsMadeWithTheFollowingParameters(Table table)
         {
@@ -103,25 +88,12 @@ namespace Contoso.Registration.FunctionalTest.Steps
             }
         }
 
-        /// <summary>
-        /// Then the API status result is.
-        /// </summary>
-        /// <param name="statusCode">Status code.</param>
         [Then("the API Post status result is (.*)")]
         public void ThenTheAPIPostStatusResultIs(int statusCode) => Assert.AreEqual(statusCode, (int)this.responsePostMessage.StatusCode);
 
-        /// <summary>
-        /// Then the API Get status result is.
-        /// </summary>
-        /// <param name="statusCode">Status code.</param>
         [Then("the API Get status result is (.*)")]
         public void ThenTheAPIGetStatusResultIs(int statusCode) => Assert.AreEqual(statusCode, (int)this.responseGetMessage.StatusCode);
 
-        /// <summary>
-        /// Then the API Post response content is.
-        /// </summary>
-        /// <param name="table">Content.</param>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         [Then("the API Post response has the following result")]
         public async Task TheAPIPOSTResponseHasTheFollowingResult(Table table)
         {
@@ -132,11 +104,6 @@ namespace Contoso.Registration.FunctionalTest.Steps
             }
         }
 
-        /// <summary>
-        /// Then the API GET response content is.
-        /// </summary>
-        /// <param name="table">Content.</param>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         [Then("the API GET response has the following result")]
         public async Task TheAPIGETResponseHasTheFollowingResult(Table table)
         {
@@ -147,11 +114,6 @@ namespace Contoso.Registration.FunctionalTest.Steps
             }
         }
 
-        /// <summary>
-        /// The API error response has the following result.
-        /// </summary>
-        /// <param name="table">Parameters.</param>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         [Then("The API error response has the following result")]
         public async Task TheAPIErrorResponseHasTheFollowingResult(Table table)
         {

@@ -2,6 +2,8 @@
 // Copyright (c) CaioCesarCalisto. All rights reserved.
 // </copyright>
 
+using System.Threading.Tasks;
+
 namespace Contoso.Registration.Domain.Common
 {
     /// <summary>
@@ -11,5 +13,11 @@ namespace Contoso.Registration.Domain.Common
     public interface IRepository<T>
         where T : IAggregateRoot
     {
+        /// <summary>
+        /// Dispatch domain events.
+        /// </summary>
+        /// <param name="root">Aggregate root.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        Task DispatchDomainEvents(T root);
     }
 }

@@ -4,6 +4,7 @@
 
 using System;
 using System.Threading.Tasks;
+using BoDi;
 using Contoso.Registration.FunctionalTest.Configurations;
 using Contoso.Registration.FunctionalTest.Model.Storage;
 using Microsoft.Azure.Cosmos.Table;
@@ -16,13 +17,10 @@ namespace Contoso.Registration.FunctionalTest.Steps
     /// Database steps.
     /// </summary>
     [Binding]
-    public class DatabaseSteps
+    internal class DatabaseSteps
     {
         private readonly CloudTable table;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DatabaseSteps"/> class.
-        /// </summary>
         public DatabaseSteps()
         {
             CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse(TableStorageConfig.ConnectionString);
@@ -31,11 +29,6 @@ namespace Contoso.Registration.FunctionalTest.Steps
             this.table.CreateIfNotExists();
         }
 
-        /// <summary>
-        /// Then the vehicle is in the database.
-        /// </summary>
-        /// <param name="table">Parameters.</param>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         [Then("the vehicle is in the database")]
         public async Task ThenTheVehicleIsInDatabase(Table table)
         {

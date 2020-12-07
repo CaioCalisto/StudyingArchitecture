@@ -21,6 +21,6 @@ namespace Contoso.Registration.Domain.Ports
         /// <param name="partitionKey">Partition key.</param>
         /// <param name="rowKey">Row key.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        Task<T> InsertAsync<T>(T entity, string partitionKey, string rowKey);
+        Task<Vehicle> InsertAsync(Vehicle entity, string partitionKey, string rowKey);
     }
 }

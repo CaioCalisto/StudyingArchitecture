@@ -7,7 +7,7 @@ namespace Contoso.Registration.Infrastructure.Configurations
     /// <summary>
     /// Table storage configurations.
     /// </summary>
-    public class TableStorageConfig
+    public class TableStorage
     {
         /// <summary>
         /// Gets or Sets ConnectionString.
