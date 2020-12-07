@@ -16,7 +16,7 @@ Scenario: Vehicle doesn't exists
 	And the vehicle is in the database
 	| Name   | Brand	  | Category | Doors | Passengers | Transmission | Consume | Emission |
 	| Opala  | Chevrolet  | STANDARD | 2     | 4          | MANUAL       | 23      | 16       |
-	And Then The Following Message Is Sent
+	And the Following Integration Event Is Sent
 	| Event							 |
 	| VehicleCreatedIntegrationEvent |
 
@@ -30,3 +30,4 @@ Scenario: Vehicle sent with wrong category
 	And The API error response has the following result
 	| StatusCode | Title                              | Detail						 |
 	| 400        | API Error. Please see the details. | Category NA doest not exists |
+	And no Integration Event is sent

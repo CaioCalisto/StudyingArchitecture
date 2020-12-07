@@ -196,7 +196,7 @@ this.ScenarioInitialize(scenarioInfo);
                 table4.AddRow(new string[] {
                             "VehicleCreatedIntegrationEvent"});
 #line 19
- testRunner.And("Then The Following Message Is Sent", ((string)(null)), table4, "And ");
+ testRunner.And("the Following Integration Event Is Sent", ((string)(null)), table4, "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -269,6 +269,9 @@ this.ScenarioInitialize(scenarioInfo);
                             "Category NA doest not exists"});
 #line 30
  testRunner.And("The API error response has the following result", ((string)(null)), table6, "And ");
+#line hidden
+#line 33
+ testRunner.And("no Integration Event is sent", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
