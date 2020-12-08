@@ -24,6 +24,7 @@ namespace Contoso.Registration.FunctionalTest.Hooks
             IConfiguration config = GetConfigurations();
             SetTableStorageConfig(config);
             ExternalServices.MessageBus = new MessageBusStub();
+
             // Todo: Clean database / run storage emulator locally
         }
 

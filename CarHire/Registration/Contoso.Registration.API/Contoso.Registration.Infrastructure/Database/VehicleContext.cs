@@ -50,7 +50,7 @@ namespace Contoso.Registration.Infrastructure.Database
         /// <inheritdoc/>
         public async Task<Domain.Aggregate.Vehicle> InsertAsync(Domain.Aggregate.Vehicle entity, string partitionKey, string rowKey)
         {
-            TableEntityAdapter< Domain.Aggregate.Vehicle> storageEntity = new TableEntityAdapter<Domain.Aggregate.Vehicle>(entity, partitionKey, rowKey);
+            TableEntityAdapter<Domain.Aggregate.Vehicle> storageEntity = new TableEntityAdapter<Domain.Aggregate.Vehicle>(entity, partitionKey, rowKey);
             TableResult result = await this.table.ExecuteAsync(TableOperation.InsertOrMerge(storageEntity));
             await this.DispatchDomainEvents(entity);
             return entity;
