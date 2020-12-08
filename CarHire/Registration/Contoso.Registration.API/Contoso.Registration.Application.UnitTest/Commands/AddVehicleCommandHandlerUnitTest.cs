@@ -73,31 +73,6 @@ namespace Contoso.Registration.Application.Commands
             Assert.AreEqual(12, result.First().Emission);
         }
 
-        /// <summary>
-        /// Handler test.
-        /// </summary>
-        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
-        [TestMethod]
-        public async Task Handle_InvalidCategory_NoDomainEventIsDispatched()
-        {
-            Mock<IVehicleRepository> repositoryMock = new Mock<IVehicleRepository>();
-            try
-            {
-                Mock<IUnitOfWork> unitOfWorkMock = new Mock<IUnitOfWork>();
-                unitOfWorkMock.Setup(u => u.SaveEntitiesAsync(It.IsAny<CancellationToken>())).ReturnsAsync(true);
-                repositoryMock.Setup(r => r.InsertAsync(It.IsAny<Domain.Aggregate.Vehicle>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(this.GetDomainVehicle());
-                AddVehicleCommandHandler handler = new AddVehicleCommandHandler(repositoryMock.Object, this.mapper);
-                AddVehicleCommand command = this.GetCommand();
-                command.Category = "NA";
-                IEnumerable<Model.Vehicle> result = await handler.Handle(command, CancellationToken.None);
-                Assert.Fail();
-            }
-            catch
-            {
-                repositoryMock.Verify(r => r.DispatchDomainEvents(It.IsAny<Domain.Aggregate.Vehicle>()), Times.Never);
-            }
-        }
-
         private AddVehicleCommand GetCommand()
         {
             return new AddVehicleCommand()

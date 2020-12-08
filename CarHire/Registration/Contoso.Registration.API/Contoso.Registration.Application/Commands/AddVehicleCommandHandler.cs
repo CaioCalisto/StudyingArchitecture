@@ -45,7 +45,6 @@ namespace Contoso.Registration.Application.Commands
                 request.Emission);
 
             vehicle = await this.vehicleRepositoy.InsertAsync(vehicle, vehicle.Brand, $"{vehicle.Brand} {vehicle.Name} {vehicle.Category.ToString().ToUpper()}");
-            await this.vehicleRepositoy.DispatchDomainEvents(vehicle);
             return this.mapper.Map<IEnumerable<Model.Vehicle>>(new List<Domain.Aggregate.Vehicle>() { vehicle });
         }
     }

@@ -42,20 +42,6 @@ namespace Contoso.Registration.Infrastructure.Database
         }
 
         /// <inheritdoc/>
-        public Task DispatchDomainEvents(Vehicle root)
-        {
-            List<INotification> domainEvents = root.DomainEvents.ToList();
-            foreach (var domainEvent in domainEvents)
-            {
-                this.mediator.Publish(domainEvent);
-            }
-
-            domainEvents.ForEach(d => root.RemoveDomainEvent(d));
-
-            return Task.CompletedTask;
-        }
-
-        /// <inheritdoc/>
         public IQueryable<TableEntityAdapter<T>> GetQuery<T>()
         {
             return this.table.CreateQuery<TableEntityAdapter<T>>().AsQueryable();
@@ -66,7 +52,21 @@ namespace Contoso.Registration.Infrastructure.Database
         {
             TableEntityAdapter< Domain.Aggregate.Vehicle> storageEntity = new TableEntityAdapter<Domain.Aggregate.Vehicle>(entity, partitionKey, rowKey);
             TableResult result = await this.table.ExecuteAsync(TableOperation.InsertOrMerge(storageEntity));
+            await this.DispatchDomainEvents(entity);
             return entity;
+        }
+
+        private Task DispatchDomainEvents(Vehicle root)
+        {
+            List<INotification> domainEvents = root.DomainEvents.ToList();
+            foreach (var domainEvent in domainEvents)
+            {
+                this.mediator.Publish(domainEvent);
+            }
+
+            domainEvents.ForEach(d => root.RemoveDomainEvent(d));
+
+            return Task.CompletedTask;
         }
     }
 }
