@@ -36,60 +36,6 @@ namespace Contoso.Registration.Domain.Aggregate
         }
 
         /// <summary>
-        /// Inexistent Category on Create Vehicle.
-        /// </summary>
-        [TestMethod]
-        public void Create_InexistentCategory_ThrowException()
-        {
-            string category = "SomeOddcategory";
-            try
-            {
-                Vehicle vehicle = Vehicle.Create(
-                "Fiesta",
-                "Ford",
-                category,
-                4,
-                5,
-                "Manual",
-                45,
-                23);
-
-                Assert.Fail("Inexistent category should throw an error");
-            }
-            catch (Exception ex)
-            {
-                Assert.AreEqual($"Category {category} doest not exists", ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// Inexistent Category on Create Vehicle.
-        /// </summary>
-        [TestMethod]
-        public void Create_InexistentTransmission_ThrowException()
-        {
-            string transmission = "newKindOfGear";
-            try
-            {
-                Vehicle vehicle = Vehicle.Create(
-                "Fiesta",
-                "Ford",
-                "Standard",
-                4,
-                5,
-                transmission,
-                45,
-                23);
-
-                Assert.Fail("Inexistent transmission should throw an error");
-            }
-            catch (Exception ex)
-            {
-                Assert.AreEqual($"Transmission {transmission} doest not exists", ex.Message);
-            }
-        }
-
-        /// <summary>
         /// Create new Vehicle.
         /// </summary>
         [TestMethod]

@@ -53,7 +53,7 @@ namespace Contoso.Registration.FunctionalTest.Steps
                     using (HttpClient client = server.CreateClient())
                     {
                         string json = JsonConvert.SerializeObject(command);
-                        StringContent content = new StringContent(json, UTF8Encoding.UTF8, "application/json");
+                        StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                         this.responsePostMessage = await client.PostAsync(VehicleUri, content);
                     }
                 }

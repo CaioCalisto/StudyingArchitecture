@@ -102,17 +102,15 @@ namespace Contoso.Registration.Domain.Aggregate
             int consume,
             int emission)
         {
-            if (!Enum.TryParse(category.ToUpper(), out Category vehicleCategory))
-            {
-                throw new ArgumentException($"Category {category} doest not exists");
-            }
-
-            if (!Enum.TryParse(transmission.ToUpper(), out Transmission vehicleTransmission))
-            {
-                throw new ArgumentException($"Transmission {transmission} doest not exists");
-            }
-
-            Vehicle newVehicle = new Vehicle(name, brand, vehicleCategory, doors, passenger, vehicleTransmission, consume, emission);
+            Vehicle newVehicle = new Vehicle(
+                name,
+                brand,
+                (Category)Enum.Parse(typeof(Category), category),
+                doors,
+                passenger,
+                (Transmission)Enum.Parse(typeof(Transmission), transmission),
+                consume,
+                emission);
             newVehicle.AddDomainEvent(new VehicleCreatedDomainEvent(brand, name));
 
             return newVehicle;

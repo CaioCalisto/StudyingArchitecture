@@ -3,6 +3,7 @@
 // </copyright>
 
 using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -32,19 +33,14 @@ namespace Contoso.Registration.Api.Extensions
         /// <param name="context">Context.</param>
         public void OnException(ExceptionContext context)
         {
-            switch (context.Exception.GetBaseException())
+            this.logger.LogError(context.Exception.GetBaseException(), "Error");
+            context.Result = new BadRequestObjectResult(new ProblemDetails()
             {
-                case ArgumentException exception:
-                    this.logger.LogError(exception, "Error");
-                    context.Result = new BadRequestObjectResult(new ProblemDetails()
-                    {
-                        Detail = exception.Message,
-                        Title = "API Error. Please see the details.",
-                        Status = StatusCodes.Status400BadRequest,
-                    });
-                    context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-                    break;
-            }
+                Detail = context.Exception.GetBaseException().Message,
+                Title = "API Error. Please see the details.",
+                Status = StatusCodes.Status400BadRequest,
+            });
+            context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
         }
     }
 }

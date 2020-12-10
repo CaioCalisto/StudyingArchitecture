@@ -73,20 +73,7 @@ namespace Contoso.Registration.Application.Commands
             Assert.AreEqual(12, result.First().Emission);
         }
 
-        private AddVehicleCommand GetCommand()
-        {
-            return new AddVehicleCommand()
-            {
-                Name = "Fiesta",
-                Brand = "Ford",
-                Category = "Standard",
-                Doors = 4,
-                Passengers = 5,
-                Transmission = "manual",
-                Consume = 23,
-                Emission = 12,
-            };
-        }
+        private AddVehicleCommand GetCommand() => new AddVehicleCommand("Fiesta", "Ford", "Standard", 4, 5, "manual", 23, 12);
 
         private Domain.Aggregate.Vehicle GetDomainVehicle()
         {

@@ -203,15 +203,15 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Vehicle sent with wrong category")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Vehicle sent with wrong parameters")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Add vehicle using API")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("RunServicesLocally")]
-        public virtual void VehicleSentWithWrongCategory()
+        public virtual void VehicleSentWithWrongParameters()
         {
             string[] tagsOfScenario = new string[] {
                     "RunServicesLocally"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Vehicle sent with wrong category", null, tagsOfScenario, argumentsOfScenario);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Vehicle sent with wrong parameters", null, tagsOfScenario, argumentsOfScenario);
 #line 24
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -245,12 +245,12 @@ this.ScenarioInitialize(scenarioInfo);
                             "Consume",
                             "Emission"});
                 table5.AddRow(new string[] {
-                            "Diplomata",
+                            "",
                             "Chevrolet",
                             "NA",
                             "4",
                             "5",
-                            "AUTOMATIC",
+                            "NA",
                             "23",
                             "16"});
 #line 26
@@ -266,7 +266,8 @@ this.ScenarioInitialize(scenarioInfo);
                 table6.AddRow(new string[] {
                             "400",
                             "API Error. Please see the details.",
-                            "Category NA doest not exists"});
+                            "\'Name\' must not be empty. \'Category\' must be valid. \'Transmission\' must be valid." +
+                                ""});
 #line 30
  testRunner.And("The API error response has the following result", ((string)(null)), table6, "And ");
 #line hidden

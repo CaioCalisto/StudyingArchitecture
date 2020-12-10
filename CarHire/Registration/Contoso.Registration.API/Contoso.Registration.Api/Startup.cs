@@ -7,11 +7,14 @@ using System.Collections.Generic;
 using AutoMapper;
 using Contoso.Registration.Api.Authorization;
 using Contoso.Registration.Api.Extensions;
+using Contoso.Registration.Application.Commands;
 using Contoso.Registration.Application.Queries;
 using Contoso.Registration.Domain.Ports;
 using Contoso.Registration.Infrastructure.Configurations;
 using Contoso.Registration.Infrastructure.Database;
 using Contoso.Registration.Infrastructure.Messaging;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -67,6 +70,11 @@ namespace Contoso.Registration.Api
             services.AddControllers(options =>
             {
                 options.Filters.Add(typeof(ExceptionFilter));
+                options.Filters.Add(typeof(ValidationFilter));
+            });
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
             });
             services.AddMvc(config =>
             {
@@ -75,7 +83,8 @@ namespace Contoso.Registration.Api
                 .Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
             }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-            .AddApplicationPart(typeof(Startup).Assembly);
+            .AddApplicationPart(typeof(Startup).Assembly)
+            .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AddVehicleCommand>()); ;
         }
 
         /// <summary>

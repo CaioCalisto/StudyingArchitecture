@@ -8,10 +8,11 @@
             <ModulePaths>
               <Include>
                 <ModulePath>.*\.dll$</ModulePath>
-                <ModulePath>.*\.exe$</ModulePath>
+                <ModulePath>.*\.exe$</ModulePath>				
               </Include>
               <Exclude>
                 <ModulePath>.*test.dll$</ModulePath>
+				<ModulePath>.*fluentvalidation.*</ModulePath>
               </Exclude>
             </ModulePaths>
  
