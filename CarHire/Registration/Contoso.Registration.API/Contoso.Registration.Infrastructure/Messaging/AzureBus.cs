@@ -31,7 +31,7 @@ namespace Contoso.Registration.Infrastructure.Messaging
         }
 
         /// <inheritdoc/>
-        public async Task Publish(IntegrationEvent integrationEvent) =>
+        public async Task PublishAsync(IntegrationEvent integrationEvent) =>
             await this.GetClient().SendAsync(new Message()
             {
                 MessageId = Guid.NewGuid().ToString(),

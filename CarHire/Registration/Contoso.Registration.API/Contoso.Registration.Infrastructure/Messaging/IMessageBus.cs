@@ -16,6 +16,6 @@ namespace Contoso.Registration.Infrastructure.Messaging
         /// </summary>
         /// <param name="integrationEvent">Integration Event.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        Task Publish(IntegrationEvent integrationEvent);
+        Task PublishAsync(IntegrationEvent integrationEvent);
     }
 }

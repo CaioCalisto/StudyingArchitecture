@@ -5,11 +5,9 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using BoDi;
 using Contoso.Registration.FunctionalTest.Configurations;
 using Contoso.Registration.FunctionalTest.Services;
 using Contoso.Registration.FunctionalTest.Stubs;
-using Contoso.Registration.Infrastructure.Messaging;
 using Microsoft.Extensions.Configuration;
 using TechTalk.SpecFlow;
 
@@ -25,7 +23,7 @@ namespace Contoso.Registration.FunctionalTest.Hooks
             SetTableStorageConfig(config);
             ExternalServices.MessageBus = new MessageBusStub();
 
-            // Todo: Clean database / run storage emulator locally
+            // Todo: run storage emulator locally
         }
 
         [AfterTestRun]

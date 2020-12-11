@@ -56,7 +56,7 @@ namespace Contoso.Registration.Application.Validations
             ValidationResult result = validator.Validate(command);
 
             Assert.AreEqual(1, result.Errors.Count);
-            Assert.AreEqual("'Category' must be valid", result.Errors.First().ErrorMessage);
+            Assert.AreEqual("'Category' must be valid.", result.Errors.First().ErrorMessage);
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Contoso.Registration.Application.Validations
             ValidationResult result = validator.Validate(command);
 
             Assert.AreEqual(1, result.Errors.Count);
-            Assert.AreEqual("'Transmission' must be valid", result.Errors.First().ErrorMessage);
+            Assert.AreEqual("'Transmission' must be valid.", result.Errors.First().ErrorMessage);
         }
 
         /// <summary>

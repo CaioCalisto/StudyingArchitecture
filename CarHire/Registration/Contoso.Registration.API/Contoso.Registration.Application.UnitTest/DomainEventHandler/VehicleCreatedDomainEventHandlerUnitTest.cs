@@ -31,7 +31,7 @@ namespace Contoso.Registration.Application.DomainEventHandler
 
             busMock.Verify(
                 bus =>
-                bus.Publish(It.Is<IntegrationEvent>(e =>
+                bus.PublishAsync(It.Is<IntegrationEvent>(e =>
                 ((VehicleCreatedIntegrationEvent)e).Brand.Equals("Ford") &&
                 ((VehicleCreatedIntegrationEvent)e).Name.Equals("Fiesta"))),
                 Times.Once);

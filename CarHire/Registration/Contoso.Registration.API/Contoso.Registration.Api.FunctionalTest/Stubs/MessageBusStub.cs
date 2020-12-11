@@ -22,7 +22,7 @@ namespace Contoso.Registration.FunctionalTest.Stubs
             get { return this.integrationEvents.AsReadOnly(); }
         }
 
-        public Task Publish(IntegrationEvent integrationEvent)
+        public Task PublishAsync(IntegrationEvent integrationEvent)
         {
             this.integrationEvents.Add(integrationEvent);
             return Task.CompletedTask;

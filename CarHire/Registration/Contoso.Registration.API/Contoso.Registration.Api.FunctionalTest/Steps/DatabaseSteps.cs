@@ -4,7 +4,6 @@
 
 using System;
 using System.Threading.Tasks;
-using BoDi;
 using Contoso.Registration.FunctionalTest.Configurations;
 using Contoso.Registration.FunctionalTest.Model.Storage;
 using Microsoft.Azure.Cosmos.Table;
@@ -19,14 +18,13 @@ namespace Contoso.Registration.FunctionalTest.Steps
     [Binding]
     internal class DatabaseSteps
     {
-        private readonly CloudTable table;
+        private static CloudTable cloudTable;
 
-        public DatabaseSteps()
+        [BeforeScenario]
+        public static async Task ExecuteBeforeScenario()
         {
-            CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse(TableStorageConfig.ConnectionString);
-            CloudTableClient tableClient = cloudStorageAccount.CreateCloudTableClient();
-            this.table = tableClient.GetTableReference(TableStorageConfig.Table);
-            this.table.CreateIfNotExists();
+            SetCloudTable();
+            await DeleteAllDataAsync();
         }
 
         [Then("the vehicle is in the database")]
@@ -36,7 +34,7 @@ namespace Contoso.Registration.FunctionalTest.Steps
             {
                 string partitionKey = row["Brand"];
                 string rowKey = $"{row["Brand"]} {row["Name"]} {row["Category"]}";
-                TableResult result = await this.table.ExecuteAsync(TableOperation.Retrieve<TableEntityAdapter<Vehicle>>(partitionKey, rowKey));
+                TableResult result = await cloudTable.ExecuteAsync(TableOperation.Retrieve<TableEntityAdapter<Vehicle>>(partitionKey, rowKey));
                 if (result.HttpStatusCode == 200)
                 {
                     Vehicle resultFound = ((TableEntityAdapter<Vehicle>)result.Result).OriginalEntity;
@@ -53,6 +51,23 @@ namespace Contoso.Registration.FunctionalTest.Steps
                 {
                     Assert.Fail("Data not found in Database");
                 }
+            }
+        }
+
+        private static void SetCloudTable()
+        {
+            CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse(TableStorageConfig.ConnectionString);
+            CloudTableClient tableClient = cloudStorageAccount.CreateCloudTableClient();
+            cloudTable = tableClient.GetTableReference(TableStorageConfig.Table);
+            cloudTable.CreateIfNotExists();
+        }
+
+        private static async Task DeleteAllDataAsync()
+        {
+            TableQuerySegment<TableEntityAdapter<Vehicle>> result = await cloudTable.ExecuteQuerySegmentedAsync(new TableQuery<TableEntityAdapter<Vehicle>>(), null);
+            foreach (var row in result)
+            {
+                await cloudTable.ExecuteAsync(TableOperation.Delete(row));
             }
         }
     }

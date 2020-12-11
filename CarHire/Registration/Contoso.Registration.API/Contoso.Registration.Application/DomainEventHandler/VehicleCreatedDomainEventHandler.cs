@@ -29,7 +29,7 @@ namespace Contoso.Registration.Application.DomainEventHandler
 
         /// <inheritdoc/>
         public async Task Handle(VehicleCreatedDomainEvent notification, CancellationToken cancellationToken) =>
-            await this.messageBus.Publish(new VehicleCreatedIntegrationEvent()
+            await this.messageBus.PublishAsync(new VehicleCreatedIntegrationEvent()
             {
                 Name = notification.Name,
                 Brand = notification.Brand,

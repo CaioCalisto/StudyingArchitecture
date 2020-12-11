@@ -105,10 +105,10 @@ namespace Contoso.Registration.Domain.Aggregate
             Vehicle newVehicle = new Vehicle(
                 name,
                 brand,
-                (Category)Enum.Parse(typeof(Category), category),
+                (Category)Enum.Parse(typeof(Category), category.ToUpper()),
                 doors,
                 passenger,
-                (Transmission)Enum.Parse(typeof(Transmission), transmission),
+                (Transmission)Enum.Parse(typeof(Transmission), transmission.ToUpper()),
                 consume,
                 emission);
             newVehicle.AddDomainEvent(new VehicleCreatedDomainEvent(brand, name));
