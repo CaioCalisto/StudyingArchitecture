@@ -6,6 +6,7 @@
 @RunServicesLocally
 Scenario: Storage contains data
 	Given the API is running
+	And user is authenticated
 	When a POST call is made to add new vehicle
 	| Name   | Brand	  | Category | Doors | Passengers | Transmission | Consume | Emission |
 	| F50    | Ferrari    | SPORT    | 2     | 2          | MANUAL       | 23      | 16       |
@@ -21,9 +22,20 @@ Scenario: Storage contains data
 	| Name   | Brand	  | Category | Doors | Passengers | Transmission | Consume | Emission |
 	| F50    | Ferrari    | SPORT    | 2     | 2          | MANUAL       | 23      | 16       |
 
+@RunServicesLocally
 Scenario: Storage does not contains data
 	Given the API is running
+	And user is authenticated
 	When a GET call is made with the following parameters
-	| Name | Brand |
-	| Uno  | Fiat  |
+	| Name	| Brand	|
+	| Uno		| Fiat		|
 	Then the API Get status result is 404
+
+@RunServicesLocally
+Scenario: User has no permission
+	Given the API is running
+	And user has no permission
+	When a GET call is made with the following parameters
+	| Name	| Brand	|
+	| Uno		| Fiat		|
+	Then the API Get status result is 401

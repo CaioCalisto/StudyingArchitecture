@@ -2,23 +2,16 @@
 // Copyright (c) CaioCesarCalisto. All rights reserved.
 // </copyright>
 
-using BoDi;
 using Contoso.Registration.Api;
 using Contoso.Registration.Application.Queries;
 using Contoso.Registration.Domain.Ports;
-using Contoso.Registration.FunctionalTest.Extensions;
 using Contoso.Registration.Infrastructure.Database;
-using Contoso.Registration.Infrastructure.Messaging;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Contoso.Registration.FunctionalTest.Services
 {
-    /// <summary>
-    /// Test API startup.
-    /// </summary>
-    public class ApiTestStartup : Startup
+    internal class ApiTestStartup : Startup
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiTestStartup"/> class.
@@ -27,20 +20,6 @@ namespace Contoso.Registration.FunctionalTest.Services
         public ApiTestStartup(IConfiguration env)
             : base(env)
         {
-        }
-
-        /// <inheritdoc/>
-        protected override void ConfigureAuth(IApplicationBuilder app)
-        {
-            if (this.Configuration["LocalTest"] == bool.TrueString.ToLowerInvariant())
-            {
-                app.UseMiddleware<AutoAuthorizeMiddleware>();
-                app.UseAuthorization();
-            }
-            else
-            {
-                base.ConfigureAuth(app);
-            }
         }
 
         /// <inheritdoc/>

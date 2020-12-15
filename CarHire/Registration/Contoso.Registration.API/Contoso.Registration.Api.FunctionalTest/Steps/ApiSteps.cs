@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using BoDi;
 using Contoso.Registration.FunctionalTest.Model.API;
 using Contoso.Registration.FunctionalTest.Services;
 using FluentAssertions;
@@ -25,10 +24,23 @@ namespace Contoso.Registration.FunctionalTest.Steps
         private const string VehicleUri = "api/v1/vehicles";
         private HttpResponseMessage responsePostMessage;
         private HttpResponseMessage responseGetMessage;
+        private bool autoAuthorized;
 
         [Given("the API is running")]
         public void GivenTheAPIIsRunning()
         {
+        }
+
+        [Given("user is authenticated")]
+        public void GivenUserIsAuthenticatedAndAuthorized()
+        {
+            this.autoAuthorized = true;
+        }
+
+        [Given("user has no permission")]
+        public void GivenUserHasNoPermission()
+        {
+            this.autoAuthorized = false;
         }
 
         [When("a POST call is made to add new vehicle")]
@@ -48,7 +60,7 @@ namespace Contoso.Registration.FunctionalTest.Steps
                     Emission = Convert.ToInt16(row["Emission"]),
                 };
 
-                using (TestServer server = new ApiServer().CreateServer())
+                using (TestServer server = new ApiServer().CreateServer(this.autoAuthorized))
                 {
                     using (HttpClient client = server.CreateClient())
                     {
@@ -78,7 +90,7 @@ namespace Contoso.Registration.FunctionalTest.Steps
                 query = query.Replace("&&", "&");
                 query = query.Substring(query.Length - 1, 1) == "&" ? query.Substring(0, query.Length - 1) : query;
 
-                using (TestServer server = new ApiServer().CreateServer())
+                using (TestServer server = new ApiServer().CreateServer(this.autoAuthorized))
                 {
                     using (HttpClient client = server.CreateClient())
                     {

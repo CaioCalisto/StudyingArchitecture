@@ -125,6 +125,9 @@ this.ScenarioInitialize(scenarioInfo);
 #line 8
  testRunner.Given("the API is running", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
+#line 9
+ testRunner.And("user is authenticated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
                 TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
                             "Brand",
@@ -143,10 +146,10 @@ this.ScenarioInitialize(scenarioInfo);
                             "MANUAL",
                             "23",
                             "16"});
-#line 9
+#line 10
  testRunner.When("a POST call is made to add new vehicle", ((string)(null)), table1, "When ");
 #line hidden
-#line 12
+#line 13
  testRunner.Then("the API Post status result is 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
                 TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -167,7 +170,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "MANUAL",
                             "23",
                             "16"});
-#line 13
+#line 14
  testRunner.And("the API Post response has the following result", ((string)(null)), table2, "And ");
 #line hidden
                 TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
@@ -188,14 +191,14 @@ this.ScenarioInitialize(scenarioInfo);
                             "MANUAL",
                             "23",
                             "16"});
-#line 16
+#line 17
  testRunner.And("the vehicle is in the database", ((string)(null)), table3, "And ");
 #line hidden
                 TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                             "Event"});
                 table4.AddRow(new string[] {
                             "VehicleCreatedIntegrationEvent"});
-#line 19
+#line 20
  testRunner.And("the Following Integration Event Is Sent", ((string)(null)), table4, "And ");
 #line hidden
             }
@@ -212,7 +215,7 @@ this.ScenarioInitialize(scenarioInfo);
                     "RunServicesLocally"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Vehicle sent with wrong parameters", null, tagsOfScenario, argumentsOfScenario);
-#line 24
+#line 25
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -232,8 +235,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 25
+#line 26
  testRunner.Given("the API is running", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 27
+ testRunner.And("user is authenticated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
                 TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
@@ -253,10 +259,10 @@ this.ScenarioInitialize(scenarioInfo);
                             "NA",
                             "23",
                             "16"});
-#line 26
+#line 28
  testRunner.When("a POST call is made to add new vehicle", ((string)(null)), table5, "When ");
 #line hidden
-#line 29
+#line 31
  testRunner.Then("the API Post status result is 400", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
                 TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
@@ -268,11 +274,75 @@ this.ScenarioInitialize(scenarioInfo);
                             "API Error. Please see the details.",
                             "\'Name\' must not be empty. \'Category\' must be valid. \'Transmission\' must be valid." +
                                 ""});
-#line 30
+#line 32
  testRunner.And("The API error response has the following result", ((string)(null)), table6, "And ");
 #line hidden
-#line 33
+#line 35
  testRunner.And("no Integration Event is sent", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("User has no permission")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Add vehicle using API")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("RunServicesLocally")]
+        public virtual void UserHasNoPermission()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "RunServicesLocally"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User has no permission", null, tagsOfScenario, argumentsOfScenario);
+#line 38
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 39
+ testRunner.Given("the API is running", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 40
+ testRunner.And("user has no permission", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+                TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Name",
+                            "Brand",
+                            "Category",
+                            "Doors",
+                            "Passengers",
+                            "Transmission",
+                            "Consume",
+                            "Emission"});
+                table7.AddRow(new string[] {
+                            "Opala",
+                            "Chevrolet",
+                            "STANDARD",
+                            "2",
+                            "4",
+                            "MANUAL",
+                            "23",
+                            "16"});
+#line 41
+ testRunner.When("a POST call is made to add new vehicle", ((string)(null)), table7, "When ");
+#line hidden
+#line 44
+ testRunner.Then("the API Post status result is 401", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
