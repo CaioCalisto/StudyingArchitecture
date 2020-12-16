@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Contoso.Registration.FunctionalTest.Model.API;
+using Contoso.Registration.Application.Model;
 using Contoso.Registration.FunctionalTest.Services;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;

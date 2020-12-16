@@ -5,7 +5,6 @@
 using System;
 using System.Threading.Tasks;
 using Contoso.Registration.FunctionalTest.Configurations;
-using Contoso.Registration.FunctionalTest.Model.Storage;
 using Microsoft.Azure.Cosmos.Table;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TechTalk.SpecFlow;
@@ -34,10 +33,10 @@ namespace Contoso.Registration.FunctionalTest.Steps
             {
                 string partitionKey = row["Brand"];
                 string rowKey = $"{row["Brand"]} {row["Name"]} {row["Category"]}";
-                TableResult result = await cloudTable.ExecuteAsync(TableOperation.Retrieve<TableEntityAdapter<Vehicle>>(partitionKey, rowKey));
+                TableResult result = await cloudTable.ExecuteAsync(TableOperation.Retrieve<TableEntityAdapter<Infrastructure.Model.Vehicle>>(partitionKey, rowKey));
                 if (result.HttpStatusCode == 200)
                 {
-                    Vehicle resultFound = ((TableEntityAdapter<Vehicle>)result.Result).OriginalEntity;
+                    Infrastructure.Model.Vehicle resultFound = ((TableEntityAdapter<Infrastructure.Model.Vehicle>)result.Result).OriginalEntity;
                     Assert.AreEqual(row["Name"], resultFound.Name);
                     Assert.AreEqual(row["Brand"], resultFound.Brand);
                     Assert.AreEqual(row["Category"], resultFound.Category);
@@ -64,7 +63,7 @@ namespace Contoso.Registration.FunctionalTest.Steps
 
         private static async Task DeleteAllDataAsync()
         {
-            TableQuerySegment<TableEntityAdapter<Vehicle>> result = await cloudTable.ExecuteQuerySegmentedAsync(new TableQuery<TableEntityAdapter<Vehicle>>(), null);
+            TableQuerySegment<TableEntityAdapter<Infrastructure.Model.Vehicle>> result = await cloudTable.ExecuteQuerySegmentedAsync(new TableQuery<TableEntityAdapter<Infrastructure.Model.Vehicle>>(), null);
             foreach (var row in result)
             {
                 await cloudTable.ExecuteAsync(TableOperation.Delete(row));
