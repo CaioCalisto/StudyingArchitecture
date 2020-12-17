@@ -37,7 +37,7 @@ namespace Contoso.Registration.Application.Queries
         [TestMethod]
         public void Find_PassingParameter_ReturnData()
         {
-            Model.PagedList<Model.Vehicle> result = this.ExecuteFind();
+            Model.PagedList<Model.Vehicle> result = this.ExecuteFind(new Model.Pagination { Page = 1, Limit = 10 });
 
             Assert.IsTrue(result.Count() > 0);
             Assert.AreEqual("F50", result.First().Name);
@@ -56,10 +56,10 @@ namespace Contoso.Registration.Application.Queries
         [TestMethod]
         public void Find_PassingParameter_PaginateResult()
         {
-            Model.PagedList<Model.Vehicle> result = this.ExecuteFind();
+            Model.PagedList<Model.Vehicle> result = this.ExecuteFind(new Model.Pagination { Page = 1, Limit = 4 });
 
             Assert.AreEqual(1, result.Total);
-            Assert.AreEqual(10, result.Limit);
+            Assert.AreEqual(4, result.Limit);
             Assert.AreEqual(1, result.Page);
         }
 
@@ -75,7 +75,8 @@ namespace Contoso.Registration.Application.Queries
                 Name = "Uno",
                 Brand = "Fiat",
             };
-            IEnumerable<Model.Vehicle> result = vehiclesQueries.Find(parameters);
+            Model.Pagination pagination = new Model.Pagination { Page = 1, Limit = 10 };
+            IEnumerable<Model.Vehicle> result = vehiclesQueries.Find(parameters, pagination);
 
             Assert.AreEqual(0, result.Count());
         }
@@ -101,7 +102,7 @@ namespace Contoso.Registration.Application.Queries
             return queryableMock;
         }
 
-        private Model.PagedList<Model.Vehicle> ExecuteFind()
+        private Model.PagedList<Model.Vehicle> ExecuteFind(Model.Pagination pagination)
         {
             VehiclesQueries vehiclesQueries = new VehiclesQueries(this.GetDatabaseMock().Object, this.mapper);
             Model.Vehicle parameters = new Model.Vehicle()
@@ -116,7 +117,7 @@ namespace Contoso.Registration.Application.Queries
                 Emission = 20,
             };
 
-            return vehiclesQueries.Find(parameters);
+            return vehiclesQueries.Find(parameters, pagination);
         }
     }
 }

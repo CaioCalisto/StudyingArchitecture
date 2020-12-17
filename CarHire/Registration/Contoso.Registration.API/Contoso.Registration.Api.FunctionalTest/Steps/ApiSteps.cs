@@ -86,6 +86,8 @@ namespace Contoso.Registration.FunctionalTest.Steps
                 query += row.ContainsKey("Transmission") ? string.IsNullOrEmpty(row["Transmission"]) ? string.Empty : $"&transmission={row["Transmission"]}&" : string.Empty;
                 query += row.ContainsKey("Consume") ? string.IsNullOrEmpty(row["Consume"]) ? string.Empty : $"&consume={row["Consume"]}&" : string.Empty;
                 query += row.ContainsKey("Emission") ? string.IsNullOrEmpty(row["Emission"]) ? string.Empty : $"&emission={row["Emission"]}&" : string.Empty;
+                query += row.ContainsKey("Page") ? string.IsNullOrEmpty(row["Page"]) ? string.Empty : $"&page={row["Page"]}" : string.Empty;
+                query += row.ContainsKey("Limit") ? string.IsNullOrEmpty(row["Limit"]) ? string.Empty : $"&limit={row["Limit"]}" : string.Empty;
                 query = query.Replace("?&", "?");
                 query = query.Replace("&&", "&");
                 query = query.Substring(query.Length - 1, 1) == "&" ? query.Substring(0, query.Length - 1) : query;
@@ -151,26 +153,31 @@ namespace Contoso.Registration.FunctionalTest.Steps
             }
         }
 
+        [Then("the API GET response contains (.*) result")]
+        public async Task TheAPIGETResponseContainsResult(int results)
+        {
+            string response = await this.responseGetMessage.Content.ReadAsStringAsync();
+            List<Vehicle> actual = JsonConvert.DeserializeObject<List<Vehicle>>(response);
+            Assert.AreEqual(1, actual.Count);
+        }
+
         private void CheckApiResponse(string json, Table table)
         {
             List<Vehicle> actual = JsonConvert.DeserializeObject<List<Vehicle>>(json);
-            List<Vehicle> expected = new List<Vehicle>();
+
             foreach (TableRow row in table.Rows)
             {
-                expected.Add(new Vehicle()
-                {
-                    Name = row["Name"],
-                    Brand = row["Brand"],
-                    Category = row["Category"],
-                    Doors = Convert.ToInt16(row["Doors"]),
-                    Passengers = Convert.ToInt16(row["Passengers"]),
-                    Transmission = row["Transmission"],
-                    Consume = Convert.ToInt16(row["Consume"]),
-                    Emission = Convert.ToInt16(row["Emission"]),
-                });
+                Assert.IsTrue(actual.Exists(v =>
+                    (row.ContainsKey("Brand") ? actual.Exists(v => v.Brand.Equals(row["Brand"])) : true) &&
+                    (row.ContainsKey("Name") ? actual.Exists(v => v.Name.Equals(row["Name"])) : true) &&
+                    (row.ContainsKey("Category") ? actual.Exists(v => v.Category.Equals(row["Category"])) : true) &&
+                    (row.ContainsKey("Transmission") ? actual.Exists(v => v.Transmission.Equals(row["Transmission"])) : true) &&
+                    (row.ContainsKey("Doors") ? actual.Exists(v => v.Doors == Convert.ToInt32(row["Doors"])) : true) &&
+                    (row.ContainsKey("Passengers") ? actual.Exists(v => v.Passengers == Convert.ToInt32(row["Passengers"])) : true) &&
+                    (row.ContainsKey("Consume") ? actual.Exists(v => v.Consume == Convert.ToInt32(row["Consume"])) : true) &&
+                    (row.ContainsKey("Emission") ? actual.Exists(v => v.Emission == Convert.ToInt32(row["Emission"])) : true)
+                ));
             }
-
-            actual.Should().BeEquivalentTo(expected);
         }
     }
 }

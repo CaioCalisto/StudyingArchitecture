@@ -40,12 +40,13 @@ namespace Contoso.Registration.Api.Controllers
         /// Get vehicles by paramaters.
         /// </summary>
         /// <param name="vehicles">Parameters.</param>
+        /// <param name="pagination">Pagination.</param>
         /// <returns>Vehicles.</returns>
         [HttpGet]
         [Route("query")]
-        public IActionResult GetVehicles([FromQuery] Application.Model.Vehicle vehicles)
+        public IActionResult GetVehicles([FromQuery] Application.Model.Vehicle vehicles, [FromQuery] Application.Model.Pagination pagination)
         {
-            Application.Model.PagedList<Application.Model.Vehicle> result = this.vehiclesQueries.Find(vehicles);
+            Application.Model.PagedList<Application.Model.Vehicle> result = this.vehiclesQueries.Find(vehicles, pagination);
             this.Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(new
             {
                 result.Total,

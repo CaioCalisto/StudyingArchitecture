@@ -17,7 +17,8 @@ namespace Contoso.Registration.Application.Queries
         /// Find vehicles.
         /// </summary>
         /// <param name="vehicle">Parameters.</param>
+        /// <param name="pagination">Pagination.</param>
         /// <returns>Vehicles.</returns>
-        PagedList<Vehicle> Find(Vehicle vehicle);
+        PagedList<Vehicle> Find(Vehicle vehicle, Pagination pagination);
     }
 }

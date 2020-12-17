@@ -30,7 +30,7 @@ namespace Contoso.Registration.Application.Queries
         }
 
         /// <inheritdoc/>
-        public Model.PagedList<Model.Vehicle> Find(Model.Vehicle vehicle)
+        public Model.PagedList<Model.Vehicle> Find(Model.Vehicle vehicle, Model.Pagination pagination)
         {
             IQueryable<TableEntityAdapter<Infrastructure.Model.Vehicle>> query = this.databaseQueries.GetQuery<Infrastructure.Model.Vehicle>();
             if (!string.IsNullOrEmpty(vehicle.Brand))
@@ -68,7 +68,7 @@ namespace Contoso.Registration.Application.Queries
                 query = query.Where(v => v.OriginalEntity.Emission.Equals(vehicle.Emission));
             }
 
-            return this.Map(Model.PagedList<Infrastructure.Model.Vehicle>.ToPagedList(query, 1, 10));
+            return this.Map(Model.PagedList<Infrastructure.Model.Vehicle>.ToPagedList(query, pagination.Page, pagination.Limit));
         }
 
         private Model.PagedList<Model.Vehicle> Map(Model.PagedList<Infrastructure.Model.Vehicle> source)
