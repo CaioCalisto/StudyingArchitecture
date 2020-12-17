@@ -2,7 +2,6 @@
 // Copyright (c) CaioCesarCalisto. All rights reserved.
 // </copyright>
 
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Contoso.Registration.Api.Authorization;
@@ -11,6 +10,7 @@ using Contoso.Registration.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace Contoso.Registration.Api.Controllers
 {
@@ -45,13 +45,17 @@ namespace Contoso.Registration.Api.Controllers
         [Route("query")]
         public IActionResult GetVehicles([FromQuery] Application.Model.Vehicle vehicles)
         {
-            IEnumerable<Application.Model.Vehicle> result = this.vehiclesQueries.Find(vehicles);
-            if (result.Count() == 0)
+            Application.Model.PagedList<Application.Model.Vehicle> result = this.vehiclesQueries.Find(vehicles);
+            this.Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(new
             {
-                return this.NotFound();
-            }
+                result.Total,
+                result.Page,
+                result.Limit,
+            }));
 
-            return this.Ok(result);
+            return result.Count() == 0
+                ? this.NotFound()
+                : this.Ok(result);
         }
 
         /// <summary>

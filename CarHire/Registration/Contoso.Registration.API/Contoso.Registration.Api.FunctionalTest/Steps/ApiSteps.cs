@@ -139,6 +139,18 @@ namespace Contoso.Registration.FunctionalTest.Steps
             }
         }
 
+        [Then("the API GET response has the following header result")]
+        public void TheAPIGETResponseHasTheFollowingHeaderResult(Table table)
+        {
+            foreach (var row in table.Rows)
+            {
+                foreach (string headerValue in this.responseGetMessage.Headers.GetValues(row["Header"]))
+                {
+                    Assert.AreEqual(row["Value"], JsonConvert.DeserializeObject<Dictionary<string, string>>(headerValue)[row["Key"]]);
+                }
+            }
+        }
+
         private void CheckApiResponse(string json, Table table)
         {
             List<Vehicle> actual = JsonConvert.DeserializeObject<List<Vehicle>>(json);

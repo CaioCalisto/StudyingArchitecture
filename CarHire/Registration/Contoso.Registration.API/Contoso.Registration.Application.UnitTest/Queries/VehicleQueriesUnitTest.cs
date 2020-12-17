@@ -37,19 +37,7 @@ namespace Contoso.Registration.Application.Queries
         [TestMethod]
         public void Find_PassingParameter_ReturnData()
         {
-            VehiclesQueries vehiclesQueries = new VehiclesQueries(this.GetDatabaseMock().Object, this.mapper);
-            Model.Vehicle parameters = new Model.Vehicle()
-            {
-                Name = "F50",
-                Brand = "Ferrari",
-                Doors = 2,
-                Passengers = 2,
-                Category = "Sport",
-                Transmission = "Manual",
-                Consume = 10,
-                Emission = 20,
-            };
-            IEnumerable<Model.Vehicle> result = vehiclesQueries.Find(parameters);
+            Model.PagedList<Model.Vehicle> result = this.ExecuteFind();
 
             Assert.IsTrue(result.Count() > 0);
             Assert.AreEqual("F50", result.First().Name);
@@ -60,6 +48,19 @@ namespace Contoso.Registration.Application.Queries
             Assert.AreEqual(2, result.First().Passengers);
             Assert.AreEqual(10, result.First().Consume);
             Assert.AreEqual(20, result.First().Emission);
+        }
+
+        /// <summary>
+        /// Query test.
+        /// </summary>
+        [TestMethod]
+        public void Find_PassingParameter_PaginateResult()
+        {
+            Model.PagedList<Model.Vehicle> result = this.ExecuteFind();
+
+            Assert.AreEqual(1, result.Total);
+            Assert.AreEqual(10, result.Limit);
+            Assert.AreEqual(1, result.Page);
         }
 
         /// <summary>
@@ -98,6 +99,24 @@ namespace Contoso.Registration.Application.Queries
             queryableMock.As<IQueryable<TableEntityAdapter<Infrastructure.Model.Vehicle>>>().Setup(q => q.ElementType).Returns(data.ElementType);
             queryableMock.As<IQueryable<TableEntityAdapter<Infrastructure.Model.Vehicle>>>().Setup(q => q.GetEnumerator()).Returns(data.GetEnumerator());
             return queryableMock;
+        }
+
+        private Model.PagedList<Model.Vehicle> ExecuteFind()
+        {
+            VehiclesQueries vehiclesQueries = new VehiclesQueries(this.GetDatabaseMock().Object, this.mapper);
+            Model.Vehicle parameters = new Model.Vehicle()
+            {
+                Name = "F50",
+                Brand = "Ferrari",
+                Doors = 2,
+                Passengers = 2,
+                Category = "Sport",
+                Transmission = "Manual",
+                Consume = 10,
+                Emission = 20,
+            };
+
+            return vehiclesQueries.Find(parameters);
         }
     }
 }

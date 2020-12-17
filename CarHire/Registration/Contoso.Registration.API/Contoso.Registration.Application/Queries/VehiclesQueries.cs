@@ -30,7 +30,7 @@ namespace Contoso.Registration.Application.Queries
         }
 
         /// <inheritdoc/>
-        public IEnumerable<Model.Vehicle> Find(Model.Vehicle vehicle)
+        public Model.PagedList<Model.Vehicle> Find(Model.Vehicle vehicle)
         {
             IQueryable<TableEntityAdapter<Infrastructure.Model.Vehicle>> query = this.databaseQueries.GetQuery<Infrastructure.Model.Vehicle>();
             if (!string.IsNullOrEmpty(vehicle.Brand))
@@ -68,9 +68,28 @@ namespace Contoso.Registration.Application.Queries
                 query = query.Where(v => v.OriginalEntity.Emission.Equals(vehicle.Emission));
             }
 
-            List<TableEntityAdapter<Infrastructure.Model.Vehicle>> result = query.ToList();
+            return this.Map(Model.PagedList<Infrastructure.Model.Vehicle>.ToPagedList(query, 1, 10));
+        }
 
-            return this.mapper.Map<IEnumerable<Infrastructure.Model.Vehicle>, IEnumerable<Model.Vehicle>>(result.Select(c => c.OriginalEntity));
+        private Model.PagedList<Model.Vehicle> Map(Model.PagedList<Infrastructure.Model.Vehicle> source)
+        {
+            List<Model.Vehicle> vehicles = new List<Model.Vehicle>();
+            foreach (var item in source)
+            {
+                vehicles.Add(new Model.Vehicle()
+                {
+                    Brand = item.Brand,
+                    Name = item.Name,
+                    Category = item.Category,
+                    Transmission = item.Transmission,
+                    Doors = item.Doors,
+                    Passengers = item.Passengers,
+                    Consume = item.Consume,
+                    Emission = item.Emission,
+                });
+            }
+
+            return new Model.PagedList<Model.Vehicle>(vehicles, source.Page, source.Limit, source.Total);
         }
     }
 }

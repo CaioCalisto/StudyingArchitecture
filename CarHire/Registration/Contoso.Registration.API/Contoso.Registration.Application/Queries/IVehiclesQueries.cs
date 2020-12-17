@@ -18,6 +18,6 @@ namespace Contoso.Registration.Application.Queries
         /// </summary>
         /// <param name="vehicle">Parameters.</param>
         /// <returns>Vehicles.</returns>
-        IEnumerable<Vehicle> Find(Vehicle vehicle);
+        PagedList<Vehicle> Find(Vehicle vehicle);
     }
 }

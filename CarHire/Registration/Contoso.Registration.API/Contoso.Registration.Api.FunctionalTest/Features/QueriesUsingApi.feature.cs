@@ -218,6 +218,25 @@ this.ScenarioInitialize(scenarioInfo);
 #line 21
  testRunner.And("the API GET response has the following result", ((string)(null)), table11, "And ");
 #line hidden
+                TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Header",
+                            "Key",
+                            "Value"});
+                table12.AddRow(new string[] {
+                            "X-Pagination",
+                            "Total",
+                            "1"});
+                table12.AddRow(new string[] {
+                            "X-Pagination",
+                            "Page",
+                            "1"});
+                table12.AddRow(new string[] {
+                            "X-Pagination",
+                            "Limit",
+                            "10"});
+#line 24
+ testRunner.And("the API GET response has the following header result", ((string)(null)), table12, "And ");
+#line hidden
             }
             this.ScenarioCleanup();
         }
@@ -232,7 +251,7 @@ this.ScenarioInitialize(scenarioInfo);
                     "RunServicesLocally"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Storage does not contains data", null, tagsOfScenario, argumentsOfScenario);
-#line 26
+#line 31
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -252,23 +271,42 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 27
+#line 32
  testRunner.Given("the API is running", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 28
+#line 33
  testRunner.And("user is authenticated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-                TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
                             "Brand"});
-                table12.AddRow(new string[] {
+                table13.AddRow(new string[] {
                             "Uno",
                             "Fiat"});
-#line 29
- testRunner.When("a GET call is made with the following parameters", ((string)(null)), table12, "When ");
+#line 34
+ testRunner.When("a GET call is made with the following parameters", ((string)(null)), table13, "When ");
 #line hidden
-#line 32
+#line 37
  testRunner.Then("the API Get status result is 404", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+                TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Header",
+                            "Key",
+                            "Value"});
+                table14.AddRow(new string[] {
+                            "X-Pagination",
+                            "Total",
+                            "0"});
+                table14.AddRow(new string[] {
+                            "X-Pagination",
+                            "Page",
+                            "1"});
+                table14.AddRow(new string[] {
+                            "X-Pagination",
+                            "Limit",
+                            "10"});
+#line 38
+ testRunner.And("the API GET response has the following header result", ((string)(null)), table14, "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -284,7 +322,7 @@ this.ScenarioInitialize(scenarioInfo);
                     "RunServicesLocally"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User has no permission", null, tagsOfScenario, argumentsOfScenario);
-#line 35
+#line 45
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -304,22 +342,22 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 36
+#line 46
  testRunner.Given("the API is running", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 37
+#line 47
  testRunner.And("user has no permission", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-                TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
                             "Brand"});
-                table13.AddRow(new string[] {
+                table15.AddRow(new string[] {
                             "Uno",
                             "Fiat"});
-#line 38
- testRunner.When("a GET call is made with the following parameters", ((string)(null)), table13, "When ");
+#line 48
+ testRunner.When("a GET call is made with the following parameters", ((string)(null)), table15, "When ");
 #line hidden
-#line 41
+#line 51
  testRunner.Then("the API Get status result is 401", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
