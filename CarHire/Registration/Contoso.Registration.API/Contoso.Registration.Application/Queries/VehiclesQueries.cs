@@ -4,7 +4,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
 using Contoso.Registration.Infrastructure.Database;
 using Microsoft.Azure.Cosmos.Table;
 
@@ -16,17 +15,14 @@ namespace Contoso.Registration.Application.Queries
     public class VehiclesQueries : IVehiclesQueries
     {
         private readonly IDatabaseQueries databaseQueries;
-        private readonly IMapper mapper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VehiclesQueries"/> class.
         /// </summary>
         /// <param name="databaseQueries">Database context.</param>
-        /// <param name="mapper">Mapper.</param>
-        public VehiclesQueries(IDatabaseQueries databaseQueries, IMapper mapper)
+        public VehiclesQueries(IDatabaseQueries databaseQueries)
         {
             this.databaseQueries = databaseQueries;
-            this.mapper = mapper;
         }
 
         /// <inheritdoc/>

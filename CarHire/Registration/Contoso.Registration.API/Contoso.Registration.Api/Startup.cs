@@ -4,7 +4,6 @@
 
 using System;
 using System.Collections.Generic;
-using AutoMapper;
 using Contoso.Registration.Api.Authorization;
 using Contoso.Registration.Api.Extensions;
 using Contoso.Registration.Application.Commands;
@@ -56,7 +55,6 @@ namespace Contoso.Registration.Api
         public void ConfigureServices(IServiceCollection services)
         {
             this.ConfigureOptions(services);
-            this.AddAutoMapper(services);
 
             services.AddMediatR(AppDomain.CurrentDomain.Load("Contoso.Registration.Application"));
             services.AddMediatR(AppDomain.CurrentDomain.Load("Contoso.Registration.Infrastructure"));
@@ -149,18 +147,6 @@ namespace Contoso.Registration.Api
         {
             services.Configure<AzureMessaging>(this.Configuration.GetSection(nameof(AzureMessaging)));
             services.Configure<TableStorage>(this.Configuration.GetSection(nameof(TableStorage)));
-        }
-
-        private void AddAutoMapper(IServiceCollection services)
-        {
-            var mapperConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new Application.Mappers.MapProfile());
-                mc.AddProfile(new Infrastructure.Mappers.MapProfile());
-            });
-
-            IMapper mapper = mapperConfig.CreateMapper();
-            services.AddSingleton(mapper);
         }
 
         private void AddAuthentication(IServiceCollection services)

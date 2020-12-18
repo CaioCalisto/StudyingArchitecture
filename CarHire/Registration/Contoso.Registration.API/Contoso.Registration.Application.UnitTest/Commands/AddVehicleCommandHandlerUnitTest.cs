@@ -6,8 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
-using Contoso.Registration.Application.Mappers;
 using Contoso.Registration.Domain.Common;
 using Contoso.Registration.Domain.Ports;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -21,17 +19,6 @@ namespace Contoso.Registration.Application.Commands
     [TestClass]
     public class AddVehicleCommandHandlerUnitTest
     {
-        private IMapper mapper;
-
-        /// <summary>
-        /// Setup.
-        /// </summary>
-        [TestInitialize]
-        public void Setup()
-        {
-            this.mapper = new MapperConfiguration(cfg => cfg.AddProfile<MapProfile>()).CreateMapper();
-        }
-
         /// <summary>
         /// Handler test.
         /// </summary>
@@ -43,7 +30,7 @@ namespace Contoso.Registration.Application.Commands
             Mock<IUnitOfWork> unitOfWorkMock = new Mock<IUnitOfWork>();
             unitOfWorkMock.Setup(u => u.SaveEntitiesAsync(It.IsAny<CancellationToken>())).ReturnsAsync(true);
             repositoryMock.Setup(r => r.InsertAsync(It.IsAny<Domain.Aggregate.Vehicle>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(this.GetDomainVehicle());
-            AddVehicleCommandHandler handler = new AddVehicleCommandHandler(repositoryMock.Object, this.mapper);
+            AddVehicleCommandHandler handler = new AddVehicleCommandHandler(repositoryMock.Object);
             IEnumerable<Model.Vehicle> result = await handler.Handle(this.GetCommand(), CancellationToken.None);
 
             repositoryMock.Verify(r => r.InsertAsync(It.IsAny<Domain.Aggregate.Vehicle>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
@@ -60,7 +47,7 @@ namespace Contoso.Registration.Application.Commands
             Mock<IUnitOfWork> unitOfWorkMock = new Mock<IUnitOfWork>();
             unitOfWorkMock.Setup(u => u.SaveEntitiesAsync(It.IsAny<CancellationToken>())).ReturnsAsync(true);
             repositoryMock.Setup(r => r.InsertAsync(It.IsAny<Domain.Aggregate.Vehicle>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(this.GetDomainVehicle());
-            AddVehicleCommandHandler handler = new AddVehicleCommandHandler(repositoryMock.Object, this.mapper);
+            AddVehicleCommandHandler handler = new AddVehicleCommandHandler(repositoryMock.Object);
             IEnumerable<Model.Vehicle> result = await handler.Handle(this.GetCommand(), CancellationToken.None);
 
             Assert.AreEqual("Ford", result.First().Brand);

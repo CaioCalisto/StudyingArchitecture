@@ -2,11 +2,9 @@
 // Copyright (c) CaioCesarCalisto. All rights reserved.
 // </copyright>
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using Contoso.Registration.Domain.Aggregate;
 using Contoso.Registration.Domain.Ports;
 using Contoso.Registration.Infrastructure.Configurations;
@@ -22,22 +20,19 @@ namespace Contoso.Registration.Infrastructure.Database
     public class VehicleContext : IVehicleRepository, IDatabaseQueries
     {
         private readonly CloudTable table;
-        private readonly IMapper mapper;
         private readonly IMediator mediator;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VehicleContext"/> class.
         /// </summary>
         /// <param name="tableStorageConfig">Table Storage onfigurations.</param>
-        /// <param name="mapper">Auto mapper.</param>
         /// <param name="mediator">Mediator.</param>
-        public VehicleContext(IOptions<TableStorage> tableStorageConfig, IMapper mapper, IMediator mediator)
+        public VehicleContext(IOptions<TableStorage> tableStorageConfig, IMediator mediator)
         {
             CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse(tableStorageConfig.Value.ConnectionString);
             CloudTableClient tableClient = cloudStorageAccount.CreateCloudTableClient();
             this.table = tableClient.GetTableReference(tableStorageConfig.Value.Table);
             this.table.CreateIfNotExists();
-            this.mapper = mapper;
             this.mediator = mediator;
         }
 

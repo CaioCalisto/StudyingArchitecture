@@ -16,15 +16,12 @@ namespace Contoso.Registration.Api.Extensions
         {
             if (!context.ModelState.IsValid)
             {
-                List<string> errors = context.ModelState.Values
-                    .Where(v => v.Errors.Count > 0)
-                    .SelectMany(v => v.Errors)
-                    .Select(v => v.ErrorMessage)
-                    .ToList();
-
                 context.Result = new BadRequestObjectResult(new ProblemDetails()
                 {
-                    Detail = string.Join(" ", errors.ToArray()),
+                    Detail = string.Join(" ", context.ModelState.Values
+                        .Where(v => v.Errors.Count > 0)
+                        .SelectMany(v => v.Errors)
+                        .Select(v => v.ErrorMessage).ToArray()),
                     Title = "API Error. Please see the details.",
                     Status = StatusCodes.Status400BadRequest,
                 });

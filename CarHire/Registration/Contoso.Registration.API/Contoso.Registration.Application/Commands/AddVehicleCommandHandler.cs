@@ -5,7 +5,6 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using Contoso.Registration.Application.Model;
 using Contoso.Registration.Domain.Ports;
 using MediatR;
@@ -18,17 +17,14 @@ namespace Contoso.Registration.Application.Commands
     public class AddVehicleCommandHandler : IRequestHandler<AddVehicleCommand, IEnumerable<Vehicle>>
     {
         private readonly IVehicleRepository vehicleRepositoy;
-        private readonly IMapper mapper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AddVehicleCommandHandler"/> class.
         /// </summary>
         /// <param name="vehicleRepositoy">Vehicle repository.</param>
-        /// <param name="mapper">Model mapper.</param>
-        public AddVehicleCommandHandler(IVehicleRepository vehicleRepositoy, IMapper mapper)
+        public AddVehicleCommandHandler(IVehicleRepository vehicleRepositoy)
         {
             this.vehicleRepositoy = vehicleRepositoy;
-            this.mapper = mapper;
         }
 
         /// <inheritdoc/>
@@ -45,7 +41,23 @@ namespace Contoso.Registration.Application.Commands
                 request.Emission);
 
             vehicle = await this.vehicleRepositoy.InsertAsync(vehicle, vehicle.Brand, $"{vehicle.Brand} {vehicle.Name} {vehicle.Category.ToString().ToUpper()}");
-            return this.mapper.Map<IEnumerable<Model.Vehicle>>(new List<Domain.Aggregate.Vehicle>() { vehicle });
+            return this.Map(vehicle);
         }
+
+        private IEnumerable<Vehicle> Map(Domain.Aggregate.Vehicle source) =>
+            new List<Vehicle>()
+            {
+                new Vehicle()
+                {
+                    Brand = source.Brand,
+                    Name = source.Name,
+                    Category = source.Category.ToString(),
+                    Transmission = source.Transmission.ToString(),
+                    Doors = source.Doors,
+                    Passengers = source.Passengers,
+                    Consume = source.Consume,
+                    Emission = source.Emission,
+                },
+            };
     }
 }

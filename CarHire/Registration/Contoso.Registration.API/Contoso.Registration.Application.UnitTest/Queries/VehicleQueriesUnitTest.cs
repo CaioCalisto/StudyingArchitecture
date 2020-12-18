@@ -4,8 +4,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
-using Contoso.Registration.Application.Mappers;
 using Contoso.Registration.Application.Stubs.Database;
 using Contoso.Registration.Infrastructure.Database;
 using Microsoft.Azure.Cosmos.Table;
@@ -20,17 +18,6 @@ namespace Contoso.Registration.Application.Queries
     [TestClass]
     public class VehicleQueriesUnitTest
     {
-        private IMapper mapper;
-
-        /// <summary>
-        /// Setup.
-        /// </summary>
-        [TestInitialize]
-        public void Setup()
-        {
-            this.mapper = new MapperConfiguration(cfg => cfg.AddProfile<MapProfile>()).CreateMapper();
-        }
-
         /// <summary>
         /// Query test.
         /// </summary>
@@ -69,7 +56,7 @@ namespace Contoso.Registration.Application.Queries
         [TestMethod]
         public void Find_NoDataExists_ReturnEmptyList()
         {
-            VehiclesQueries vehiclesQueries = new VehiclesQueries(this.GetDatabaseMock().Object, this.mapper);
+            VehiclesQueries vehiclesQueries = new VehiclesQueries(this.GetDatabaseMock().Object);
             Model.Vehicle parameters = new Model.Vehicle()
             {
                 Name = "Uno",
@@ -104,7 +91,7 @@ namespace Contoso.Registration.Application.Queries
 
         private Model.PagedList<Model.Vehicle> ExecuteFind(Model.Pagination pagination)
         {
-            VehiclesQueries vehiclesQueries = new VehiclesQueries(this.GetDatabaseMock().Object, this.mapper);
+            VehiclesQueries vehiclesQueries = new VehiclesQueries(this.GetDatabaseMock().Object);
             Model.Vehicle parameters = new Model.Vehicle()
             {
                 Name = "F50",
