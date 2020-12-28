@@ -29,7 +29,7 @@ Scenario: Vehicle sent with wrong parameters
 	| Name		| Brand		| Category	| Doors		| Passengers	| Transmission		| Consume	| Emission	|
 	|					| Chevrolet	| NA			| 4			| 5				| NA					| 23				| 16				|
 	Then the API Post status result is 400
-	And The API error response has the following result
+	And The API POST error response has the following result
 	| StatusCode | Title													| Detail																																|
 	| 400			 | API Error. Please see the details.	| 'Name' must not be empty. 'Category' must be valid. 'Transmission' must be valid.	|
 	And no Integration Event is sent

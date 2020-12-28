@@ -57,7 +57,7 @@ namespace Contoso.Registration.Application.Queries
         public void Find_NoDataExists_ReturnEmptyList()
         {
             VehiclesQueries vehiclesQueries = new VehiclesQueries(this.GetDatabaseMock().Object);
-            Model.Vehicle parameters = new Model.Vehicle()
+            Parameters.Vehicle parameters = new Parameters.Vehicle()
             {
                 Name = "Uno",
                 Brand = "Fiat",
@@ -92,7 +92,7 @@ namespace Contoso.Registration.Application.Queries
         private Model.PagedList<Model.Vehicle> ExecuteFind(Model.Pagination pagination)
         {
             VehiclesQueries vehiclesQueries = new VehiclesQueries(this.GetDatabaseMock().Object);
-            Model.Vehicle parameters = new Model.Vehicle()
+            Parameters.Vehicle parameters = new Parameters.Vehicle()
             {
                 Name = "F50",
                 Brand = "Ferrari",

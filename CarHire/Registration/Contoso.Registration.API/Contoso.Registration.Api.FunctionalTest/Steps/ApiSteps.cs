@@ -9,7 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Contoso.Registration.Application.Model;
 using Contoso.Registration.FunctionalTest.Services;
-using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -128,10 +127,23 @@ namespace Contoso.Registration.FunctionalTest.Steps
             }
         }
 
-        [Then("The API error response has the following result")]
+        [Then("The API POST error response has the following result")]
         public async Task TheAPIErrorResponseHasTheFollowingResult(Table table)
         {
             string response = await this.responsePostMessage.Content.ReadAsStringAsync();
+            ProblemDetails problemDetails = JsonConvert.DeserializeObject<ProblemDetails>(response);
+            foreach (TableRow row in table.Rows)
+            {
+                Assert.AreEqual(Convert.ToInt16(row["StatusCode"]), problemDetails.Status);
+                Assert.AreEqual(row["Title"], problemDetails.Title);
+                Assert.AreEqual(row["Detail"], problemDetails.Detail);
+            }
+        }
+
+        [Then("The API GET error response has the following result")]
+        public async Task TheAPIGetErrorResponseHasTheFollowingResult(Table table)
+        {
+            string response = await this.responseGetMessage.Content.ReadAsStringAsync();
             ProblemDetails problemDetails = JsonConvert.DeserializeObject<ProblemDetails>(response);
             foreach (TableRow row in table.Rows)
             {

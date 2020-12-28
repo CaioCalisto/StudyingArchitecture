@@ -26,7 +26,7 @@ namespace Contoso.Registration.Application.Queries
         }
 
         /// <inheritdoc/>
-        public Model.PagedList<Model.Vehicle> Find(Model.Vehicle vehicle, Model.Pagination pagination)
+        public Model.PagedList<Model.Vehicle> Find(Parameters.Vehicle vehicle, Model.Pagination pagination)
         {
             IQueryable<TableEntityAdapter<Infrastructure.Model.Vehicle>> query = this.databaseQueries.GetQuery<Infrastructure.Model.Vehicle>();
             if (!string.IsNullOrEmpty(vehicle.Brand))

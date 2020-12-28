@@ -2,8 +2,6 @@
 // Copyright (c) CaioCesarCalisto. All rights reserved.
 // </copyright>
 
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Contoso.Registration.Application.Model;
 
 namespace Contoso.Registration.Application.Queries
@@ -19,6 +17,6 @@ namespace Contoso.Registration.Application.Queries
         /// <param name="vehicle">Parameters.</param>
         /// <param name="pagination">Pagination.</param>
         /// <returns>Vehicles.</returns>
-        PagedList<Vehicle> Find(Vehicle vehicle, Pagination pagination);
+        PagedList<Vehicle> Find(Parameters.Vehicle vehicle, Pagination pagination);
     }
 }

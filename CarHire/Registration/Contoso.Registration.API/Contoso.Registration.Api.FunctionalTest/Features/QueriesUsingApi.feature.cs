@@ -483,6 +483,116 @@ this.ScenarioInitialize(scenarioInfo);
             }
             this.ScenarioCleanup();
         }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("User send wrong parameters")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "QueriesUsingApi")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("RunServicesLocally")]
+        public virtual void UserSendWrongParameters()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "RunServicesLocally"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User send wrong parameters", null, tagsOfScenario, argumentsOfScenario);
+#line 75
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 76
+ testRunner.Given("the API is running", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 77
+ testRunner.And("user is authenticated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+                TechTalk.SpecFlow.Table table20 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Name",
+                            "Brand",
+                            "Category",
+                            "Doors",
+                            "Passengers",
+                            "Transmission",
+                            "Consume",
+                            "Emission"});
+                table20.AddRow(new string[] {
+                            "F50",
+                            "Ferrari",
+                            "SPORT",
+                            "2",
+                            "2",
+                            "MANUAL",
+                            "23",
+                            "16"});
+#line 78
+ testRunner.When("a POST call is made to add new vehicle", ((string)(null)), table20, "When ");
+#line hidden
+#line 81
+ testRunner.Then("the API Post status result is 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+                TechTalk.SpecFlow.Table table21 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Name",
+                            "Brand",
+                            "Category",
+                            "Doors",
+                            "Passengers",
+                            "Transmission",
+                            "Consume",
+                            "Emission"});
+                table21.AddRow(new string[] {
+                            "F50",
+                            "Ferrari",
+                            "SPORT",
+                            "2",
+                            "2",
+                            "MANUAL",
+                            "23",
+                            "16"});
+#line 82
+ testRunner.And("the API Post response has the following result", ((string)(null)), table21, "And ");
+#line hidden
+                TechTalk.SpecFlow.Table table22 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Brand",
+                            "Category",
+                            "Transmission"});
+                table22.AddRow(new string[] {
+                            "Ferrari",
+                            "NA",
+                            "NA"});
+#line 85
+ testRunner.When("a GET call is made with the following parameters", ((string)(null)), table22, "When ");
+#line hidden
+#line 88
+ testRunner.Then("the API Get status result is 400", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+                TechTalk.SpecFlow.Table table23 = new TechTalk.SpecFlow.Table(new string[] {
+                            "StatusCode",
+                            "Title",
+                            "Detail"});
+                table23.AddRow(new string[] {
+                            "400",
+                            "API Error. Please see the details.",
+                            "\'Category\' must be valid. \'Transmission\' must be valid."});
+#line 89
+ testRunner.And("The API GET error response has the following result", ((string)(null)), table23, "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

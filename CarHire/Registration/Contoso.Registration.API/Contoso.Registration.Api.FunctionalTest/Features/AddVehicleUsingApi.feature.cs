@@ -275,7 +275,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "\'Name\' must not be empty. \'Category\' must be valid. \'Transmission\' must be valid." +
                                 ""});
 #line 32
- testRunner.And("The API error response has the following result", ((string)(null)), table6, "And ");
+ testRunner.And("The API POST error response has the following result", ((string)(null)), table6, "And ");
 #line hidden
 #line 35
  testRunner.And("no Integration Event is sent", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");

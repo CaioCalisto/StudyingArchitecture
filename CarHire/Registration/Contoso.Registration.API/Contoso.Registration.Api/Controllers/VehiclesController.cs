@@ -5,8 +5,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Contoso.Registration.Api.Authorization;
-using Contoso.Registration.Application.Commands;
-using Contoso.Registration.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +20,7 @@ namespace Contoso.Registration.Api.Controllers
     [Authorize]
     public class VehiclesController : ControllerBase
     {
-        private readonly IVehiclesQueries vehiclesQueries;
+        private readonly Application.Queries.IVehiclesQueries vehiclesQueries;
         private readonly IMediator mediator;
 
         /// <summary>
@@ -30,7 +28,7 @@ namespace Contoso.Registration.Api.Controllers
         /// </summary>
         /// <param name="vehiclesQueries">Queries.</param>
         /// <param name="mediator">Mediator.</param>
-        public VehiclesController(IVehiclesQueries vehiclesQueries, IMediator mediator)
+        public VehiclesController(Application.Queries.IVehiclesQueries vehiclesQueries, IMediator mediator)
         {
             this.vehiclesQueries = vehiclesQueries;
             this.mediator = mediator;
@@ -44,7 +42,7 @@ namespace Contoso.Registration.Api.Controllers
         /// <returns>Vehicles.</returns>
         [HttpGet]
         [Route("query")]
-        public IActionResult GetVehicles([FromQuery] Application.Model.Vehicle vehicles, [FromQuery] Application.Model.Pagination pagination)
+        public IActionResult GetVehicles([FromQuery] Application.Queries.Parameters.Vehicle vehicles, [FromQuery] Application.Model.Pagination pagination)
         {
             Application.Model.PagedList<Application.Model.Vehicle> result = this.vehiclesQueries.Find(vehicles, pagination);
             this.Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(new
@@ -66,6 +64,6 @@ namespace Contoso.Registration.Api.Controllers
         /// <returns>Vehicle created.</returns>
         [HttpPost]
         [Authorize(Policy = Policies.CanEdit)]
-        public async Task<IActionResult> Create([FromBody] AddVehicleCommand addVehicleCommand) => this.Ok(await this.mediator.Send(addVehicleCommand));
+        public async Task<IActionResult> Create([FromBody] Application.Commands.AddVehicleCommand addVehicleCommand) => this.Ok(await this.mediator.Send(addVehicleCommand));
     }
 }

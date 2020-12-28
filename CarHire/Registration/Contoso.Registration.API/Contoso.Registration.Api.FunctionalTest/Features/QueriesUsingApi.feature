@@ -70,3 +70,22 @@ Scenario: User has no permission
 	| Name	| Brand	|
 	| Uno		| Fiat		|
 	Then the API Get status result is 401
+
+@RunServicesLocally
+Scenario: User send wrong parameters
+	Given the API is running
+	And user is authenticated
+	When a POST call is made to add new vehicle
+	| Name	| Brand		| Category	| Doors		| Passengers	| Transmission	| Consume	| Emission	|
+	| F50		| Ferrari		| SPORT    | 2			| 2				| MANUAL	| 23				| 16				|
+	Then the API Post status result is 200
+	And the API Post response has the following result
+	| Name	| Brand	  | Category	| Doors		| Passengers | Transmission | Consume	| Emission	|
+	| F50		| Ferrari   | SPORT	| 2			| 2				| MANUAL  | 23				| 16				|
+	When a GET call is made with the following parameters
+	|Brand   | Category | Transmission |
+	|Ferrari | NA        | NA				|
+	Then the API Get status result is 400
+	And The API GET error response has the following result
+	| StatusCode | Title													| Detail																					|
+	| 400			 | API Error. Please see the details.	| 'Category' must be valid. 'Transmission' must be valid.	|
