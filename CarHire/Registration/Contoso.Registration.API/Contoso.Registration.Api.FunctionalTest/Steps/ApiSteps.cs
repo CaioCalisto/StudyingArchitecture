@@ -187,8 +187,7 @@ namespace Contoso.Registration.FunctionalTest.Steps
                     (row.ContainsKey("Doors") ? actual.Exists(v => v.Doors == Convert.ToInt32(row["Doors"])) : true) &&
                     (row.ContainsKey("Passengers") ? actual.Exists(v => v.Passengers == Convert.ToInt32(row["Passengers"])) : true) &&
                     (row.ContainsKey("Consume") ? actual.Exists(v => v.Consume == Convert.ToInt32(row["Consume"])) : true) &&
-                    (row.ContainsKey("Emission") ? actual.Exists(v => v.Emission == Convert.ToInt32(row["Emission"])) : true)
-                ));
+                    (row.ContainsKey("Emission") ? actual.Exists(v => v.Emission == Convert.ToInt32(row["Emission"])) : true)));
             }
         }
     }

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Contoso.Registration.Api.Extensions
 {
-    internal class ValidationFilter: ActionFilterAttribute
+    internal class ValidationFilter : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {

@@ -1,4 +1,4 @@
-﻿// <copyright file="ApiTestStartup.cs" company="CaioCesarCalisto">
+﻿// <copyright file="ApiTestStartupAutoAuthorized.cs" company="CaioCesarCalisto">
 // Copyright (c) CaioCesarCalisto. All rights reserved.
 // </copyright>
 

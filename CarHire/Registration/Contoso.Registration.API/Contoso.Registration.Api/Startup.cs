@@ -82,7 +82,7 @@ namespace Contoso.Registration.Api
                 config.Filters.Add(new AuthorizeFilter(policy));
             }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
             .AddApplicationPart(typeof(Startup).Assembly)
-            .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AddVehicleCommand>()); ;
+            .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AddVehicleCommand>());
         }
 
         /// <summary>
