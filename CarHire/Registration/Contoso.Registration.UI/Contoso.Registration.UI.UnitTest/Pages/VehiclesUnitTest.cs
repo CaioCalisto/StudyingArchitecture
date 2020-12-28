@@ -28,10 +28,10 @@ namespace Contoso.Registration.UI.Pages
         public void VehiclesPage_FirstLoad_LoadEmptyList()
         {
             Bunit.TestContext context = new Bunit.TestContext();
-            context.Services.AddSingleton<IRegistrationAPI>(this.GetApiMock().Object);
+            context.Services.AddSingleton<IRegistrationAPI>(new Mock<IRegistrationAPI>().Object);
 
-            string expected = "<h1>Vehicles</h1><br /><button id=\"getMoreBtn\">Get more 10</button><br /><ul></ul>";
-            this.GetVehiclePageComponent(context).MarkupMatches(expected);
+            string expected = "<h1>Vehicles</h1><br /><div></div><br /><button id=\"getMoreBtn\">Get more 10</button><br /><ul></ul>";
+            context.RenderComponent<Vehicles>().MarkupMatches(expected);
         }
 
         /// <summary>
@@ -41,15 +41,31 @@ namespace Contoso.Registration.UI.Pages
         public void VehiclesPage_clickIngetMoreBtn_ListShouldContainElements()
         {
             Bunit.TestContext context = new Bunit.TestContext();
-            Mock<IRegistrationAPI> apiMock = this.GetApiMock();
+            Mock<IRegistrationAPI> apiMock = new Mock<IRegistrationAPI>();
             apiMock.Setup(a => a.GetVehiclesAsync()).Returns(Task.FromResult(this.GetVehicles()));
             context.Services.AddSingleton<IRegistrationAPI>(apiMock.Object);
-            IRenderedComponent<Vehicles> page = this.GetVehiclePageComponent(context);
-            IElement button = page.FindAll("button").GetElementById("getMoreBtn");
+            IRenderedComponent<Vehicles> page = context.RenderComponent<Vehicles>();
+            page.FindAll("button").GetElementById("getMoreBtn").Click(new MouseEventArgs());
 
-            button.Click(new MouseEventArgs());
+            string expected = "<h1>Vehicles</h1><br /><div></div><br /><button id=\"getMoreBtn\">Get more 10</button><br /><ul><li>Ferrari F50 - Sport</li><li>Ford Focus - Standard</li></ul>";
+            page.MarkupMatches(expected);
+        }
 
-            string expected = "<h1>Vehicles</h1><br /><button id=\"getMoreBtn\">Get more 10</button><br /><ul><li>Ferrari F50 - Sport</li><li>Ford Focus - Standard</li></ul>";
+        /// <summary>
+        /// Unit test for Vehicle Page.
+        /// </summary>
+        [TestMethod]
+        public void VehiclesPage_clickIngetMoreBtn_ShouldGetErrorWhenCallIsRefused()
+        {
+            string errorMessage = "No connection could be made because the target machine actively refused it.";
+            Bunit.TestContext context = new Bunit.TestContext();
+            Mock<IRegistrationAPI> apiMock = new Mock<IRegistrationAPI>();
+            apiMock.Setup(a => a.GetVehiclesAsync()).Throws(new System.Exception(errorMessage));
+            context.Services.AddSingleton<IRegistrationAPI>(apiMock.Object);
+            IRenderedComponent<Vehicles> page = context.RenderComponent<Vehicles>();
+            page.FindAll("button").GetElementById("getMoreBtn").Click();
+
+            string expected = $"<h1>Vehicles</h1><br /><div>{errorMessage}</div><br /><button id=\"getMoreBtn\">Get more 10</button><br /><ul></ul>";
             page.MarkupMatches(expected);
         }
 
@@ -61,9 +77,5 @@ namespace Contoso.Registration.UI.Pages
                 new Vehicle() { Brand = "Ford", Name = "Focus", Category = "Standard" },
             };
         }
-
-        private IRenderedComponent<Vehicles> GetVehiclePageComponent(Bunit.TestContext context) => context.RenderComponent<Vehicles>();
-
-        private Mock<IRegistrationAPI> GetApiMock() => new Mock<IRegistrationAPI>();
     }
 }

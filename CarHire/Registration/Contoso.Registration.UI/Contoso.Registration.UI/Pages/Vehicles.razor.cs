@@ -17,7 +17,8 @@ namespace Contoso.Registration.UI.Pages
     /// </summary>
     public partial class Vehicles : ComponentBase
     {
-        private IEnumerable<Vehicle> vehicles = new List<Vehicle>();
+        protected IEnumerable<Vehicle> vehicles = new List<Vehicle>();
+        protected string error = string.Empty;
 
         [Inject]
         private IRegistrationAPI RegistrationApi { get; set; }
@@ -30,7 +31,7 @@ namespace Contoso.Registration.UI.Pages
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                this.error = ex.Message;
             }
         }
     }
