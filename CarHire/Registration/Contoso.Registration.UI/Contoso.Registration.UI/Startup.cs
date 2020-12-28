@@ -3,20 +3,19 @@
 // </copyright>
 
 using System;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using Contoso.Registration.Services.Api;
 using Contoso.Registration.UI.Authorization;
 using Contoso.Registration.UI.Configurations;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Identity.Web;
-using Microsoft.Identity.Web.UI;
+using Polly;
+using Polly.Extensions.Http;
 
 namespace Contoso.Registration.UI
 {
@@ -47,11 +46,7 @@ namespace Contoso.Registration.UI
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<AzureADConfig>(this.Configuration.GetSection("AzureAd"));
-            services.AddHttpClient<IRegistrationAPI, RegistrationAPI>(client =>
-            {
-                client.BaseAddress = new Uri(this.Configuration["RegistrationApi:BaseAddress"]);
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            }).AddHttpMessageHandler<AuthorizationDelegatingHandler>();
+            this.ConfigureHttpClient(services);
 
             services.AddTransient<AuthorizationDelegatingHandler>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -97,17 +92,34 @@ namespace Contoso.Registration.UI
 
         private void AddAuthentication(IServiceCollection services)
         {
-            services.AddMicrosoftIdentityWebAppAuthentication(this.Configuration);
+            //services.AddMicrosoftIdentityWebAppAuthentication(this.Configuration);
 
-            services.AddControllersWithViews(options =>
+            //services.AddControllersWithViews(options =>
+            //{
+            //    var policy = new AuthorizationPolicyBuilder()
+            //                     .RequireAuthenticatedUser()
+            //                     .Build();
+            //    options.Filters.Add(new AuthorizeFilter(policy));
+            //}).AddMicrosoftIdentityUI();
+
+            //services.AddHttpContextAccessor();
+        }
+
+        private void ConfigureHttpClient(IServiceCollection services)
+        {
+            services.AddHttpClient<IRegistrationAPI, RegistrationAPI>(client =>
             {
-                var policy = new AuthorizationPolicyBuilder()
-                                 .RequireAuthenticatedUser()
-                                 .Build();
-                options.Filters.Add(new AuthorizeFilter(policy));
-            }).AddMicrosoftIdentityUI();
+                client.BaseAddress = new Uri(this.Configuration["RegistrationApi:BaseAddress"]);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            }).AddHttpMessageHandler<AuthorizationDelegatingHandler>()
+            .AddPolicyHandler(this.GetCircuitBreakerPolicy());
+        }
 
-            services.AddHttpContextAccessor();
+        private IAsyncPolicy<HttpResponseMessage> GetCircuitBreakerPolicy()
+        {
+            return HttpPolicyExtensions
+                .HandleTransientHttpError()
+                .CircuitBreakerAsync(5, TimeSpan.FromSeconds(10));
         }
     }
 }
