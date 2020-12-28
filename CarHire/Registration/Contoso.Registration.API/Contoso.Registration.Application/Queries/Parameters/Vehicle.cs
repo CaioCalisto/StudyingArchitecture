@@ -61,19 +61,15 @@ namespace Contoso.Registration.Application.Queries.Parameters
         /// <returns>Results.</returns>
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            List<ValidationResult> results = new List<ValidationResult>();
-
             if (!string.IsNullOrEmpty(this.Category) && !Enum.TryParse(this.Category.ToUpper(), out Category vehicleCategory))
             {
-                results.Add(new ValidationResult("'Category' must be valid."));
+                yield return new ValidationResult("'Category' must be valid.");
             }
 
             if (!string.IsNullOrEmpty(this.Transmission) && !Enum.TryParse(this.Transmission.ToUpper(), out Transmission vehicleTransmission))
             {
-                results.Add(new ValidationResult("'Transmission' must be valid."));
+                yield return new ValidationResult("'Transmission' must be valid.");
             }
-
-            return results;
         }
     }
 }
