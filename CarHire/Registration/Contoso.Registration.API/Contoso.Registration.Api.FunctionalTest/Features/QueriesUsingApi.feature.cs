@@ -485,15 +485,15 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("User send wrong parameters")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("User send wrong parameters as en-US")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "QueriesUsingApi")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("RunServicesLocally")]
-        public virtual void UserSendWrongParameters()
+        public virtual void UserSendWrongParametersAsEn_US()
         {
             string[] tagsOfScenario = new string[] {
                     "RunServicesLocally"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User send wrong parameters", null, tagsOfScenario, argumentsOfScenario);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User send wrong parameters as en-US", null, tagsOfScenario, argumentsOfScenario);
 #line 75
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -589,6 +589,119 @@ this.ScenarioInitialize(scenarioInfo);
                             "\'Category\' must be valid. \'Transmission\' must be valid."});
 #line 89
  testRunner.And("The API GET error response has the following result", ((string)(null)), table23, "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("User send wrong parameters as pt-BR")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "QueriesUsingApi")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("RunServicesLocally")]
+        public virtual void UserSendWrongParametersAsPt_BR()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "RunServicesLocally"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User send wrong parameters as pt-BR", null, tagsOfScenario, argumentsOfScenario);
+#line 94
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 95
+ testRunner.Given("the API is running", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 96
+ testRunner.And("the default culture is pt-BR", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 97
+ testRunner.And("user is authenticated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+                TechTalk.SpecFlow.Table table24 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Name",
+                            "Brand",
+                            "Category",
+                            "Doors",
+                            "Passengers",
+                            "Transmission",
+                            "Consume",
+                            "Emission"});
+                table24.AddRow(new string[] {
+                            "F50",
+                            "Ferrari",
+                            "SPORT",
+                            "2",
+                            "2",
+                            "MANUAL",
+                            "23",
+                            "16"});
+#line 98
+ testRunner.When("a POST call is made to add new vehicle", ((string)(null)), table24, "When ");
+#line hidden
+#line 101
+ testRunner.Then("the API Post status result is 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+                TechTalk.SpecFlow.Table table25 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Name",
+                            "Brand",
+                            "Category",
+                            "Doors",
+                            "Passengers",
+                            "Transmission",
+                            "Consume",
+                            "Emission"});
+                table25.AddRow(new string[] {
+                            "F50",
+                            "Ferrari",
+                            "SPORT",
+                            "2",
+                            "2",
+                            "MANUAL",
+                            "23",
+                            "16"});
+#line 102
+ testRunner.And("the API Post response has the following result", ((string)(null)), table25, "And ");
+#line hidden
+                TechTalk.SpecFlow.Table table26 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Brand",
+                            "Category",
+                            "Transmission"});
+                table26.AddRow(new string[] {
+                            "Ferrari",
+                            "NA",
+                            "NA"});
+#line 105
+ testRunner.When("a GET call is made with the following parameters", ((string)(null)), table26, "When ");
+#line hidden
+#line 108
+ testRunner.Then("the API Get status result is 400", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+                TechTalk.SpecFlow.Table table27 = new TechTalk.SpecFlow.Table(new string[] {
+                            "StatusCode",
+                            "Title",
+                            "Detail"});
+                table27.AddRow(new string[] {
+                            "400",
+                            "Erro na API. Por favor veja os detalhes.",
+                            "\'Category\' must be valid. \'Transmission\' must be valid."});
+#line 109
+ testRunner.And("The API GET error response has the following result", ((string)(null)), table27, "And ");
 #line hidden
             }
             this.ScenarioCleanup();

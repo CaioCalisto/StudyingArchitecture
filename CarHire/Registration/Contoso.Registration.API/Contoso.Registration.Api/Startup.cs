@@ -23,12 +23,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.AspNetCore.Mvc.Localization;
-using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 
@@ -199,14 +196,6 @@ namespace Contoso.Registration.Api
                     options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US");
                     options.SupportedCultures = supportedCultures;
                     options.SupportedUICultures = supportedCultures;
-                    options.RequestCultureProviders = new List<IRequestCultureProvider>
-                    {
-                       new QueryStringRequestCultureProvider
-                       {
-                           QueryStringKey = "culture",
-                           UIQueryStringKey = "ui-culture",
-                       },
-                    };
                 });
         }
 

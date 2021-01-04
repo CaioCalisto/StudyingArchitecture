@@ -24,6 +24,7 @@ namespace Contoso.Registration.FunctionalTest.Steps
         private HttpResponseMessage responsePostMessage;
         private HttpResponseMessage responseGetMessage;
         private bool autoAuthorized;
+        private string culture = "en-US";
 
         [Given("the API is running")]
         public void GivenTheAPIIsRunning()
@@ -40,6 +41,12 @@ namespace Contoso.Registration.FunctionalTest.Steps
         public void GivenUserHasNoPermission()
         {
             this.autoAuthorized = false;
+        }
+
+        [Given("the default culture is (.*)")]
+        public void TheDefaultCultureIs(string culture)
+        {
+            this.culture = culture;
         }
 
         [When("a POST call is made to add new vehicle")]
@@ -63,6 +70,7 @@ namespace Contoso.Registration.FunctionalTest.Steps
                 {
                     using (HttpClient client = server.CreateClient())
                     {
+                        client.DefaultRequestHeaders.Add("Accept-Language", this.culture);
                         string json = JsonConvert.SerializeObject(command);
                         StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                         this.responsePostMessage = await client.PostAsync(VehicleUri, content);
@@ -95,6 +103,7 @@ namespace Contoso.Registration.FunctionalTest.Steps
                 {
                     using (HttpClient client = server.CreateClient())
                     {
+                        client.DefaultRequestHeaders.Add("Accept-Language", this.culture);
                         this.responseGetMessage = await client.GetAsync(query);
                     }
                 }
