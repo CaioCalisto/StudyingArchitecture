@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Contoso.Registration.Api.Authorization;
 using Contoso.Registration.Api.Extensions;
 using Contoso.Registration.Application.Commands;
@@ -12,7 +13,6 @@ using Contoso.Registration.Domain.Ports;
 using Contoso.Registration.Infrastructure.Configurations;
 using Contoso.Registration.Infrastructure.Database;
 using Contoso.Registration.Infrastructure.Messaging;
-using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
@@ -20,11 +20,16 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 
 namespace Contoso.Registration.Api
@@ -62,7 +67,7 @@ namespace Contoso.Registration.Api
             this.AddAuthentication(services);
             this.AddAuthorization(services);
             services.AddControllers();
-
+            this.ConfigureLocalization(services);
             this.AddDependencyInjection(services);
 
             services.AddControllers(options =>
@@ -98,8 +103,8 @@ namespace Contoso.Registration.Api
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
+            this.ConfigureLocalization(app);
             this.ConfigureAuth(app);
 
             app.UseEndpoints(endpoints =>
@@ -171,6 +176,38 @@ namespace Contoso.Registration.Api
                     JwtBearerDefaults.AuthenticationScheme);
                 options.AddPolicy("Schemes", schemes.RequireAuthenticatedUser().Build());
             });
+        }
+
+        private void ConfigureLocalization(IApplicationBuilder app)
+        {
+            IOptions<RequestLocalizationOptions> localization = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(localization.Value);
+        }
+
+        private void ConfigureLocalization(IServiceCollection services)
+        {
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.Configure<RequestLocalizationOptions>(
+                options =>
+                {
+                    List<CultureInfo> supportedCultures = new List<CultureInfo>
+                    {
+                        new CultureInfo("en-US"),
+                        new CultureInfo("pt-BR"),
+                    };
+
+                    options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US");
+                    options.SupportedCultures = supportedCultures;
+                    options.SupportedUICultures = supportedCultures;
+                    options.RequestCultureProviders = new List<IRequestCultureProvider>
+                    {
+                       new QueryStringRequestCultureProvider
+                       {
+                           QueryStringKey = "culture",
+                           UIQueryStringKey = "ui-culture",
+                       },
+                    };
+                });
         }
 
         private void AddSwagger(IServiceCollection services)
