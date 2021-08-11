@@ -22,4 +22,16 @@
     <script src="_framework/blazor.webassembly.js"></script>
 </body>
 
+<script>
+    function openCustomerMicroFrontEnd() {
+        const iframe = document.getElementById('micro-frontend-container');
+        iframe.src = "http://localhost:3000";
+    }
+
+    function openRegistrationMicroFrontEnd(){
+        const iframe = document.getElementById('micro-frontend-container');
+        iframe.src = "http://localhost:5002";
+    }
+</script>
+
 </html>
