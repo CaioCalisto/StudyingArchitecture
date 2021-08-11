@@ -23,14 +23,9 @@
 </body>
 
 <script>
-    function openCustomerMicroFrontEnd() {
+    function openMicroFrontEnd(endpoint) {
         const iframe = document.getElementById('micro-frontend-container');
-        iframe.src = "http://localhost:3000";
-    }
-
-    function openRegistrationMicroFrontEnd(){
-        const iframe = document.getElementById('micro-frontend-container');
-        iframe.src = "http://localhost:5002";
+        iframe.src = endpoint;
     }
 </script>
 
