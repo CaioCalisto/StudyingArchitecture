@@ -1,0 +1,17 @@
+<Row>
+    <Column ColumnSize="ColumnSize.Is4">
+        <button id="getMoreBtn" @onclick="GetMoreVehicles">Get more 10</button>
+    </Column>
+</Row>
+<Row>
+    <br />
+    <ul>
+        @if (vehicles.Any())
+        {
+            @foreach (Vehicle vehicle in vehicles)
+            {
+                <li>@vehicle.Brand @vehicle.Name - @vehicle.Category</li>
+            }
+        }
+    </ul>
+</Row>

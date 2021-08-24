@@ -1,17 +1,25 @@
 ﻿@page "/vehicles"
+@using Contoso.Registration.UI.Components
 
-<h1>Vehicles</h1>
-<br />
-<div>@error</div>
-<br />
-<button id="getMoreBtn" @onclick="GetMoreVehicles">Get more 10</button>
-<br />
-<ul>
-    @if (vehicles.Any())
-    {
-        @foreach (Vehicle vehicle in vehicles)
-        {
-            <li>@vehicle.Brand @vehicle.Name - @vehicle.Category</li>
-        }
-    }
-</ul>
+<Accordion>
+    <Collapse Visible="@collapse1Visible">
+        <CollapseHeader>
+            <Heading Size="HeadingSize.Is5">
+                <Button Clicked="@(()=>collapse1Visible = !collapse1Visible)">List</Button>
+            </Heading>
+        </CollapseHeader>
+        <CollapseBody>
+            <VehicleList/>        
+        </CollapseBody>
+    </Collapse>
+    <Collapse Visible="@collapse2Visible">
+        <CollapseHeader>
+            <Heading Size="HeadingSize.Is5">
+                <Button Clicked="@(()=>collapse2Visible = !collapse2Visible)">Add new</Button>
+            </Heading>
+        </CollapseHeader>
+        <CollapseBody>
+            <AddVehicle/>
+        </CollapseBody>
+    </Collapse>
+</Accordion>

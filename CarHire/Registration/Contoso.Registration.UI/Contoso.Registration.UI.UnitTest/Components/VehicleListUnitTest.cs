@@ -13,13 +13,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace Contoso.Registration.UI.Pages
+namespace Contoso.Registration.UI.Components
 {
     /// <summary>
     /// Page vehicles.
     /// </summary>
     [TestClass]
-    public class VehiclesUnitTest
+    public class VehicleListUnitTest
     {
         /// <summary>
         /// Unit test for Vehicle Page.
@@ -31,7 +31,7 @@ namespace Contoso.Registration.UI.Pages
             context.Services.AddSingleton<IRegistrationAPI>(new Mock<IRegistrationAPI>().Object);
 
             string expected = "<h1>Vehicles</h1><br /><div></div><br /><button id=\"getMoreBtn\">Get more 10</button><br /><ul></ul>";
-            context.RenderComponent<Vehicles>().MarkupMatches(expected);
+            context.RenderComponent<VehicleList>().MarkupMatches(expected);
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Contoso.Registration.UI.Pages
             Mock<IRegistrationAPI> apiMock = new Mock<IRegistrationAPI>();
             apiMock.Setup(a => a.GetVehiclesAsync()).Returns(Task.FromResult(this.GetVehicles()));
             context.Services.AddSingleton<IRegistrationAPI>(apiMock.Object);
-            IRenderedComponent<Vehicles> page = context.RenderComponent<Vehicles>();
+            IRenderedComponent<VehicleList> page = context.RenderComponent<VehicleList>();
             page.FindAll("button").GetElementById("getMoreBtn").Click(new MouseEventArgs());
 
             string expected = "<h1>Vehicles</h1><br /><div></div><br /><button id=\"getMoreBtn\">Get more 10</button><br /><ul><li>Ferrari F50 - Sport</li><li>Ford Focus - Standard</li></ul>";
@@ -62,7 +62,7 @@ namespace Contoso.Registration.UI.Pages
             Mock<IRegistrationAPI> apiMock = new Mock<IRegistrationAPI>();
             apiMock.Setup(a => a.GetVehiclesAsync()).Throws(new System.Exception(errorMessage));
             context.Services.AddSingleton<IRegistrationAPI>(apiMock.Object);
-            IRenderedComponent<Vehicles> page = context.RenderComponent<Vehicles>();
+            IRenderedComponent<VehicleList> page = context.RenderComponent<VehicleList>();
             page.FindAll("button").GetElementById("getMoreBtn").Click();
 
             string expected = $"<h1>Vehicles</h1><br /><div>{errorMessage}</div><br /><button id=\"getMoreBtn\">Get more 10</button><br /><ul></ul>";

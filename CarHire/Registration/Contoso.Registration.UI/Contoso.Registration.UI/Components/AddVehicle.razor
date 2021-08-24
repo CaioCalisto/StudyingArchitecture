@@ -1,0 +1,28 @@
+<Row>
+    <Column ColumnSize="ColumnSize.Is4">
+        <TextEdit Placeholder="Name" />
+    </Column>
+</Row>
+<br />
+<Row>
+    <Column ColumnSize="ColumnSize.Is4">
+        <TextEdit Placeholder="Brand" />
+    </Column>
+</Row>
+<br />
+<Row>
+    <Column ColumnSize="ColumnSize.Is4">
+        <Select TValue="string">
+            @foreach (string category in categories)
+            {
+                <SelectItem Value="@category">@category</SelectItem>
+            }
+        </Select>
+    </Column>
+</Row>
+<br />
+<Row>
+    <Column ColumnSize="ColumnSize.Is4">
+        <button id="addVehicleBtn" @onclick="AddVehicleBtn">Add Vehicle</button>
+    </Column>
+</Row>

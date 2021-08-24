@@ -5,6 +5,9 @@
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using Blazorise;
+using Blazorise.Bootstrap;
+using Blazorise.Icons.FontAwesome;
 using Contoso.Registration.Services.Api;
 using Contoso.Registration.UI.Authorization;
 using Contoso.Registration.UI.Configurations;
@@ -54,6 +57,14 @@ namespace Contoso.Registration.UI
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
+
+            services
+                .AddBlazorise( options =>
+                {
+                    options.ChangeTextOnKeyPress = true;
+                } )
+                .AddBootstrapProviders()
+                .AddFontAwesomeIcons();
         }
 
         /// <summary>
@@ -119,7 +130,8 @@ namespace Contoso.Registration.UI
         {
             return HttpPolicyExtensions
                 .HandleTransientHttpError()
-                .CircuitBreakerAsync(5, TimeSpan.FromSeconds(10));
+                .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.NotFound)
+                .WaitAndRetryAsync(2, retryAttempt => TimeSpan.FromSeconds(2));
         }
     }
 }
