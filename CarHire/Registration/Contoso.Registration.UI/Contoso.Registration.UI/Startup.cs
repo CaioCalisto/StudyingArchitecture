@@ -3,8 +3,11 @@
 // </copyright>
 
 using System;
+using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using Blazorise;
 using Blazorise.Bootstrap;
 using Blazorise.Icons.FontAwesome;
@@ -17,6 +20,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Extensions.Http;
 
@@ -122,6 +126,7 @@ namespace Contoso.Registration.UI
             {
                 client.BaseAddress = new Uri(this.Configuration["RegistrationApi:BaseAddress"]);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.Timeout = TimeSpan.FromSeconds(60);
             }).AddHttpMessageHandler<AuthorizationDelegatingHandler>()
             .AddPolicyHandler(this.GetCircuitBreakerPolicy());
         }
@@ -130,8 +135,20 @@ namespace Contoso.Registration.UI
         {
             return HttpPolicyExtensions
                 .HandleTransientHttpError()
-                .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.NotFound)
-                .WaitAndRetryAsync(2, retryAttempt => TimeSpan.FromSeconds(2));
+                .OrResult(msg => !msg.IsSuccessStatusCode)
+                .WaitAndRetryAsync(new[]
+                    {
+                        TimeSpan.FromSeconds(1),
+                        TimeSpan.FromSeconds(2)
+                    },
+                    onRetryAsync: OnRetryAsync
+                );
+        }
+
+        private async Task OnRetryAsync(DelegateResult<HttpResponseMessage> outcome, TimeSpan timespan, int retryCount, Context context)
+        {
+            Console.WriteLine(outcome.Exception?.Message);
+            context.GetLogger()?.LogWarning("Delaying for {delay}ms, then making retry {retry}.", timespan.TotalMilliseconds, retryCount);
         }
     }
 }

@@ -34,11 +34,8 @@ namespace Contoso.Registration.Services.Api
             List<Vehicle> vehicles = new List<Vehicle>();
             using (HttpResponseMessage response = await this.httpClient.GetAsync(GetVehicleUri))
             {
-                if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    string jsonResponse = await response.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<List<Vehicle>>(jsonResponse);
-                }
+                string jsonResponse = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<List<Vehicle>>(jsonResponse);
             }
 
             return vehicles;
