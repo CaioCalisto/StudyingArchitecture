@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
-namespace Contoso.Registration.UI.Components
+namespace Contoso.Registration.UI.Components.Vehicles
 {
     /// <summary>
     /// Vehicles List Component.
