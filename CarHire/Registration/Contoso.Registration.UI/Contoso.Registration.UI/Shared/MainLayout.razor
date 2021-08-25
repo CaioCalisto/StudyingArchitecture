@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@using Contoso.Registration.UI.Components.Settings;
 
 <div class="sidebar">
     <NavMenu />
@@ -6,6 +7,7 @@
 
 <div class="main">
     <div class="top-row px-4">
+        <CultureSelector />
         <LoginDisplay />
         <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
     </div>

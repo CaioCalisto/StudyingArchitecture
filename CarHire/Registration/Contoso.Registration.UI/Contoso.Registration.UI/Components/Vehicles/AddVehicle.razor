@@ -1,17 +1,19 @@
 @using Contoso.Registration.Services.Api.Commands;
+@using System.Globalization
+@inject IStringLocalizer<AddVehicle> Loc
 
 <EditForm Model="@addVehicleCommand" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator/>
     <Row>
         <Column ColumnSize="ColumnSize.Is4">
-            <TextEdit @bind-Value=addVehicleCommand.Name Placeholder="Name" />
+            <TextEdit @bind-Value=addVehicleCommand.Name Placeholder=@Loc["Name"] />
             <ValidationMessage For="() => addVehicleCommand.Name"/>
         </Column>
     </Row>
     <br />
     <Row>
         <Column ColumnSize="ColumnSize.Is4">
-            <TextEdit @bind-Value=addVehicleCommand.Brand Placeholder="Brand" />
+            <TextEdit @bind-Value=addVehicleCommand.Brand Placeholder=@Loc["Brand"] />
             <ValidationMessage For="() => addVehicleCommand.Brand"/>
         </Column>
     </Row>

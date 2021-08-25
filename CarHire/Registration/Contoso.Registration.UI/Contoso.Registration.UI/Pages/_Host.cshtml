@@ -1,5 +1,7 @@
 ﻿@page "/"
 @namespace Contoso.Registration.UI.Pages
+@using System.Globalization
+@using Microsoft.AspNetCore.Localization
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     Layout = null;
@@ -44,4 +46,12 @@
 
     <script src="_framework/blazor.server.js"></script>
 </body>
+@{
+    this.HttpContext.Response.Cookies.Append(
+        CookieRequestCultureProvider.DefaultCookieName,
+        CookieRequestCultureProvider.MakeCookieValue(
+            new RequestCulture(
+                CultureInfo.CurrentCulture,
+                CultureInfo.CurrentUICulture)));
+}
 </html>

@@ -53,6 +53,7 @@ namespace Contoso.Registration.UI
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<AzureADConfig>(this.Configuration.GetSection("AzureAd"));
+            services.AddControllers();
             this.ConfigureHttpClient(services);
 
             services.AddTransient<AuthorizationDelegatingHandler>();
@@ -61,6 +62,7 @@ namespace Contoso.Registration.UI
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddLocalization();
 
             services
                 .AddBlazorise( options =>
@@ -93,6 +95,7 @@ namespace Contoso.Registration.UI
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
+            ConfigureCultures(app);
 
             app.UseAuthentication();
             app.UseAuthorization();
@@ -149,6 +152,17 @@ namespace Contoso.Registration.UI
         {
             Console.WriteLine(outcome.Exception?.Message);
             context.GetLogger()?.LogWarning("Delaying for {delay}ms, then making retry {retry}.", timespan.TotalMilliseconds, retryCount);
+        }
+
+        private void ConfigureCultures(IApplicationBuilder app)
+        {
+            var supportedCultures = new[] { "en-US", "pt-BR" };
+            var localizationOptions = new RequestLocalizationOptions()
+                .SetDefaultCulture(supportedCultures[0])
+                .AddSupportedCultures(supportedCultures)
+                .AddSupportedUICultures(supportedCultures);
+
+            app.UseRequestLocalization(localizationOptions);
         }
     }
 }
