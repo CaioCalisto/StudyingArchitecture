@@ -2,10 +2,12 @@
 // Copyright (c) CaioCesarCalisto. All rights reserved.
 // </copyright>
 
+using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Contoso.Registration.Services.Api.Commands;
 
 namespace Contoso.Registration.UI.Components.Vehicles
 {
@@ -14,16 +16,23 @@ namespace Contoso.Registration.UI.Components.Vehicles
     /// </summary>
     public partial class AddVehicle : ComponentBase
     {
-        protected IEnumerable<string> categories = new List<string>()
-        {
-            "Sport",
-            "Standard",
-            "Coupé"
-        };
+        private AddVehicleCommand addVehicleCommand { get; set; }
 
-        private async Task AddVehicleBtn()
-        {
+        protected IEnumerable<string> categories;
 
+        protected override void OnInitialized()
+        {
+            addVehicleCommand = new AddVehicleCommand();
+            categories = new List<string>()
+            {
+                "Sport",
+                "Standard",
+                "Coupé"
+            };
+        }
+
+        private async Task HandleValidSubmit()
+        {
         }
     }
 }

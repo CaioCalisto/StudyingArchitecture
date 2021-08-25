@@ -1,28 +1,35 @@
-<Row>
-    <Column ColumnSize="ColumnSize.Is4">
-        <TextEdit Placeholder="Name" />
-    </Column>
-</Row>
-<br />
-<Row>
-    <Column ColumnSize="ColumnSize.Is4">
-        <TextEdit Placeholder="Brand" />
-    </Column>
-</Row>
-<br />
-<Row>
-    <Column ColumnSize="ColumnSize.Is4">
-        <Select TValue="string">
-            @foreach (string category in categories)
-            {
-                <SelectItem Value="@category">@category</SelectItem>
-            }
-        </Select>
-    </Column>
-</Row>
-<br />
-<Row>
-    <Column ColumnSize="ColumnSize.Is4">
-        <button id="addVehicleBtn" @onclick="AddVehicleBtn">Add Vehicle</button>
-    </Column>
-</Row>
+@using Contoso.Registration.Services.Api.Commands;
+
+<EditForm Model="@addVehicleCommand" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator/>
+    <Row>
+        <Column ColumnSize="ColumnSize.Is4">
+            <TextEdit @bind-Value=addVehicleCommand.Name Placeholder="Name" />
+            <ValidationMessage For="() => addVehicleCommand.Name"/>
+        </Column>
+    </Row>
+    <br />
+    <Row>
+        <Column ColumnSize="ColumnSize.Is4">
+            <TextEdit @bind-Value=addVehicleCommand.Brand Placeholder="Brand" />
+            <ValidationMessage For="() => addVehicleCommand.Brand"/>
+        </Column>
+    </Row>
+    <br />
+    <Row>
+        <Column ColumnSize="ColumnSize.Is4">
+            <Select @bind-Value=addVehicleCommand.Category TValue="string">
+                @foreach (string category in categories)
+                {
+                    <SelectItem Value="@category">@category</SelectItem>
+                }
+            </Select>
+        </Column>
+    </Row>
+    <br />
+    <Row>
+        <Column ColumnSize="ColumnSize.Is4">
+            <button type="submit">Save</button>
+        </Column>
+    </Row>
+</EditForm>
