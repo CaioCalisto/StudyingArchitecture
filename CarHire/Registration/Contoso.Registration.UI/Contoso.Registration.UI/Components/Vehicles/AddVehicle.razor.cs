@@ -16,13 +16,17 @@ namespace Contoso.Registration.UI.Components.Vehicles
     /// </summary>
     public partial class AddVehicle : ComponentBase
     {
-        private AddVehicleCommand addVehicleCommand { get; set; }
+        private AddVehicleCommand addVehicleCommand = new AddVehicleCommand();
+        private IEnumerable<string> categories;
 
-        protected IEnumerable<string> categories;
+        [Parameter]
+        public int SaveCount { get; set; }
+
+        [Parameter]
+        public EventCallback<int> SaveCountChanged { get; set; }
 
         protected override void OnInitialized()
         {
-            addVehicleCommand = new AddVehicleCommand();
             categories = new List<string>()
             {
                 "Sport",
@@ -33,6 +37,8 @@ namespace Contoso.Registration.UI.Components.Vehicles
 
         private async Task HandleValidSubmit()
         {
+            SaveCount++;
+            await SaveCountChanged.InvokeAsync(SaveCount);
         }
     }
 }

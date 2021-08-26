@@ -19,7 +19,9 @@
             </Heading>
         </CollapseHeader>
         <CollapseBody>
-            <AddVehicle/>
+            <AddVehicle SaveCountChanged=@UpdateSaveCount />
         </CollapseBody>
     </Collapse>
 </Accordion>
+<br />
+<h1>Child component Saved new vehicle: @saveCount times</h1>

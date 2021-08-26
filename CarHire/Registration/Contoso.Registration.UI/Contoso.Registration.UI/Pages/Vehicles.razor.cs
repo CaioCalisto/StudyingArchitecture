@@ -11,7 +11,13 @@ namespace Contoso.Registration.UI.Pages
     /// </summary>
     public partial class Vehicles : ComponentBase
     {
-        protected bool collapse1Visible = false;
-        protected bool collapse2Visible = false;
+        private bool collapse1Visible = false;
+        private bool collapse2Visible = false;
+        private int saveCount = 0;
+
+        private void UpdateSaveCount(int value)
+        {
+            saveCount = value;
+        }
     }
 }

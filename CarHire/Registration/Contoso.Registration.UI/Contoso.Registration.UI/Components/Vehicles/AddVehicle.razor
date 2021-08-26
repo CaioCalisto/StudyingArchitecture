@@ -6,26 +6,27 @@
     <DataAnnotationsValidator/>
     <Row>
         <Column ColumnSize="ColumnSize.Is4">
-            <TextEdit @bind-Value=addVehicleCommand.Name Placeholder=@Loc["Name"] />
+            <InputText @bind-Value="addVehicleCommand.Name" Placeholder=@Loc["Name"] />
             <ValidationMessage For="() => addVehicleCommand.Name"/>
         </Column>
     </Row>
     <br />
     <Row>
         <Column ColumnSize="ColumnSize.Is4">
-            <TextEdit @bind-Value=addVehicleCommand.Brand Placeholder=@Loc["Brand"] />
+            <InputText @bind-Value="addVehicleCommand.Brand" Placeholder=@Loc["Brand"] />
             <ValidationMessage For="() => addVehicleCommand.Brand"/>
         </Column>
     </Row>
     <br />
     <Row>
         <Column ColumnSize="ColumnSize.Is4">
-            <Select @bind-Value=addVehicleCommand.Category TValue="string">
+            <InputSelect @bind-Value="addVehicleCommand.Category" TValue="string" Placeholder=@Loc["Category"]>
+                <option value="">@Loc["Select"]</option>
                 @foreach (string category in categories)
                 {
-                    <SelectItem Value="@category">@category</SelectItem>
+                    <Option Value="@category">@category</Option>
                 }
-            </Select>
+            </InputSelect>
         </Column>
     </Row>
     <br />

@@ -67,4 +67,7 @@
   <data name="Category" xml:space="preserve">
     <value>Categoria</value>
   </data>
+  <data name="Select" xml:space="preserve">
+    <value>Escolha categoria</value>
+  </data>
 </root>
