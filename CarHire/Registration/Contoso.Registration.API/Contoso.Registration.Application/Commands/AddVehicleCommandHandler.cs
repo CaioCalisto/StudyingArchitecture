@@ -40,7 +40,7 @@ namespace Contoso.Registration.Application.Commands
                 request.Consume,
                 request.Emission);
 
-            vehicle = await this.vehicleRepositoy.InsertAsync(vehicle, vehicle.Brand, $"{vehicle.Brand} {vehicle.Name} {vehicle.Category.ToString().ToUpper()}");
+            vehicle = await this.vehicleRepositoy.InsertAsync(vehicle);
             return this.Map(vehicle);
         }
 

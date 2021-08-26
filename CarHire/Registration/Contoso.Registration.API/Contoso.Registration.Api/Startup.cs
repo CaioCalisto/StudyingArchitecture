@@ -11,7 +11,7 @@ using Contoso.Registration.Application.Commands;
 using Contoso.Registration.Application.Queries;
 using Contoso.Registration.Domain.Ports;
 using Contoso.Registration.Infrastructure.Configurations;
-using Contoso.Registration.Infrastructure.Database;
+using Contoso.Registration.Infrastructure.Database.AzureTableStorage;
 using Contoso.Registration.Infrastructure.Messaging;
 using FluentValidation.AspNetCore;
 using MediatR;
@@ -129,7 +129,8 @@ namespace Contoso.Registration.Api
         /// <param name="services">Services.</param>
         protected virtual void AddDependencyInjection(IServiceCollection services)
         {
-            services.AddScoped<IVehicleRepository, VehicleContext>();
+            services.AddScoped<IVehicleRepository, TableStorageAdapter>();
+            services.AddScoped<IVehicleContext, VehicleContext>();
             services.AddScoped<IDatabaseQueries, VehicleContext>();
             services.AddScoped<IVehiclesQueries, VehiclesQueries>();
             services.AddScoped<IMessageBus, AzureBus>();

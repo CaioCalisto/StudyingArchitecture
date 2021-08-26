@@ -12,12 +12,12 @@ using MediatR;
 using Microsoft.Azure.Cosmos.Table;
 using Microsoft.Extensions.Options;
 
-namespace Contoso.Registration.Infrastructure.Database
+namespace Contoso.Registration.Infrastructure.Database.AzureTableStorage
 {
     /// <summary>
     /// Vehicle database context.
     /// </summary>
-    public class VehicleContext : IVehicleRepository, IDatabaseQueries
+    public class VehicleContext : IVehicleContext, IDatabaseQueries
     {
         private readonly CloudTable table;
         private readonly IMediator mediator;

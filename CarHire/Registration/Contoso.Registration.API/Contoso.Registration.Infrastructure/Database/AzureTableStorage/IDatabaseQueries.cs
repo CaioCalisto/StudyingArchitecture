@@ -6,7 +6,7 @@ using System.Linq;
 using Contoso.Registration.Infrastructure.Model;
 using Microsoft.Azure.Cosmos.Table;
 
-namespace Contoso.Registration.Infrastructure.Database
+namespace Contoso.Registration.Infrastructure.Database.AzureTableStorage
 {
     /// <summary>
     /// Database queries.

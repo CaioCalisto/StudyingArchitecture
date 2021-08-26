@@ -4,7 +4,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Contoso.Registration.Infrastructure.Database;
+using Contoso.Registration.Infrastructure.Database.AzureTableStorage;
 using Microsoft.Azure.Cosmos.Table;
 
 namespace Contoso.Registration.Application.Queries
