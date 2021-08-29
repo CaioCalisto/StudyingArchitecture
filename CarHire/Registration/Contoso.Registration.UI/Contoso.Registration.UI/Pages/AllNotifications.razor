@@ -1,0 +1,36 @@
+@page "/allnotifications"
+@inject NavigationManager navigationManager
+@using Microsoft.AspNetCore.SignalR.Client;
+@using Contoso.Registration.UI.Hubs;
+
+<button @onclick="Connect">Connect</button>
+<br /><br />
+<button @onclick="SendMessage">Send message</button>
+
+@code {
+    private int count = 0;
+    private HubConnection _hubConnection;
+    
+    private async Task Connect()
+    {
+        string hubUrl = navigationManager.BaseUri.TrimEnd('/') + RegistrationHub.HubUrl;
+        _hubConnection = new HubConnectionBuilder()
+                .WithUrl(hubUrl)
+                .Build();
+
+        _hubConnection.On<string>("Broadcast", BroadcastMessage);
+        await _hubConnection.StartAsync();
+    }
+
+    private async Task SendMessage()
+    {
+        count++;
+        Console.WriteLine("Razor sending message");
+        await _hubConnection.SendAsync("Broadcast", $"Message {count}");
+    }
+
+    private void BroadcastMessage(string message)
+    {
+        Console.WriteLine("Razor receiving message");
+    }
+}

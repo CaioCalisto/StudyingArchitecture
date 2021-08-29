@@ -14,6 +14,7 @@ using Blazorise.Icons.FontAwesome;
 using Contoso.Registration.Services.Api;
 using Contoso.Registration.UI.Authorization;
 using Contoso.Registration.UI.Configurations;
+using Contoso.Registration.UI.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -71,6 +72,8 @@ namespace Contoso.Registration.UI
                 } )
                 .AddBootstrapProviders()
                 .AddFontAwesomeIcons();
+
+            
         }
 
         /// <summary>
@@ -105,6 +108,7 @@ namespace Contoso.Registration.UI
                 endpoints.MapControllers();
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
+                endpoints.MapHub<RegistrationHub>(RegistrationHub.HubUrl);
             });
         }
 
