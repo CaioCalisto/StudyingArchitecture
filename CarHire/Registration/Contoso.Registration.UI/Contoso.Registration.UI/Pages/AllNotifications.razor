@@ -5,11 +5,21 @@
 
 <button @onclick="Connect">Connect</button>
 <br /><br />
-<button @onclick="SendMessage">Send message</button>
+<button @onclick="Disconnect">Disconnect</button>
+<br /><br />
+<button @onclick="SendNotification">Send notification</button>
+<br /><br />
+<ul>
+    @foreach (string notification in @notifications)
+    {
+        <li>@notification</li>
+    }
+</ul>
 
 @code {
     private int count = 0;
     private HubConnection _hubConnection;
+    private List<string> notifications = new List<string>();
     
     private async Task Connect()
     {
@@ -18,19 +28,30 @@
                 .WithUrl(hubUrl)
                 .Build();
 
-        _hubConnection.On<string>("Broadcast", BroadcastMessage);
+        _hubConnection.On<string>("Broadcast", BroadcastNotification);
         await _hubConnection.StartAsync();
     }
 
-    private async Task SendMessage()
+    private async Task Disconnect()
     {
-        count++;
-        Console.WriteLine("Razor sending message");
-        await _hubConnection.SendAsync("Broadcast", $"Message {count}");
+        await _hubConnection.StopAsync();
+        await _hubConnection.DisposeAsync();
+        _hubConnection = null;
     }
 
-    private void BroadcastMessage(string message)
+    private async Task SendNotification()
     {
-        Console.WriteLine("Razor receiving message");
+        if (_hubConnection != null)
+        {
+            count++;
+            await _hubConnection.SendAsync("Broadcast", $"Notification {count}");
+        }
+    }
+
+    private void BroadcastNotification(string notification)
+    {
+        notifications.Add(notification);
+        // Inform blazor the UI needs updating
+        StateHasChanged();
     }
 }
