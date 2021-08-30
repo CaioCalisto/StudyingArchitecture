@@ -1,0 +1,28 @@
+@page "/multiplelevelsexample";
+@using Contoso.Registration.UI.Components.MultipleLevels
+
+<TextEdit Placeholder="Rented Car" TextChanged="@OnTextChanged"></TextEdit>
+<br />
+
+<CascadingValue Name="RentedCar" Value=@car>
+    <CascadingValue Name="RentedBrand" Value="@brand">
+        <FirstLevel></FirstLevel>
+    </CascadingValue>
+</CascadingValue>
+
+@code 
+{
+    string brand;
+    string car;
+
+    void OnTextChanged(string value)
+    {
+        string[] valueToSend = value.Split(' ');
+        if (valueToSend.Length > 1)
+        {
+            car = valueToSend[1];
+        }
+
+        brand = valueToSend[0];
+    }
+}
