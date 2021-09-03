@@ -13,7 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace Contoso.Registration.UI.Components
+namespace Contoso.Registration.UI.Components.Vehicles
 {
     /// <summary>
     /// Page vehicles.
@@ -21,17 +21,28 @@ namespace Contoso.Registration.UI.Components
     [TestClass]
     public class VehicleListUnitTest
     {
+        private Bunit.TestContext TestContext;
+
+        [TestInitialize]
+        private void Setup() => TestContext = new Bunit.TestContext();
+
+        [TestCleanup]
+        private void TearDown() => TestContext?.Dispose();
+
         /// <summary>
         /// Unit test for Vehicle Page.
         /// </summary>
         [TestMethod]
         public void VehiclesPage_FirstLoad_LoadEmptyList()
         {
-            Bunit.TestContext context = new Bunit.TestContext();
-            context.Services.AddSingleton<IRegistrationAPI>(new Mock<IRegistrationAPI>().Object);
-
+            // Arrange
             string expected = "<h1>Vehicles</h1><br /><div></div><br /><button id=\"getMoreBtn\">Get more 10</button><br /><ul></ul>";
-            context.RenderComponent<VehicleList>().MarkupMatches(expected);
+
+            // Act
+            TestContext.Services.AddSingleton<IRegistrationAPI>(new Mock<IRegistrationAPI>().Object);
+
+            // Assert
+            TestContext.RenderComponent<VehicleList>().MarkupMatches(expected);
         }
 
         /// <summary>
@@ -40,14 +51,17 @@ namespace Contoso.Registration.UI.Components
         [TestMethod]
         public void VehiclesPage_clickIngetMoreBtn_ListShouldContainElements()
         {
-            Bunit.TestContext context = new Bunit.TestContext();
+            // Arrange
             Mock<IRegistrationAPI> apiMock = new Mock<IRegistrationAPI>();
             apiMock.Setup(a => a.GetVehiclesAsync()).Returns(Task.FromResult(this.GetVehicles()));
-            context.Services.AddSingleton<IRegistrationAPI>(apiMock.Object);
-            IRenderedComponent<VehicleList> page = context.RenderComponent<VehicleList>();
+            TestContext.Services.AddSingleton<IRegistrationAPI>(apiMock.Object);
+            string expected = "<h1>Vehicles</h1><br /><div></div><br /><button id=\"getMoreBtn\">Get more 10</button><br /><ul><li>Ferrari F50 - Sport</li><li>Ford Focus - Standard</li></ul>";
+            IRenderedComponent<VehicleList> page = TestContext.RenderComponent<VehicleList>();
+
+            // Act            
             page.FindAll("button").GetElementById("getMoreBtn").Click(new MouseEventArgs());
 
-            string expected = "<h1>Vehicles</h1><br /><div></div><br /><button id=\"getMoreBtn\">Get more 10</button><br /><ul><li>Ferrari F50 - Sport</li><li>Ford Focus - Standard</li></ul>";
+            // Assert            
             page.MarkupMatches(expected);
         }
 
@@ -57,15 +71,18 @@ namespace Contoso.Registration.UI.Components
         [TestMethod]
         public void VehiclesPage_clickIngetMoreBtn_ShouldGetErrorWhenCallIsRefused()
         {
+            // Arrange
             string errorMessage = "No connection could be made because the target machine actively refused it.";
-            Bunit.TestContext context = new Bunit.TestContext();
+            string expected = $"<h1>Vehicles</h1><br /><div>{errorMessage}</div><br /><button id=\"getMoreBtn\">Get more 10</button><br /><ul></ul>";
             Mock<IRegistrationAPI> apiMock = new Mock<IRegistrationAPI>();
             apiMock.Setup(a => a.GetVehiclesAsync()).Throws(new System.Exception(errorMessage));
-            context.Services.AddSingleton<IRegistrationAPI>(apiMock.Object);
-            IRenderedComponent<VehicleList> page = context.RenderComponent<VehicleList>();
-            page.FindAll("button").GetElementById("getMoreBtn").Click();
+            TestContext.Services.AddSingleton<IRegistrationAPI>(apiMock.Object);
+            IRenderedComponent<VehicleList> page = TestContext.RenderComponent<VehicleList>();
 
-            string expected = $"<h1>Vehicles</h1><br /><div>{errorMessage}</div><br /><button id=\"getMoreBtn\">Get more 10</button><br /><ul></ul>";
+            // Act            
+            page.FindAll("button").GetElementById("getMoreBtn").Click();
+            
+            // Assert            
             page.MarkupMatches(expected);
         }
 
