@@ -24,10 +24,10 @@ namespace Contoso.Registration.UI.Components.Vehicles
         private Bunit.TestContext TestContext;
 
         [TestInitialize]
-        private void Setup() => TestContext = new Bunit.TestContext();
+        public void Setup() => TestContext = new Bunit.TestContext();
 
         [TestCleanup]
-        private void TearDown() => TestContext?.Dispose();
+        public void TearDown() => TestContext?.Dispose();
 
         /// <summary>
         /// Unit test for Vehicle Page.

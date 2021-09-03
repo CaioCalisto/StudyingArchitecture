@@ -15,16 +15,25 @@ namespace Contoso.Registration.UI.Shared
     [TestClass]
     public class NavMenuUnitTest
     {
+        private Bunit.TestContext TestContext;
+
+        [TestInitialize]
+        public void Setup() => TestContext = new Bunit.TestContext();
+
+        [TestCleanup]
+        public void TearDown() => TestContext?.Dispose();
+
         /// <summary>
         /// Navmenu test.
         /// </summary>
         [TestMethod]
         public void NavMenu_MenuHomeExists()
         {
-            Bunit.TestContext context = new Bunit.TestContext();
-            IRenderedComponent<NavMenu> navMenu = context.RenderComponent<NavMenu>();
+            // Arrange
+            IRenderedComponent<NavMenu> navMenu = TestContext.RenderComponent<NavMenu>();
             IRefreshableElementCollection<AngleSharp.Dom.IElement> menus = navMenu.FindAll("li");
 
+            // Assert            
             menus.Any<IElement>(a => a.TextContent.Contains("Home"));
         }
 
@@ -34,11 +43,12 @@ namespace Contoso.Registration.UI.Shared
         [TestMethod]
         public void NavMenu_MenuVehiclesExists()
         {
-            Bunit.TestContext context = new Bunit.TestContext();
-            IRenderedComponent<NavMenu> navMenu = context.RenderComponent<NavMenu>();
+            // Arrange
+            IRenderedComponent<NavMenu> navMenu = TestContext.RenderComponent<NavMenu>();
             IRefreshableElementCollection<IElement> menus = navMenu.FindAll("li");
 
-            menus.Any<IElement>(a => a.TextContent.Contains("Vehicles"));
+            // Assert
+            menus.Any<IElement>(a => a.TextContent.Contains("Vehicles"));            
         }
 
         /// <summary>
@@ -47,10 +57,11 @@ namespace Contoso.Registration.UI.Shared
         [TestMethod]
         public void NavMenu_RegistrationMenuExists()
         {
-            Bunit.TestContext context = new Bunit.TestContext();
-            IRenderedComponent<NavMenu> navMenu = context.RenderComponent<NavMenu>();
+            // Arrange
+            IRenderedComponent<NavMenu> navMenu = TestContext.RenderComponent<NavMenu>();
             IRefreshableElementCollection<IElement> menus = navMenu.FindAll("a");
 
+            // Assert
             menus.Any<IElement>(a => a.TextContent.Contains("Registration"));
         }
 
@@ -58,7 +69,7 @@ namespace Contoso.Registration.UI.Shared
         /// Navmenu test.
         /// </summary>
         [TestMethod]
-        public void ToggleNavMenu_Click_ShouldOpenMenu()
+        public void ToggleNavMenu_Click_ShouldNavigateToPage()
         {
 
         }
