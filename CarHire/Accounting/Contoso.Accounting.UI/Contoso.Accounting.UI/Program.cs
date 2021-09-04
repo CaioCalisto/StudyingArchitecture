@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Contoso.Accouting.UI
+namespace Contoso.Accounting.UI
 {
     public class Program
     {
