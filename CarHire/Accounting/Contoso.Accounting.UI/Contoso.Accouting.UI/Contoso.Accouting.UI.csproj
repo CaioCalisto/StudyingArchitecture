@@ -4,4 +4,10 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Blazorise.AntDesign" Version="0.9.4.3" />
+    <PackageReference Include="Blazorise.Bootstrap" Version="0.9.4.3" />
+    <PackageReference Include="Blazorise.Icons.FontAwesome" Version="0.9.4.3" />
+  </ItemGroup>
+
 </Project>
