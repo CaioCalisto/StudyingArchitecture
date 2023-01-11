@@ -1,0 +1,12 @@
+@page "/map"
+
+@if (mapSource is not null)
+{
+    <svg height="100%" width="100%">
+        <image height="100%" width="100%" href="@mapSource" />
+    </svg>
+}
+<br />
+<div>
+    <Button Color="Color.Success" Clicked="@TestJavascriptInvoke">Click here</Button>
+</div>
