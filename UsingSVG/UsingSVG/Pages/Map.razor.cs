@@ -7,7 +7,13 @@ public partial class Map : ComponentBase
 {
     [Inject]
     public IJSRuntime _jsInterop { get; set; }
+    private IJSObjectReference _jsModule;
     private string? mapSource;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        _jsModule = await _jsInterop.InvokeAsync<IJSObjectReference>("import", new object?[]{ "./js/tracker.js" });
+    }
     
     public Map()
     {
@@ -17,5 +23,6 @@ public partial class Map : ComponentBase
     private async Task TestJavascriptInvoke()
     {
         await _jsInterop.InvokeAsync<bool>("alertMessage", "My custom message");
+        await _jsModule.InvokeVoidAsync("showAlert", "JS function called from .NET");
     }
 }

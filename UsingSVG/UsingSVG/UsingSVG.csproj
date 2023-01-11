@@ -23,19 +23,4 @@
       <Folder Include="wwwroot\js\svg" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Content Update="wwwroot\js\svg\svg.js">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <Content Update="wwwroot\js\svg\svg.js.map">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <Content Update="wwwroot\js\svg\svg.min.js">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <Content Update="wwwroot\js\svg\svg.min.js.map">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-    </ItemGroup>
-
 </Project>
