@@ -3,14 +3,14 @@
 <Div>
     <Button Color="Color.Success" Clicked="@TestJavascriptInvoke">Click here</Button>    
 </Div>
-<Div>
+<Container Breakpoint="Breakpoint.Widescreen">
 @if (mapSource is not null)
 {
-    <svg id="mySVG" viewBox="0 0 50 50" height="100%" width="100%">
-        <image height="50%" width="100%" href="@mapSource"/>
+    <svg id="mySVG" viewBox="0 0 100 100" height="50%" width="100%">
+        <image width="100%" href="@mapSource"/>
     </svg>
 }
-</Div>
+</Container>
 
 
    
