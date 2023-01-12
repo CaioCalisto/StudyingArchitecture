@@ -1,6 +1,9 @@
 @page "/map"
 
 <Div>
+    <Button Color="Color.Success" Clicked="@TestJavascriptInvoke">Click here</Button>    
+</Div>
+<Div>
 @if (mapSource is not null)
 {
     <svg id="mySVG" viewBox="0 0 50 50" height="100%" width="100%">
@@ -8,10 +11,6 @@
     </svg>
 }
 </Div>
-<Div>
-    <Button Color="Color.Success" Clicked="@TestJavascriptInvoke">Click here</Button>    
-</Div>
-
 
 
    

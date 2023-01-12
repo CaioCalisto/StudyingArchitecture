@@ -24,5 +24,6 @@ public partial class Map : ComponentBase
     {
         await _jsInterop.InvokeAsync<bool>("alertMessage", "My custom message");
         await _jsModule.InvokeVoidAsync("showAlert", "JS function called from .NET");
+        await _jsInterop.InvokeVoidAsync("manipulateSVG");
     }
 }
