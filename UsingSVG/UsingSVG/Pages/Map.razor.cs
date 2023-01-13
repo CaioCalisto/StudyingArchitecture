@@ -17,6 +17,6 @@ public partial class Map : ComponentBase
     private async Task TestJavascriptInvoke()
     {
         await _jsInterop.InvokeAsync<bool>("alertMessage", "My custom message");
-        await _jsInterop.InvokeVoidAsync("manipulateSVG");
+        await _jsInterop.InvokeVoidAsync("addDoneMark", "/images/done.svg");
     }
 }
