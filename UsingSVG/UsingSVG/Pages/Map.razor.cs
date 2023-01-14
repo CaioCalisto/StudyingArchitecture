@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 
 namespace UsingSVG.Pages;
@@ -17,6 +18,10 @@ public partial class Map : ComponentBase
     private async Task TestJavascriptInvoke()
     {
         await _jsInterop.InvokeAsync<bool>("alertMessage", "My custom message");
-        await _jsInterop.InvokeVoidAsync("addDoneMark", "/images/done.svg");
+    }
+
+    private async Task AddMark(MouseEventArgs eventArgs)
+    {
+        await _jsInterop.InvokeVoidAsync("addDoneMark", "/images/done.svg", eventArgs.ScreenX, eventArgs.ScreenY);
     }
 }
