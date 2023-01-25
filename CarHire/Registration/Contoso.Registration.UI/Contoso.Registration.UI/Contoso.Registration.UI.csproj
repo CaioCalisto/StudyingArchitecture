@@ -34,6 +34,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Contoso.Registration.Abstractions\Contoso.Registration.Abstractions.csproj" />
 	  <ProjectReference Include="..\Contoso.Registration.Services\Contoso.Registration.Services.csproj" />
+	  <ProjectReference Include="..\Contoso.Registration.SharedComponents\Contoso.Registration.SharedComponents.csproj" />
 	</ItemGroup>
 	
 </Project>
