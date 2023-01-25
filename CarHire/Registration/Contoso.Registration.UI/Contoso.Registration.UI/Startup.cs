@@ -68,7 +68,7 @@ namespace Contoso.Registration.UI
             services
                 .AddBlazorise( options =>
                 {
-                    options.ChangeTextOnKeyPress = true;
+                    
                 } )
                 .AddBootstrapProviders()
                 .AddFontAwesomeIcons();
